@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Jace的博客【Web前端开发】
+title: Jace的博客 - 关于我
 css: /css/index.css
 ---
 
@@ -14,14 +14,4 @@ css: /css/index.css
             </div>
         </div>
     </div>
-</div>
-
-<div class="container">
-    <ul class="posts">
-        {% for post in site.posts %}
-        <li>{{ post.date | date_to_string }} 
-            <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
-        <p>{{ post.excerpt | strip_html }}</p></li>
-        {% endfor %}
-    </ul>
 </div>

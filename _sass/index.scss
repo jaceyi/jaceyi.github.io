@@ -1,0 +1,73 @@
+.banner {
+    height: 360px;
+    background: url("http://iiiyu.com/img/daily_pic.png") no-repeat bottom center;
+    background-size: cover;
+    background-attachment: scroll;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .center {
+        margin-top: 20px;
+    }
+
+    .text {
+        margin-bottom: 20px;
+        font-size: 20px;
+        color: #fff;
+        text-align: center;
+    }
+
+    .search-box {
+        position: relative;
+        height: 36px;
+
+        .icon {
+            position: absolute;
+            right: 14px;
+            top: 8px;
+            color: #fff;
+            cursor: pointer;
+        }
+    }
+    
+    .search-input {
+        height: 100%;
+        width: 300px;
+        border-radius: 18px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 0 36px 0 14px;
+        color: #fff;
+        font-weight: 300;
+        font-size: 16px;
+        transition: background-color 0.6s;
+        box-sizing: border-box;
+    
+        &:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+    }
+
+    ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: rgba(255, 255, 255, 0.5);
+    }
+}
+
+.container {
+    padding: 50px 0;
+    width: 1000px;
+    margin: 0 auto;
+}
