@@ -4,24 +4,22 @@ title: Jace的博客【Web前端开发】
 css: /css/index.css
 ---
 
-<div class="banner">
-    <div class="center">
-        <div class="text">Study hard, improve every day.</div>
-        <div class="search-box">
-            <input type="text" placeholder="搜索文章" class="search-input">
-            <div class="icon">
-                <i class="iconfont">&#xe601;</i>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="container">
     <ul class="posts">
         {% for post in site.posts %}
-        <li>{{ post.date | date_to_string }} 
-            <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
-        <p>{{ post.excerpt | strip_html }}</p></li>
+        <li class="post">
+            <a href="{{ post.url }}">
+                <h2 class="title">{{ post.title }}</h2>
+                <div class="excerpt">{{ post.excerpt | strip_html }}...</div>
+                <div class="time">{{ post.date | date_to_string }} </div>
+            </a>
+        </li>
         {% endfor %}
     </ul>
+    <div class="tags">
+        <h3 class="title">All TAGS</h3>
+        {% for tag in site.tags %}
+        <a class="tag" href="/tags/#{{ tag[0] }}">{{ tag[0] }}</a>
+        {% endfor %}
+    </div>
 </div>

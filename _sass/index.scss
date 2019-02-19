@@ -1,73 +1,77 @@
-.banner {
-    height: 360px;
-    background: url("http://iiiyu.com/img/daily_pic.png") no-repeat bottom center;
-    background-size: cover;
-    background-attachment: scroll;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .center {
-        margin-top: 20px;
-    }
-
-    .text {
-        margin-bottom: 20px;
-        font-size: 20px;
-        color: #fff;
-        text-align: center;
-    }
-
-    .search-box {
-        position: relative;
-        height: 36px;
-
-        .icon {
-            position: absolute;
-            right: 14px;
-            top: 8px;
-            color: #fff;
-            cursor: pointer;
-        }
-    }
-    
-    .search-input {
-        height: 100%;
-        width: 300px;
-        border-radius: 18px;
-        background-color: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        padding: 0 36px 0 14px;
-        color: #fff;
-        font-weight: 300;
-        font-size: 16px;
-        transition: background-color 0.6s;
-        box-sizing: border-box;
-    
-        &:focus {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-    }
-
-    ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-        color: rgba(255, 255, 255, 0.5);
-    }
-
-    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-        color: rgba(255, 255, 255, 0.5);
-    }
-
-    ::-moz-placeholder { /* Mozilla Firefox 19+ */
-        color: rgba(255, 255, 255, 0.5);
-    }
-
-    :-ms-input-placeholder { /* Internet Explorer 10-11 */
-        color: rgba(255, 255, 255, 0.5);
-    }
-}
+@import "./theme.scss";
 
 .container {
     padding: 50px 0;
+    display: flex;
     width: 1000px;
     margin: 0 auto;
+}
+
+.posts {
+    flex: 1 1 auto;
+    padding-right: 30px;
+}
+
+.post {
+    padding: 16px 0;
+    border-bottom: 1px solid #eee;
+    flex: 0 0 auto;
+
+    &:hover {
+        .title, .excerpt {
+            color: $color2;
+        }
+    }
+    
+    .title {
+        font-size: 22px;
+        color: #000;
+        margin-bottom: 8px;
+        transition: color 0.3s;
+    }
+
+    .excerpt {
+        color: #555;
+        font-size: 16px;
+        margin-bottom: 6px;
+        transition: color 0.3s;
+    }
+
+    .time {
+        font-size: 14px;
+        color: #999;
+        text-align: right;
+    }
+}
+
+.tags {
+    width: 210px;
+    flex: 0 0 auto;
+
+    .title {
+        margin-bottom: 10px;
+        font-size: 14px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .tag {
+        font-size: 12px;
+        transition: border-color 0.4s;
+        display: inline-block;
+        color: #999;
+        padding: 8px 12px;
+        line-height: 1.2;
+        background-color: #fff;
+        position: relative;
+        border-radius: 9em;
+        border: 1px solid #f1f1f1;
+        margin-bottom: 6px;
+
+        &:hover {
+            border-color: $color;
+            color: $color;
+            z-index: 1;
+        }
+    }
 }

@@ -11,14 +11,18 @@ a {
     text-decoration: unset;
 }
 
+ul, li {
+    list-style: none;
+}
+
 @font-face {
     font-family: 'iconfont';  /* project id 1049298 */
-    src: url('//at.alicdn.com/t/font_1049298_qre5cjmq06a.eot');
-    src: url('//at.alicdn.com/t/font_1049298_qre5cjmq06a.eot?#iefix') format('embedded-opentype'),
-    url('//at.alicdn.com/t/font_1049298_qre5cjmq06a.woff2') format('woff2'),
-    url('//at.alicdn.com/t/font_1049298_qre5cjmq06a.woff') format('woff'),
-    url('//at.alicdn.com/t/font_1049298_qre5cjmq06a.ttf') format('truetype'),
-    url('//at.alicdn.com/t/font_1049298_qre5cjmq06a.svg#iconfont') format('svg');
+    src: url('//at.alicdn.com/t/font_1049298_yir5n5zcx6n.eot');
+    src: url('//at.alicdn.com/t/font_1049298_yir5n5zcx6n.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_1049298_yir5n5zcx6n.woff2') format('woff2'),
+    url('//at.alicdn.com/t/font_1049298_yir5n5zcx6n.woff') format('woff'),
+    url('//at.alicdn.com/t/font_1049298_yir5n5zcx6n.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_1049298_yir5n5zcx6n.svg#iconfont') format('svg');
 }
 
 .iconfont {
@@ -29,21 +33,32 @@ a {
     -moz-osx-font-smoothing: grayscale;
 }
 
+.highlight {
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    padding: 8px 10px;
+    border-radius: 3px;
+}
+
 #header {
     $height: 60px;
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    box-sizing: border-box;
-    height: $height;
-    font-weight: 800;
-    color: #fff;
+    position: relative;
+
+    .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        box-sizing: border-box;
+        height: $height;
+        font-weight: 800;
+        color: #fff;
+    }
 
     a {
         color: #fff;
@@ -71,10 +86,88 @@ a {
             text-shadow: 0 0 6px rgba(0,0,0,0.3);
         }
     }
+
+    .banner {
+        height: 360px;
+        background: #000 url("http://iiiyu.com/img/daily_pic.png") no-repeat bottom center;
+        background-size: cover;
+        background-attachment: scroll;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    
+        .center {
+            margin-top: 20px;
+        }
+    
+        .text {
+            margin-bottom: 20px;
+            font-size: 20px;
+            color: #fff;
+            text-align: center;
+        }
+    
+        .search-box {
+            position: relative;
+            height: 36px;
+    
+            .icon {
+                position: absolute;
+                right: 14px;
+                top: 8px;
+                color: #fff;
+                cursor: pointer;
+            }
+        }
+        
+        .search-input {
+            height: 100%;
+            width: 300px;
+            border-radius: 9em;
+            background-color: rgba(255, 255, 255, 0);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0 36px 0 14px;
+            color: #fff;
+            font-weight: 300;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: background-color 0.6s, border-color 0.3s;
+        
+            &:focus {
+                background-color: rgba(0, 0, 0, 0.2);
+                border-color: rgba(255, 255, 255, 0.7);
+            }
+        }
+    
+        ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+            color: rgba(255, 255, 255, 0.8);
+        }
+    
+        :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+            color: rgba(255, 255, 255, 0.8);
+        }
+    
+        ::-moz-placeholder { /* Mozilla Firefox 19+ */
+            color: rgba(255, 255, 255, 0.8);
+        }
+    
+        :-ms-input-placeholder { /* Internet Explorer 10-11 */
+            color: rgba(255, 255, 255, 0.8);
+        }
+    }
 }
 
 #footer {
-    padding: 50px 0;
-    background-color: #f9f9f9;
     text-align: center;
+    padding: 50px 0 80px;
+    margin-top: 20px;
+
+    a {
+        color: #333;
+        margin: 0 10px;
+    }
+
+    .iconfont {
+        font-size: 30px;
+    }
 }
