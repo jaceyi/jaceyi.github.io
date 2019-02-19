@@ -9,7 +9,6 @@
 
 .posts {
     flex: 1 1 auto;
-    padding-right: 30px;
 }
 
 .post {
@@ -47,6 +46,7 @@
 .tags {
     width: 210px;
     flex: 0 0 auto;
+    margin-left: 30px;
 
     .title {
         margin-bottom: 10px;
@@ -73,5 +73,35 @@
             color: $color;
             z-index: 1;
         }
+    }
+}
+
+@media (max-width: 1200px) {
+    .container {
+        width: 900px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .container {
+        width: 600px;
+    }
+
+    .tags {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 90vw;
+    }
+
+    .tags {
+        display: none;
+    }
+
+    #footer {
+        padding: 20px 0 50px;
     }
 }
