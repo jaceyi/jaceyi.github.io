@@ -1,29 +1,97 @@
 <div id="header">
-    <div class="top">
-        <div class="title">
-            <a href="/">Jace Blog</a>
+    <div class="wrap">
+        <div class="top">
+            <div class="title">
+                <a href="/">Jace Blog</a>
+            </div>
+            <nav class="nav">
+                <div class="item">
+                    <a href="/">Home</a>
+                </div>
+                <div class="item">
+                    <a href="/about">About</a>
+                </div>
+                <div class="item">
+                    <a href="/tags">Tags</a>
+                </div>
+            </nav>
+            <div class="mobile-nav">
+                <div class="mobile-nav-menu icon">
+                    <i class="iconfont">&#xe633;</i>
+                </div>
+                <div class="mobile-nav-box animated">
+                    <a href="/">Home</a>
+                    <a href="/about">About</a>
+                    <a href="/tags">Tags</a>
+                </div>
+            </div>
         </div>
-        <nav class="nav">
-            <div class="item">
-                <a href="/">Home</a>
-            </div>
-            <div class="item">
-                <a href="/about">About</a>
-            </div>
-            <div class="item">
-                <a href="/tags">Tags</a>
-            </div>
-        </nav>
-    </div>
-    <div class="banner">
-        <div class="center">
-            <div class="text">Study hard, improve every day.</div>
-            <div class="search-box">
-                <input type="text" placeholder="搜索文章" class="search-input">
-                <div class="icon">
-                    <i class="iconfont">&#xe601;</i>
+        <div class="banner">
+            <div class="center">
+                <div class="text">Study hard, improve every day.</div>
+                <div class="search-box">
+                    <input type="text" placeholder="搜索文章" class="search-input">
+                    <div class="icon">
+                        <i class="iconfont">&#xe601;</i>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    function addClassName(el, className) {
+        var _ = el.className.split(' ');
+        var index = _.indexOf(className);
+        if (index >= 0) return className;
+        _.push(className);
+        el.className = _.join(' ');
+    }
+
+    function removeClass(el, className) {
+        var _ = el.className.split(' ');
+        var index = _.indexOf(className);
+        if (index < 0) return className;
+        _.splice(index, 1);
+        el.className = _.join(' ');
+    }
+
+    var $menuIcon = document.querySelector('.mobile-nav-menu');
+    var $navBox = document.querySelector('.mobile-nav-box');
+    function hideNavBox() {
+        removeClass($navBox, 'zoomInRight');
+        addClassName($navBox, 'fadeOut');
+        setTimeout(function () {
+            $navBox.style.display = 'none';
+        }, 600)
+    }
+
+    $menuIcon.onclick = function (e) {
+        e.stopPropagation();
+        if ($navBox.style.display === 'block') return hideNavBox();
+        $navBox.style.display = 'block';
+        removeClass($navBox, 'fadeOut');
+        addClassName($navBox, 'zoomInRight');
+    }
+
+    document.body.onclick = function () {
+        if ($navBox.style.display === 'block') hideNavBox();
+    }
+
+    $navBox.onclick = function (e) {
+        e.stopPropagation();
+    }
+
+    var $header = document.querySelector('#header');
+    var $top = document.querySelector('.top');
+    var topHeight = $top.offsetHeight;
+    document.body.onscroll = function () {
+        var scrollTop = document.documentElement.scrollTop;
+        if (scrollTop > $header.offsetHeight - topHeight) {
+            addClassName($header, 'active');
+        } else {
+            removeClass($header, 'active');
+        }
+    }
+</script>

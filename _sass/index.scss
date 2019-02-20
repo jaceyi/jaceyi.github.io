@@ -13,7 +13,7 @@
 
 .post {
     padding: 16px 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #f2f2f2;
     flex: 0 0 auto;
 
     &:hover {
@@ -59,13 +59,12 @@
         font-size: 12px;
         transition: border-color 0.4s;
         display: inline-block;
-        color: #999;
+        color: #888;
         padding: 8px 12px;
         line-height: 1.2;
-        background-color: #fff;
         position: relative;
         border-radius: 9em;
-        border: 1px solid #f1f1f1;
+        border: 1px solid #e9e9e9;
         margin-bottom: 6px;
 
         &:hover {
@@ -95,11 +94,30 @@
 @media (max-width: 600px) {
     .container {
         width: 90vw;
+        padding: 20px 0;
     }
+
+    .post {
+        border-color: #ddd;
+        
+        .title {
+            font-size: 18px;
+        }
+
+        .excerpt {
+            font-size: 14px;
+        }
+
+        .time {
+            font-size: 12px;
+        }
+    }
+    
 
     .tags {
         display: none;
     }
+    
 
     #footer {
         padding: 20px 0 50px;
