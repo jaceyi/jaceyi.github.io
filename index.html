@@ -18,8 +18,10 @@ css: /css/index.css
     </ul>
     <div class="tags">
         <h3 class="title">All TAGS</h3>
-        {% for tag in site.tags %}
-        <a class="tag" href="/tags/#{{ tag[0] }}">{{ tag[0] }}</a>
-        {% endfor %}
+        <div class="box">
+            {% for tag in site.tags %}
+            <a class="tag" href="/tags/#{{ tag[0] }}">{{ tag[0] }}</a>
+            {% endfor %}
+        </div>
     </div>
 </div>

@@ -1,9 +1,13 @@
 ---
 layout: default
-title: Jace的博客 - 关于我
-css: /css/about.css
+title: Jace的博客 - 标签
+css: /css/tags.css
 ---
 
 <div class="container">
-    标签
+    <div class="tags">
+        {% for tag in site.tags %}
+        <a class="tag" href="/tags/#{{ tag[0] }}">{{ tag[0] }}</a>
+        {% endfor %}
+    </div>
 </div>

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/animate.css">
     
+    <script src="/js/util.js"></script>
 </head>
 <body>
     <div id="header">
@@ -56,59 +57,45 @@
 </div>
 
 <script>
-    function addClassName(el, className) {
-        var _ = el.className.split(' ');
-        var index = _.indexOf(className);
-        if (index >= 0) return className;
-        _.push(className);
-        el.className = _.join(' ');
-    }
-
-    function removeClass(el, className) {
-        var _ = el.className.split(' ');
-        var index = _.indexOf(className);
-        if (index < 0) return className;
-        _.splice(index, 1);
-        el.className = _.join(' ');
-    }
-
-    var $menuIcon = document.querySelector('.mobile-nav-menu');
-    var $navBox = document.querySelector('.mobile-nav-box');
-    function hideNavBox() {
-        removeClass($navBox, 'zoomInRight');
-        addClassName($navBox, 'fadeOut');
-        setTimeout(function () {
-            $navBox.style.display = 'none';
-        }, 600)
-    }
-
-    $menuIcon.onclick = function (e) {
-        e.stopPropagation();
-        if ($navBox.style.display === 'block') return hideNavBox();
-        $navBox.style.display = 'block';
-        removeClass($navBox, 'fadeOut');
-        addClassName($navBox, 'zoomInRight');
-    }
-
-    document.body.onclick = function () {
-        if ($navBox.style.display === 'block') hideNavBox();
-    }
-
-    $navBox.onclick = function (e) {
-        e.stopPropagation();
-    }
-
-    var $header = document.querySelector('#header');
-    var $top = document.querySelector('.top');
-    var topHeight = $top.offsetHeight;
-    document.body.onscroll = function () {
-        var scrollTop = document.documentElement.scrollTop;
-        if (scrollTop > $header.offsetHeight - topHeight) {
-            addClassName($header, 'active');
-        } else {
-            removeClass($header, 'active');
+    (function (d, w) {
+        var $menuIcon = d.querySelector('.mobile-nav-menu');
+        var $navBox = d.querySelector('.mobile-nav-box');
+        function hideNavBox() {
+            removeClass($navBox, 'zoomInRight');
+            addClass($navBox, 'fadeOut');
+            setTimeout(function () {
+                $navBox.style.display = 'none';
+            }, 600)
         }
-    }
+
+        $menuIcon.onclick = function (e) {
+            e.stopPropagation();
+            if ($navBox.style.display === 'block') return hideNavBox();
+            $navBox.style.display = 'block';
+            removeClass($navBox, 'fadeOut');
+            addClass($navBox, 'zoomInRight');
+        }
+
+        $navBox.onclick = function (e) {
+            e.stopPropagation();
+        }
+
+        d.body.addEventListener('click', function () {
+            if ($navBox.style.display === 'block') hideNavBox();
+        })
+
+        var $header = d.querySelector('#header');
+        var $top = d.querySelector('.top');
+        var topHeight = $top.offsetHeight;
+        w.addEventListener('scroll', function () {
+            var scrollTop = d.documentElement.scrollTop || d.body.scrollTop;
+            if (scrollTop > $header.offsetHeight - topHeight) {
+                addClass($header, 'active');
+            } else {
+                removeClass($header, 'active');
+            }
+        });
+    })(document, window)
 </script>
 
     <h2>你好，世界</h2>
@@ -136,5 +123,29 @@
         <i class="iconfont">&#xe635;</i>
     </a>
 </footer>
+
+    <div class="up-top animated">
+        <i class="iconfont">&#xe6d9;</i>
+    </div>
+    <script>
+        (function(d, w) {
+            var $upTop = d.querySelector('.up-top');
+            $upTop.onclick = function() {
+                d.documentElement.scrollTop = 0;
+                d.body.scrollTop = 0;
+            }
+            w.addEventListener('scroll', function() {
+                var scrollTop = d.documentElement.scrollTop || d.body.scrollTop;
+                if (scrollTop > 100) {
+                    $upTop.style.display = 'block';
+                    removeClass($upTop, 'zoomOutRight');
+                    addClass($upTop, 'zoomInRight');
+                } else {
+                    removeClass($upTop, 'zoomInRight');
+                    addClass($upTop, 'zoomOutRight');
+                }
+            })
+        })(document, window)
+    </script>
 </body>
 </html>
