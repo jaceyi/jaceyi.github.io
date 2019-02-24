@@ -20,12 +20,12 @@ ul, li {
 
 @font-face {
     font-family: 'iconfont';  /* project id 1049298 */
-    src: url('//at.alicdn.com/t/font_1049298_aqlys6bv7tm.eot');
-    src: url('//at.alicdn.com/t/font_1049298_aqlys6bv7tm.eot?#iefix') format('embedded-opentype'),
-    url('//at.alicdn.com/t/font_1049298_aqlys6bv7tm.woff2') format('woff2'),
-    url('//at.alicdn.com/t/font_1049298_aqlys6bv7tm.woff') format('woff'),
-    url('//at.alicdn.com/t/font_1049298_aqlys6bv7tm.ttf') format('truetype'),
-    url('//at.alicdn.com/t/font_1049298_aqlys6bv7tm.svg#iconfont') format('svg');
+    src: url('//at.alicdn.com/t/font_1049298_9dvssfxtgrk.eot');
+    src: url('//at.alicdn.com/t/font_1049298_9dvssfxtgrk.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_1049298_9dvssfxtgrk.woff2') format('woff2'),
+    url('//at.alicdn.com/t/font_1049298_9dvssfxtgrk.woff') format('woff'),
+    url('//at.alicdn.com/t/font_1049298_9dvssfxtgrk.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_1049298_9dvssfxtgrk.svg#iconfont') format('svg');
 }
 
 .iconfont {
@@ -34,13 +34,6 @@ ul, li {
     -webkit-font-smoothing: antialiased;
     -webkit-text-stroke-width: 0.2px;
     -moz-osx-font-smoothing: grayscale;
-}
-
-.highlight {
-    background-color: #f8f8f8;
-    border: 1px solid #ccc;
-    padding: 8px 10px;
-    border-radius: 3px;
 }
 
 .up-top {
@@ -60,36 +53,28 @@ ul, li {
     display: none;
 }
 
-#header {
-    $height: 50px;
-    $bannerHeight: 380px;
-
-    position: relative;
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    box-sizing: border-box;
+    height: $navHeight;
+    font-weight: 800;
+    color: #fff;
     transition: all 0.6s;
-
-    .top {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 20px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 1;
-        width: 100%;
-        box-sizing: border-box;
-        height: $height;
-        font-weight: 800;
-        color: #fff;
-        transition: all 0.6s;
-    }
 
     a {
         color: #fff;
         height: 100%;
-        line-height: $height;
+        line-height: $navHeight;
     }
-
+    
     .title {
         font-size: 20px;
     }
@@ -153,10 +138,17 @@ ul, li {
             }
         }
     }
+}
+
+#header {
+    $bannerHeight: 380px;
+
+    position: relative;
+    transition: all 0.6s;
 
     .banner {
         height: $bannerHeight;
-        background: #000 url("/images/bg-banner.jpg") no-repeat bottom center;
+        background: #888 url("/images/bg-banner.jpg") no-repeat bottom center;
         background-size: cover;
         background-attachment: scroll;
         display: flex;
@@ -236,7 +228,7 @@ ul, li {
         }
 
         .banner {
-            height: $height;
+            height: $navHeight;
             background-position: center;
             transition: background-position 0.6s;
             box-shadow: 0 0 16px rgba(0, 0, 0, 0.3);
