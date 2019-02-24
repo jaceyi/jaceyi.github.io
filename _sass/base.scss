@@ -46,8 +46,8 @@ ul, li {
 .up-top {
     background-color: #fff;
     position: fixed;
-    right: 5vw;
-    bottom: 10vh;
+    right: 15vw;
+    bottom: 12vh;
     box-shadow: 0 0 10px rgba($color: #000000, $alpha: 0.2);
     border-radius: 9em;
     display: flex;
@@ -261,8 +261,8 @@ ul, li {
 
 #footer {
     text-align: center;
-    padding: 50px 0 80px;
-    margin-top: 20px;
+    padding: 40px 0 60px;
+    margin-top: 10px;
 
     a {
         color: #333;
@@ -313,6 +313,6 @@ ul, li {
     }
 
     #footer {
-        padding: 20px 0 50px;
+        padding: 20px 0 40px;
     }
 }
