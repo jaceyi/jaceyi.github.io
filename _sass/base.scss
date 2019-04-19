@@ -180,7 +180,7 @@ ul, li {
             }
         }
         
-        .search-input {
+        #search-input {
             height: 100%;
             width: 300px;
             border-radius: 9em;
@@ -213,6 +213,19 @@ ul, li {
     
         :-ms-input-placeholder { /* Internet Explorer 10-11 */
             color: rgba(255, 255, 255, 0.8);
+        }
+
+        #results-container {
+            position: absolute;
+            left: -50px;
+            right: -50px;
+            top: 50px;
+            margin: auto;
+            background-color: rgba(0, 0, 0, 0.3);
+
+            a {
+                color: #fff;
+            }
         }
     }
 

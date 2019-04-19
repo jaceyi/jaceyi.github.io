@@ -5,12 +5,32 @@
             <div class="center">
                 <div class="text">Study hard, improve every day.</div>
                 <div class="search-box">
-                    <input type="text" placeholder="搜索文章" class="search-input">
+                    <input type="text" placeholder="搜索文章" id="search-input">
                     <div class="icon">
                         <i class="iconfont">&#xe601;</i>
                     </div>
+                    <div id="results-container"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script src="/js/simple-jekyll-search.min.js"></script>
+
+<script>
+    (function(d, w) {
+        var $searchInput = d.getElementById('search-input');
+        var $resultsContainer = d.getElementById('results-container');
+
+        SimpleJekyllSearch({
+            searchInput: $searchInput,
+            resultsContainer: $resultsContainer,
+            json: '/search.json',
+            searchResultTemplate: '<li><a href="{url}"><p>{title}</p><p>{description}</p></a></li>',
+            noResultsText: '哎呀，没有找到！',
+            limit: 20,
+            fuzzy: false
+        })
+    })(document, window);
+</script>
