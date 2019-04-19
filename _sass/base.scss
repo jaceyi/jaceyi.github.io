@@ -217,15 +217,16 @@ ul, li {
 
         #results-container {
             position: absolute;
-            left: -10%;
-            right: -10%;
+            left: -20%;
+            right: -20%;
             top: 50px;
             margin: auto;
             background-color: #fff;
-            border-radius: 3px;
-            overflow: hidden;
-            box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+            border-radius: 2px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
             transition: all 0.3s;
+            max-height: 300px;
+            overflow: auto;
 
             a {
                 color: #333;
@@ -267,6 +268,13 @@ ul, li {
             .search-tags {
                 text-align: right;
                 color: #555;
+            }
+
+            .not-data {
+                text-align: center;
+                line-height: 60px;
+                font-size: 12px;
+                color: #888;
             }
         }
     }
