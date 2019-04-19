@@ -114,7 +114,16 @@
             searchInput: $searchInput,
             resultsContainer: $resultsContainer,
             json: '/search.json',
-            searchResultTemplate: '<li><a href="{url}"><p>{title}</p><p>{description}</p></a></li>',
+            searchResultTemplate:
+                '<li class="search-results-item">' +
+                    '<a href="{url}">' + 
+                        '<div class="title">' + 
+                            '<h4>{title}</h4><span>{date}</span>' + 
+                        '</div>' + 
+                        '<p class="description">{description}</p>' + 
+                        '<p class="search-tags">{tags}</p>' +
+                    '</a>' + 
+                '</li>',
             noResultsText: '哎呀，没有找到！',
             limit: 20,
             fuzzy: false
