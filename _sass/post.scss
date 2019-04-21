@@ -1,14 +1,6 @@
 @import "./theme.scss";
 
-$containerWidth: 800px;
-
-.highlight {
-   background-color: #f8f8f8;
-   border: 1px solid #ccc;
-   padding: 8px 10px;
-   border-radius: 3px;
-   margin-bottom: 10px;
-}
+$containerWidth: 1050px;
 
 .tags {
    flex: 0 0 auto;
@@ -47,12 +39,12 @@ $containerWidth: 800px;
    }
    
    .post-title {
-      font-size: 46px;
+      font-size: 40px;
       margin-bottom: 20px;
    }
 
    .post-description {
-      font-size: 30px;
+      font-size: 22px;
       margin-bottom: 14px;
    }
 
@@ -67,11 +59,11 @@ $containerWidth: 800px;
    margin: 30px auto;
 
    h1 {
-      margin-bottom: 38px;
+      margin-bottom: 30px;
    }
    
    h2, h3, h4, h5, h6 {
-      margin-bottom: 34px;
+      margin-bottom: 20px;
    }
 
    p {
@@ -80,7 +72,7 @@ $containerWidth: 800px;
 }
 
 @media (max-width: 1200px) {
-   $containerWidth: 900px;
+   $containerWidth: 950px;
 
    #header {
       .content {
@@ -94,11 +86,16 @@ $containerWidth: 800px;
 }
 
 @media (max-width: 1000px) {
-   $containerWidth: 700px;
+   $containerWidth: 760px;
 
    #header {
       .content {
          width: $containerWidth;
+      }
+
+      .post-title {
+         font-size: 30px;
+         margin-bottom: 16px;
       }
    }
 
@@ -118,17 +115,17 @@ $containerWidth: 800px;
          width: $containerWidth;
 
          .post-title {
-            font-size: 34px;
-            margin-bottom: 16px;
+            font-size: 26px;
+            margin-bottom: 10px;
          }
          
          .post-description {
-            font-size: 24px;
-            margin-bottom: 10px;
+            font-size: 18px;
+            margin-bottom: 6px;
          }
 
          .post-date {
-            font-size: 18px;
+            font-size: 16px;
          }
       }
    }

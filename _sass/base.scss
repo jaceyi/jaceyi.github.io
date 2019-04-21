@@ -148,7 +148,7 @@ ul, li {
 
     .banner {
         height: $bannerHeight;
-        background: #888 url("/images/bg-banner.jpg") no-repeat bottom center;
+        background: #888 url("/images/bg-banner.jpg") no-repeat center;
         background-size: cover;
         background-attachment: scroll;
         display: flex;
@@ -260,6 +260,10 @@ ul, li {
                 h4 {
                     font-size: 16px;
                     font-weight: 400;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    margin-right: 10px;
                 }
 
                 span {
