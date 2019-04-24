@@ -9,7 +9,6 @@
     <title>易进春的博客【Web前端开发】</title>
     <link rel="shortcut icon" type="image/x-icon" href="//yijic.com/static/images/favicon.ico" />
     <link rel="stylesheet" href="/css/base.css">
-    <link rel="stylesheet" href="/css/animate.css">
     
         <link rel="stylesheet" href="/css/index.css">
     
@@ -37,7 +36,7 @@
         <div class="mobile-nav-menu icon">
             <i class="iconfont">&#xe633;</i>
         </div>
-        <div class="mobile-nav-box animated">
+        <div class="mobile-nav-box">
             <a href="/">Home</a>
             <a href="/about">About</a>
             <a href="/tags">Tags</a>
@@ -50,29 +49,36 @@
         w.onload = function () {
             var $menuIcon = d.querySelector('.mobile-nav-menu');
             var $navBox = d.querySelector('.mobile-nav-box');
+            var animationEndCallback = null;
             function hideNavBox() {
-                removeClass($navBox, 'zoomInRight');
-                addClass($navBox, 'fadeOut');
-                setTimeout(function () {
+                addClass($navBox, 'zoomOut');
+                animationEndCallback = function () {
+                    removeClass($navBox, 'zoomOut');
                     $navBox.style.display = 'none';
-                }, 600)
+                }
             }
 
             $menuIcon.onclick = function (e) {
                 e.stopPropagation();
                 if ($navBox.style.display === 'block') return hideNavBox();
                 $navBox.style.display = 'block';
-                removeClass($navBox, 'fadeOut');
-                addClass($navBox, 'zoomInRight');
+                addClass($navBox, 'zoomIn');
+                animationEndCallback = function () {
+                    removeClass($navBox, 'zoomIn');
+                }
             }
 
             $navBox.onclick = function (e) {
                 e.stopPropagation();
             }
 
+            $navBox.addEventListener('animationend', function(e) {
+                animationEndCallback && animationEndCallback();
+            }, false);
+
             d.body.addEventListener('click', function () {
                 if ($navBox.style.display === 'block') hideNavBox();
-            })
+            }, false);
 
             var $header = d.querySelector('#header');
             var $top = d.querySelector('.top');
@@ -84,9 +90,9 @@
                 } else {
                     removeClass($header, 'active');
                 }
-            });
+            }, false);
         }
-    })(document, window)
+    })(document, window);
 </script>
         <div class="banner">
             <div class="center">
