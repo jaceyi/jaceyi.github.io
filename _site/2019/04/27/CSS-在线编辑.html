@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="keywords"  content="yijic, yijinchun, Jace, JaceYi, Jace Yi, 易进春, 易进春的博客, yi个程序猿, 前端, 前端开发, 前端博客">
+    <meta name="keywords" content="yijic, yijinchun, Jace, JaceYi, Jace Yi, 易进春, 易进春的博客, yi个程序猿, 前端, 前端开发, 前端博客">
     <meta name="description" content="易进春的个人博客，分享日常生活、学习笔记和踩过的那些坑~" />
-    <title>关于我 - 易进春的博客【Web前端开发】</title>
+    <title>CSS 在线编辑 - 易进春的博客【Web前端开发】</title>
     <link rel="shortcut icon" type="image/x-icon" href="//yijic.com/static/images/favicon.ico" />
     <link rel="stylesheet" href="/css/base.css">
-    
-        <link rel="stylesheet" href="/css/about.css">
-    
+    <link rel="stylesheet" href="/css/post.css">
+    <link rel="stylesheet" href="/css/prism.css">
     <script src="/js/util.js"></script>
 </head>
+
 <body>
-    <div id="header">
-    <div class="wrap">
+    <div id="header" style="background-image: url(/images/bg-banner.jpg)">
         <div class="top">
     <div class="title">
         <a href="/">Jace Blog</a>
@@ -94,59 +94,41 @@
         }
     })(document, window);
 </script>
-        <div class="banner">
-            <div class="center">
-                <div class="text">Study hard, improve every day.</div>
-                <div class="search-box">
-                    <input type="text" placeholder="搜索文章" id="search-input">
-                    <div class="icon">
-                        <i class="iconfont">&#xe601;</i>
-                    </div>
-                    <div id="results-container"></div>
-                </div>
+        <div class="content">
+            <h1 class="post-title">CSS 在线编辑</h1>
+            <div class="post-description">使用 Contenteditable 属性实现 CSS 在线编辑</div>
+            <div class="post-date">2019-04-27</div>
+            <div class="tags">
+                
+                <a class="tag" href="/tags/#CSS" title="CSS">CSS</a>
+                
             </div>
         </div>
     </div>
-</div>
-
-<script src="/js/simple-jekyll-search.min.js"></script>
-
-<script>
-    (function(d, w) {
-        var $searchInput = d.getElementById('search-input');
-        var $resultsContainer = d.getElementById('results-container');
-
-        SimpleJekyllSearch({
-            searchInput: $searchInput,
-            resultsContainer: $resultsContainer,
-            json: '/search.json',
-            searchResultTemplate:
-                '<li class="search-results-item">' +
-                    '<a href="{url}" title="{title}">' + 
-                        '<div class="title">' + 
-                            '<h4>{title}</h4><span>{date}</span>' + 
-                        '</div>' + 
-                        '<p class="description">{description}</p>' + 
-                        '<p class="search-tags">{tags}</p>' +
-                    '</a>' + 
-                '</li>',
-            noResultsText: '<div class="not-data">哎呀，没有找到！</div>',
-            limit: 20,
-            fuzzy: false
-        })
-    })(document, window);
-</script>
 
     <div class="container">
-    <p>你好，我叫易进春，家乡陕西，现在在上海工作。</p>
-    <p>目前从事前端开发相关工作，技术栈：React、Vue、Node、微信小程序。</p>
-    <p>喜欢钻研和挑战，好好学习，天天向上~</p>
-    <p>这是我利用 GitHub Pages 和 Jekyll 搭建的个人博客，仓库地址
-        <a href="https://github.com/jaceyi/jaceyi.github.io/issues">Github </a>，有问题欢迎提
-        <a href="https://github.com/jaceyi/jaceyi.github.io">Issue </a>或者加我的微信。
-    </p>
-</div>
+        <p>先了解一下 Contenteditable 属性的作用：规定元素内容是否可编辑。</p>
+<p>给页面加上 style 标签，设置 style 属性为 display: block，contenteditable 属性为 true。</p>
+<!--more-->
+<pre>
+    <code class="language-html">
+        &lt;style style="display: block" contenteditable="true"&gt;
+            body {
+                color: red;
+            }
+        &lt;/style&gt;
+    </code>
+</pre>
+<p>效果如下，可以编辑并且能影响到本页面的样式。</p>
+<style style="display: block; border: 1px solid #ddd; padding: 10px; background-color: #f5f2f0;" contenteditable="true">
+    body {
+        color: red;
+    }
+</style>
+<p>编辑的时候不能换行，否则就会插入一个 div 导致后面的样式失效。</p>
 
+
+    </div>
 
     <footer id="footer">
     <a href="https://github.com/jaceyi">
@@ -165,28 +147,6 @@
         <i class="iconfont">&#xe635;</i>
     </a>
 </footer>
-
-    <div class="up-top">
-        <i class="iconfont">&#xe6d9;</i>
-    </div>
-    <script>
-        (function(d, w) {
-            var $upTop = d.querySelector('.up-top');
-
-            $upTop.onclick = function() {
-                d.documentElement.scrollTop = 0;
-                d.body.scrollTop = 0;
-            }
-
-            w.addEventListener('scroll', function() {
-                var scrollTop = d.documentElement.scrollTop || d.body.scrollTop;
-                if (scrollTop > 100) {
-                    $upTop.style.display = 'block';
-                } else {
-                    $upTop.style.display = 'none';
-                }
-            })
-        })(document, window);
-    </script>
 </body>
+    <script src="/js/prism.js"></script>
 </html>

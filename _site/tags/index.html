@@ -144,6 +144,8 @@
         
         <a class="tag" href="/tags/#Jekyll">Jekyll</a>
         
+        <a class="tag" href="/tags/#CSS">CSS</a>
+        
     </div>
 
     <div class="tag-list">
@@ -190,6 +192,27 @@
             
         </div>
         
+        <div class="tag-item">
+            <div class="tag-title" id="CSS">
+                <i class="iconfont">&#xe62b;</i>
+                <span class="tag-text">CSS</span>
+            </span>
+            
+            <div class="post-preview">
+                <a href="/2019/04/27/CSS-%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91.html">
+                    <h2 class="post-title">
+                        CSS 在线编辑
+                    </h2>
+                    
+                    <p class="post-description">
+                        使用 Contenteditable 属性实现 CSS 在线编辑
+                    </p>
+                    
+                </a>
+            </div>
+            
+        </div>
+        
     </div>
 </div>
 
@@ -211,28 +234,27 @@
     </a>
 </footer>
 
-    <div class="up-top animated">
+    <div class="up-top">
         <i class="iconfont">&#xe6d9;</i>
     </div>
     <script>
         (function(d, w) {
             var $upTop = d.querySelector('.up-top');
+
             $upTop.onclick = function() {
                 d.documentElement.scrollTop = 0;
                 d.body.scrollTop = 0;
             }
+
             w.addEventListener('scroll', function() {
                 var scrollTop = d.documentElement.scrollTop || d.body.scrollTop;
                 if (scrollTop > 100) {
                     $upTop.style.display = 'block';
-                    removeClass($upTop, 'zoomOutRight');
-                    addClass($upTop, 'zoomInRight');
                 } else {
-                    removeClass($upTop, 'zoomInRight');
-                    addClass($upTop, 'zoomOutRight');
+                    $upTop.style.display = 'none';
                 }
             })
-        })(document, window)
+        })(document, window);
     </script>
 </body>
 </html>

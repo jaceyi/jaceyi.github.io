@@ -21,28 +21,27 @@
 
     {% include footer.html %}
 
-    <div class="up-top animated">
+    <div class="up-top">
         <i class="iconfont">&#xe6d9;</i>
     </div>
     <script>
         (function(d, w) {
             var $upTop = d.querySelector('.up-top');
+
             $upTop.onclick = function() {
                 d.documentElement.scrollTop = 0;
                 d.body.scrollTop = 0;
             }
+
             w.addEventListener('scroll', function() {
                 var scrollTop = d.documentElement.scrollTop || d.body.scrollTop;
                 if (scrollTop > 100) {
                     $upTop.style.display = 'block';
-                    removeClass($upTop, 'zoomOutRight');
-                    addClass($upTop, 'zoomInRight');
                 } else {
-                    removeClass($upTop, 'zoomInRight');
-                    addClass($upTop, 'zoomOutRight');
+                    $upTop.style.display = 'none';
                 }
             })
-        })(document, window)
+        })(document, window);
     </script>
 </body>
 </html>
