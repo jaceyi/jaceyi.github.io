@@ -60,18 +60,23 @@ img {
 
 .container {
    width: $containerWidth;
-   margin: 30px auto;
-
-   h1 {
-      margin-bottom: 30px;
-   }
+   margin: 0 auto;
+   color: #333;
    
-   h2, h3, h4, h5, h6 {
-      margin-bottom: 20px;
+   h1, h2, h3, h4, h5, h6 {
+      margin: 24px 0 10px;
    }
 
    p {
-      margin: 28px 0;
+      margin: 24px 0;
+   }
+
+   .date {
+      color: #666;
+      text-align: right;
+      font-size: 14px;
+      font-weight: 300;
+      padding: 0 10px;
    }
 }
 

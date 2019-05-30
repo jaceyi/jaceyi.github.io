@@ -14,6 +14,14 @@ a {
     color: $color;
 }
 
+code {
+    padding: 2px 4px;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+
 ul, li {
     list-style: none;
 }
