@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" content="yijic, yijinchun, Jace, JaceYi, Jace Yi, 易进春, 易进春的博客, yi个程序猿, 前端, 前端开发, 前端博客">
+    <meta name="description" content="易进春的个人博客，分享日常生活、学习笔记和踩过的那些坑~" />
+    <title>东极岛三日游 - 易进春的博客【Web前端开发】</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/post.css">
+    <link rel="stylesheet" href="/css/prism.css">
+    <script src="/js/util.js"></script>
+</head>
+
+<body>
+    <div id="header" style="background-image: url(/images/P90608-103003.jpg)">
+        <div class="top">
+    <div class="title">
+        <a href="/">Jace Blog</a>
+    </div>
+    <nav class="nav">
+        <div class="item">
+            <a href="/">Home</a>
+        </div>
+        <div class="item">
+            <a href="/about">About</a>
+        </div>
+        <div class="item">
+            <a href="/tags">Tags</a>
+        </div>
+    </nav>
+    <div class="mobile-nav">
+        <div class="mobile-nav-menu icon">
+            <i class="iconfont">&#xe633;</i>
+        </div>
+        <div class="mobile-nav-box">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/tags">Tags</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function (d, w) {
+        w.onload = function () {
+            var $menuIcon = d.querySelector('.mobile-nav-menu');
+            var $navBox = d.querySelector('.mobile-nav-box');
+            var animationEndCallback = null;
+            function hideNavBox() {
+                addClass($navBox, 'zoomOut');
+                animationEndCallback = function () {
+                    removeClass($navBox, 'zoomOut');
+                    $navBox.style.display = 'none';
+                }
+            }
+
+            $menuIcon.onclick = function (e) {
+                e.stopPropagation();
+                if ($navBox.style.display === 'block') return hideNavBox();
+                $navBox.style.display = 'block';
+                addClass($navBox, 'zoomIn');
+                animationEndCallback = function () {
+                    removeClass($navBox, 'zoomIn');
+                }
+            }
+
+            $navBox.onclick = function (e) {
+                e.stopPropagation();
+            }
+
+            $navBox.addEventListener('animationend', function(e) {
+                animationEndCallback && animationEndCallback();
+            }, false);
+
+            d.body.addEventListener('click', function () {
+                if ($navBox.style.display === 'block') hideNavBox();
+            }, false);
+
+            var $header = d.querySelector('#header');
+            var $top = d.querySelector('.top');
+            var topHeight = $top.offsetHeight;
+            w.addEventListener('scroll', function () {
+                var scrollTop = d.documentElement.scrollTop || d.body.scrollTop;
+                if (scrollTop > $header.offsetHeight - topHeight) {
+                    addClass($header, 'active');
+                } else {
+                    removeClass($header, 'active');
+                }
+            }, false);
+        }
+    })(document, window);
+</script>
+        <div class="content">
+            <h1 class="post-title">东极岛三日游</h1>
+            <div class="post-description">2019年端午节东极岛旅游各种采坑笔记</div>
+            <div class="post-date">2019-06-13</div>
+            <div class="tags">
+                
+                <a class="tag" href="/tags/#旅游" title="旅游">旅游</a>
+                
+                <a class="tag" href="/tags/#生活" title="生活">生活</a>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>前言</h2>
+<p>本篇讲述2019年端午节去东极岛玩遇到的各种坑，总结一波，下次出行一定要计划的美美的~</p>
+<p>2019年端午节跟两个朋友计划去舟山东极岛玩几天。端午节是星期五，船票没抢到，行程调整为周四早上，苏州的那个朋友不方便就没来了。</p>
+<h2>计划</h2>
+<p>周三晚上七点半从上海南站出发坐大巴车前往舟山，周四早上7点从沈家门坐船前往庙子湖（东极），转船到青浜岛玩一天，再转船到东福山岛玩一天，再然后到庙子湖岛玩一天，最后上午一天启程回家。</p>
+<h2>行程</h2>
+<p>周三晚上七点半从上海南站出发坐大巴车前往舟山，周四早上到沈家门码头发出通知：大风全天停船。故此临时决定转去普陀山（逼上普陀山😰）。</p>
+<p>未完待续...</p>
+        <div class="date">发布时间：2019-06-13</div>
+    </div>
+    <footer id="footer">
+    <a href="https://github.com/jaceyi">
+        <i class="iconfont">&#xe600;</i>
+    </a>
+    <a href="https://www.zhihu.com/people/hui-bu-qu-de-shi-guang-20/activities">
+        <i class="iconfont">&#xe634;</i>
+    </a>
+    <a href="https://www.weibo.com/yijic">
+        <i class="iconfont">&#xe61c;</i>
+    </a>
+    <a href="https://www.facebook.com/jace.yi.0123">
+        <i class="iconfont">&#xe635;</i>
+    </a>
+</footer>
+</body>
+    <script src="/js/prism.js"></script>
+</html>
