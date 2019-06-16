@@ -2,40 +2,77 @@
 <html lang="zh">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="keywords" content="yijic, yijinchun, Jace, JaceYi, Jace Yi, 易进春, 易进春的博客, yi个程序猿, 前端, 前端开发, 前端博客">
-    <meta name="description" content="易进春的个人博客，分享日常生活、学习笔记和踩过的那些坑~" />
-    <title>{{ page.title }} - 易进春的博客【Web前端开发】</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
-    <link rel="stylesheet" href="/css/base.css">
-    <link rel="stylesheet" href="/css/post.css">
-    <link rel="stylesheet" href="/css/prism.css">
-    <script src="/js/util.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="keywords" content="yijic, yijinchun, Jace, JaceYi, Jace Yi, 易进春, 易进春的博客, yi个程序猿, 前端, 前端开发, 前端博客">
+  <meta name="description" content="易进春的个人博客，分享日常生活、学习笔记和踩过的那些坑~" />
+  <title>{{ page.title }} - 易进春的博客【Web前端开发】</title>
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/post.css">
+  <link rel="stylesheet" href="/css/prism.css">
+  <script src="/js/util.js"></script>
 </head>
 
 <body>
-    <div id="header" style="background-image: url({{ page.bannerImg }})">
-        {% include nav.html %}
-        <div class="content">
-            <h1 class="post-title">{{ page.title }}</h1>
-            <div class="post-description">{{ page.description }}</div>
-            <div class="post-date">{{ page.date | date: '%Y-%m-%d' }}</div>
-            <div class="tags">
-                {% for tag in page.tags %}
-                <a class="tag" href="/tags/#{{ tag }}" title="{{ tag }}">{{ tag }}</a>
-                {% endfor %}
-            </div>
-        </div>
+  <div id="header" style="background-image: url({{ page.bannerImg }})">
+    {% include nav.html %}
+    <div class="content">
+      <h1 class="post-title">{{ page.title }}</h1>
+      <div class="post-description">{{ page.description }}</div>
+      <div class="post-date">{{ page.date | date: '%Y-%m-%d' }}</div>
+      <div class="tags">
+        {% for tag in page.tags %}
+        <a class="tag" href="/tags/#{{ tag }}" title="{{ tag }}">{{ tag }}</a>
+        {% endfor %}
+      </div>
     </div>
+  </div>
 
-    <div class="container">
-        {{ content }}
-        <div class="date">发布时间：{{ page.date | date: '%Y-%m-%d' }}</div>
+  <div class="container">
+    <div class="main">
+      {{ content }}
+      <div class="date">发布时间：{{ page.date | date: '%Y-%m-%d' }}</div>
     </div>
-    {% include footer.html %}
-    {% include back-top.html %}
-    <script src="/js/prism.js"></script>
+    <div class="nav-container">
+      <div class="main-nav">
+        <div class="title">目录</div>
+      </div>
+    </div>
+  </div>
+  {% include footer.html %}
+  {% include back-top.html %}
+  <script src="/js/prism.js"></script>
+  <script>
+    (function (w, d) {
+      var $nav = document.querySelector('.main-nav');
+      var $main = document.querySelector('.main');
+      var titleNodeNames = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
+      for (var i = 0; i < $main.children.length; i++) {
+        var element = $main.children[i];
+        if (titleNodeNames.includes(element.nodeName)) {
+          var link = document.createElement('a');
+          link.href = '#' + element.innerText;
+          link.innerText = element.innerText;
+
+          $nav.appendChild(link);
+          element.id = element.innerText;
+        }
+      }
+
+      function bindEvent() {
+        var scrollTop = d.documentElement.scrollTop || d.body.scrollTop;
+        if (scrollTop >= $nav.parentNode.offsetTop) {
+          addClass($nav, 'active');
+        } else {
+          removeClass($nav, 'active');
+        }
+      }
+      w.addEventListener('scroll', bindEvent);
+      w.addEventListener('load', bindEvent);
+    })(window, document)
+  </script>
 </body>
+
 </html>

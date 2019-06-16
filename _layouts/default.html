@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="keywords"  content="yijic, yijinchun, Jace, JaceYi, Jace Yi, 易进春, 易进春的博客, yi个程序猿, 前端, 前端开发, 前端博客">
-    <meta name="description" content="易进春的个人博客，分享日常生活、学习笔记和踩过的那些坑~" />
-    <title>{{ page.title }}</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
-    <link rel="stylesheet" href="/css/base.css">
-    {% if page.css %}
-        <link rel="stylesheet" href="{{ page.css }}">
-    {% endif %}
-    <script src="/js/util.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="keywords" content="yijic, yijinchun, Jace, JaceYi, Jace Yi, 易进春, 易进春的博客, yi个程序猿, 前端, 前端开发, 前端博客">
+  <meta name="description" content="易进春的个人博客，分享日常生活、学习笔记和踩过的那些坑~" />
+  <title>{{ page.title }}</title>
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
+  <link rel="stylesheet" href="/css/base.css">
+  {% if page.css %}
+  <link rel="stylesheet" href="{{ page.css }}">
+  {% endif %}
+  <script src="/js/util.js"></script>
 </head>
+
 <body>
-    {% include header.html %}
+  {% include header.html %}
 
-    {{ content }}
+  {{ content }}
 
-    {% include footer.html %}
+  {% include footer.html %}
 
-    {% include back-top.html %}
+  {% include back-top.html %}
 </body>
+
 </html>

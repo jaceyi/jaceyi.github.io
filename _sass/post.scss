@@ -63,40 +63,79 @@ img {
     width: $containerWidth;
     margin: 0 auto;
     color: #333;
+    display: flex;
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        line-height: 1;
-        margin: 24px 0 10px;
-        position: relative;
-        padding-left: 12px;
+    .main {
+        flex: 1 1 auto;
+        margin-top: 24px;
 
-        &::before {
-          content: "";
-          display: block;
-          width: 4px;
-          height: 94%;
-          position: absolute;
-          left: 0;
-          top: 3%;
-          background-color: $color;
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            line-height: 1;
+            margin: 24px 0 10px;
+            position: relative;
+            padding-left: 12px;
+
+            &::before {
+                content: "";
+                display: block;
+                width: 4px;
+                height: 94%;
+                position: absolute;
+                left: 0;
+                top: 3%;
+                background-color: $color;
+            }
+        }
+
+        p {
+            margin: 20px 0;
+        }
+
+        .date {
+            color: #666;
+            text-align: right;
+            font-size: 14px;
+            font-weight: 300;
+            padding: 0 10px;
         }
     }
 
-    p {
-        margin: 20px 0;
+    .nav-container {
+        position: relative;
+        width: 160px;
+        flex: 0 0 auto;
+        margin-top: 24px;
+        margin-left: 16px;
+        font-size: 15px;
     }
 
-    .date {
-        color: #666;
-        text-align: right;
-        font-size: 14px;
-        font-weight: 300;
-        padding: 0 10px;
+    .main-nav {
+        width: inherit;
+        position: relative;
+        top: 0;
+        transition: top 0.2s;
+
+        .title {
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        &.active {
+            position: fixed;
+            top: 20px;
+        }
+
+        a {
+            display: block;
+            font-weight: 600;
+            line-height: 1.6;
+            padding-left: 2px;
+        }
     }
 }
 
@@ -177,6 +216,10 @@ img {
 
         p {
             margin: 14px 0;
+        }
+
+        .nav-container {
+          display: none;
         }
     }
 }

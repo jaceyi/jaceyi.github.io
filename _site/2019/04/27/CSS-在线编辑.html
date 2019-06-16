@@ -2,112 +2,114 @@
 <html lang="zh">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="keywords" content="yijic, yijinchun, Jace, JaceYi, Jace Yi, 易进春, 易进春的博客, yi个程序猿, 前端, 前端开发, 前端博客">
-    <meta name="description" content="易进春的个人博客，分享日常生活、学习笔记和踩过的那些坑~" />
-    <title>CSS 在线编辑 - 易进春的博客【Web前端开发】</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
-    <link rel="stylesheet" href="/css/base.css">
-    <link rel="stylesheet" href="/css/post.css">
-    <link rel="stylesheet" href="/css/prism.css">
-    <script src="/js/util.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="keywords" content="yijic, yijinchun, Jace, JaceYi, Jace Yi, 易进春, 易进春的博客, yi个程序猿, 前端, 前端开发, 前端博客">
+  <meta name="description" content="易进春的个人博客，分享日常生活、学习笔记和踩过的那些坑~" />
+  <title>CSS 在线编辑 - 易进春的博客【Web前端开发】</title>
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/post.css">
+  <link rel="stylesheet" href="/css/prism.css">
+  <script src="/js/util.js"></script>
 </head>
 
 <body>
-    <div id="header" style="background-image: url(/images/bg-banner.jpg)">
-        <div class="top">
-    <div class="title">
-        <a href="/">Jace Blog</a>
+  <div id="header" style="background-image: url(/images/bg-banner.jpg)">
+    <div class="top">
+  <div class="title">
+    <a href="/">Jace Blog</a>
+  </div>
+  <nav class="nav">
+    <div class="item">
+      <a href="/">Home</a>
     </div>
-    <nav class="nav">
-        <div class="item">
-            <a href="/">Home</a>
-        </div>
-        <div class="item">
-            <a href="/about">About</a>
-        </div>
-        <div class="item">
-            <a href="/tags">Tags</a>
-        </div>
-    </nav>
-    <div class="mobile-nav">
-        <div class="mobile-nav-menu icon">
-            <i class="iconfont">&#xe633;</i>
-        </div>
-        <div class="mobile-nav-box">
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/tags">Tags</a>
-        </div>
+    <div class="item">
+      <a href="/about">About</a>
     </div>
+    <div class="item">
+      <a href="/tags">Tags</a>
+    </div>
+  </nav>
+  <div class="mobile-nav">
+    <div class="mobile-nav-menu icon">
+      <i class="iconfont">&#xe633;</i>
+    </div>
+    <div class="mobile-nav-box">
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/tags">Tags</a>
+    </div>
+  </div>
 </div>
 
 <script>
-    (function (d, w) {
-        w.onload = function () {
-            var $menuIcon = d.querySelector('.mobile-nav-menu');
-            var $navBox = d.querySelector('.mobile-nav-box');
-            var animationEndCallback = null;
-            function hideNavBox() {
-                addClass($navBox, 'zoomOut');
-                animationEndCallback = function () {
-                    removeClass($navBox, 'zoomOut');
-                    $navBox.style.display = 'none';
-                }
-            }
-
-            $menuIcon.onclick = function (e) {
-                e.stopPropagation();
-                if ($navBox.style.display === 'block') return hideNavBox();
-                $navBox.style.display = 'block';
-                addClass($navBox, 'zoomIn');
-                animationEndCallback = function () {
-                    removeClass($navBox, 'zoomIn');
-                }
-            }
-
-            $navBox.onclick = function (e) {
-                e.stopPropagation();
-            }
-
-            $navBox.addEventListener('animationend', function(e) {
-                animationEndCallback && animationEndCallback();
-            }, false);
-
-            d.body.addEventListener('click', function () {
-                if ($navBox.style.display === 'block') hideNavBox();
-            }, false);
-
-            var $header = d.querySelector('#header');
-            var $top = d.querySelector('.top');
-            var topHeight = $top.offsetHeight;
-            w.addEventListener('scroll', function () {
-                var scrollTop = d.documentElement.scrollTop || d.body.scrollTop;
-                if (scrollTop > $header.offsetHeight - topHeight) {
-                    addClass($header, 'active');
-                } else {
-                    removeClass($header, 'active');
-                }
-            }, false);
+  (function (d, w) {
+    w.onload = function () {
+      var $menuIcon = d.querySelector('.mobile-nav-menu');
+      var $navBox = d.querySelector('.mobile-nav-box');
+      var animationEndCallback = null;
+      function hideNavBox() {
+        addClass($navBox, 'zoomOut');
+        animationEndCallback = function () {
+          removeClass($navBox, 'zoomOut');
+          $navBox.style.display = 'none';
         }
-    })(document, window);
-</script>
-        <div class="content">
-            <h1 class="post-title">CSS 在线编辑</h1>
-            <div class="post-description">使用 Contenteditable 属性实现 CSS 在线编辑</div>
-            <div class="post-date">2019-04-27</div>
-            <div class="tags">
-                
-                <a class="tag" href="/tags/#CSS" title="CSS">CSS</a>
-                
-            </div>
-        </div>
-    </div>
+      }
 
-    <div class="container">
-        <p>先了解一下 Contenteditable 属性的作用：规定元素内容是否可编辑。</p>
+      $menuIcon.onclick = function (e) {
+        e.stopPropagation();
+        if ($navBox.style.display === 'block') return hideNavBox();
+        $navBox.style.display = 'block';
+        addClass($navBox, 'zoomIn');
+        animationEndCallback = function () {
+          removeClass($navBox, 'zoomIn');
+        }
+      }
+
+      $navBox.onclick = function (e) {
+        e.stopPropagation();
+      }
+
+      $navBox.addEventListener('animationend', function (e) {
+        animationEndCallback && animationEndCallback();
+      }, false);
+
+      d.body.addEventListener('click', function () {
+        if ($navBox.style.display === 'block') hideNavBox();
+      }, false);
+
+      var $header = d.querySelector('#header');
+      var $top = d.querySelector('.top');
+      var topHeight = $top.offsetHeight;
+      w.addEventListener('scroll', function () {
+        var scrollTop = d.documentElement.scrollTop || d.body.scrollTop;
+        if (scrollTop > $header.offsetHeight - topHeight) {
+          addClass($header, 'active');
+        } else {
+          removeClass($header, 'active');
+        }
+      }, false);
+    }
+  })(document, window);
+</script>
+
+    <div class="content">
+      <h1 class="post-title">CSS 在线编辑</h1>
+      <div class="post-description">使用 Contenteditable 属性实现 CSS 在线编辑</div>
+      <div class="post-date">2019-04-27</div>
+      <div class="tags">
+        
+        <a class="tag" href="/tags/#CSS" title="CSS">CSS</a>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="main">
+      <p>先了解一下 Contenteditable 属性的作用：规定元素内容是否可编辑。</p>
 <p>给页面加上 style 标签，设置 style 属性为 display: block，contenteditable 属性为 true。</p>
 <!--more-->
 <pre>
@@ -121,30 +123,36 @@
 </pre>
 <p>效果如下，可以编辑并且能影响到本页面的样式。</p>
 <style style="display: block; border: 1px solid #ddd; padding: 10px; background-color: #f5f2f0;" contenteditable="true">
-    body {
-        color: red;
-    }
+  body .container {
+    color: red;
+  }
 </style>
 <p>编辑的时候不能换行，否则就会插入一个 div 导致后面的样式失效。</p>
 
-
-        <div class="date">发布时间：2019-04-27</div>
+      <div class="date">发布时间：2019-04-27</div>
     </div>
-    <footer id="footer">
-    <a href="https://github.com/jaceyi">
-        <i class="iconfont">&#xe600;</i>
-    </a>
-    <a href="https://www.zhihu.com/people/hui-bu-qu-de-shi-guang-20/activities">
-        <i class="iconfont">&#xe634;</i>
-    </a>
-    <a href="https://www.weibo.com/yijic">
-        <i class="iconfont">&#xe61c;</i>
-    </a>
-    <a href="https://www.facebook.com/jace.yi.0123">
-        <i class="iconfont">&#xe635;</i>
-    </a>
+    <div class="nav-container">
+      <div class="main-nav">
+        <div class="title">目录</div>
+      </div>
+    </div>
+  </div>
+  <footer id="footer">
+  <a href="https://github.com/jaceyi">
+    <i class="iconfont">&#xe600;</i>
+  </a>
+  <a href="https://www.zhihu.com/people/hui-bu-qu-de-shi-guang-20/activities">
+    <i class="iconfont">&#xe634;</i>
+  </a>
+  <a href="https://www.weibo.com/yijic">
+    <i class="iconfont">&#xe61c;</i>
+  </a>
+  <a href="https://www.facebook.com/jace.yi.0123">
+    <i class="iconfont">&#xe635;</i>
+  </a>
 </footer>
-    <div class="back-top">
+
+  <div class="back-top">
   <i class="iconfont">&#xe6d9;</i>
 </div>
 <script>
@@ -186,6 +194,36 @@
   })(document, window);
 </script>
 
-    <script src="/js/prism.js"></script>
+  <script src="/js/prism.js"></script>
+  <script>
+    (function (w, d) {
+      var $nav = document.querySelector('.main-nav');
+      var $main = document.querySelector('.main');
+      var titleNodeNames = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
+      for (var i = 0; i < $main.children.length; i++) {
+        var element = $main.children[i];
+        if (titleNodeNames.includes(element.nodeName)) {
+          var link = document.createElement('a');
+          link.href = '#' + element.innerText;
+          link.innerText = element.innerText;
+
+          $nav.appendChild(link);
+          element.id = element.innerText;
+        }
+      }
+
+      function bindEvent() {
+        var scrollTop = d.documentElement.scrollTop || d.body.scrollTop;
+        if (scrollTop >= $nav.parentNode.offsetTop) {
+          addClass($nav, 'active');
+        } else {
+          removeClass($nav, 'active');
+        }
+      }
+      w.addEventListener('scroll', bindEvent);
+      w.addEventListener('load', bindEvent);
+    })(window, document)
+  </script>
 </body>
+
 </html>
