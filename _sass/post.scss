@@ -140,6 +140,11 @@ img {
             border-radius: 2px;
             transition: all 0.3s;
             color: #333;
+            margin-bottom: 4px;
+
+            &:hover {
+              background: repeating-linear-gradient(90deg, #f1f1f1 0%, #f3f3f3 30%, #fff 100%);
+            }
 
             &.active {
               background: repeating-linear-gradient(90deg, #e4f6fd 0%, #f0f8fb 30%, #fff 100%);
@@ -189,21 +194,21 @@ img {
         height: 260px;
 
         .content {
-            padding-top: 40px;
+            padding-top: 34px;
             width: $containerWidth;
 
             .post-title {
-                font-size: 26px;
+                font-size: 24px;
                 margin-bottom: 10px;
             }
 
             .post-description {
-                font-size: 18px;
+                font-size: 16px;
                 margin-bottom: 6px;
             }
 
             .post-date {
-                font-size: 16px;
+                font-size: 14px;
             }
         }
     }
@@ -211,6 +216,7 @@ img {
     .container {
         width: $containerWidth;
         font-size: 14px;
+        display: block;
 
         h1 {
             margin-bottom: 24px;
