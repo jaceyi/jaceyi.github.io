@@ -49,6 +49,8 @@
       var $nav = document.querySelector('.main-nav');
       var $main = document.querySelector('.main');
       var titleNodeNames = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
+      var contentItems = [];
+      var navItems = [];
       for (var i = 0; i < $main.children.length; i++) {
         var element = $main.children[i];
         if (titleNodeNames.includes(element.nodeName)) {
@@ -57,7 +59,9 @@
           link.innerText = element.innerText;
 
           $nav.appendChild(link);
+          navItems.push(link);
           element.id = element.innerText;
+          contentItems.push(element);
         }
       }
 
@@ -68,6 +72,16 @@
         } else {
           removeClass($nav, 'active');
         }
+        for (var i = 0; i < navItems.length; i ++) {
+          removeClass(navItems[i], 'active');
+        }
+        for (var i = contentItems.length - 1; i >= 0; i --) {
+          if (scrollTop >= getElementTop(contentItems[i])) {
+            addClass(navItems[i], 'active');
+            return;
+          }
+        }
+        addClass(navItems[0], 'active');
       }
       w.addEventListener('scroll', bindEvent);
       w.addEventListener('load', bindEvent);

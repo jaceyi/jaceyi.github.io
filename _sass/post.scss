@@ -111,14 +111,15 @@ img {
         flex: 0 0 auto;
         margin-top: 24px;
         margin-left: 16px;
-        font-size: 15px;
+        font-size: 14px;
     }
 
     .main-nav {
         width: inherit;
         position: relative;
-        top: 0;
-        transition: top 0.2s;
+        padding: 14px;
+        height: 100%;
+        transition: all 0.3s;
 
         .title {
             margin-bottom: 8px;
@@ -127,14 +128,23 @@ img {
 
         &.active {
             position: fixed;
-            top: 20px;
+            top: 0;
+            box-shadow: -3px 0 3px rgba(0,0,0,0.06);
         }
 
         a {
             display: block;
             font-weight: 600;
-            line-height: 1.6;
-            padding-left: 2px;
+            line-height: 1;
+            padding: 6px;
+            border-radius: 2px;
+            transition: all 0.3s;
+            color: #333;
+
+            &.active {
+              background: repeating-linear-gradient(90deg, #e4f6fd 0%, #f0f8fb 30%, #fff 100%);
+              color: $color;
+            }
         }
     }
 }
@@ -219,7 +229,7 @@ img {
         }
 
         .nav-container {
-          display: none;
+            display: none;
         }
     }
 }
