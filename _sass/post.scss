@@ -1,9 +1,14 @@
 @import "./theme.scss";
 
-$containerWidth: 1050px;
+$containerWidth: 1100px;
 
 img {
     width: 100%;
+}
+
+ul, li {
+  list-style: disc;
+  margin: 10px 0 10px 10px;
 }
 
 .tags {
@@ -76,7 +81,7 @@ img {
         h5,
         h6 {
             line-height: 1;
-            margin: 24px 0 10px;
+            margin: 24px 0 16px;
             position: relative;
             padding-left: 12px;
 
@@ -110,7 +115,7 @@ img {
         width: 160px;
         flex: 0 0 auto;
         margin-top: 24px;
-        margin-left: 16px;
+        margin-left: 30px;
         font-size: 14px;
     }
 
