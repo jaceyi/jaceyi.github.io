@@ -7,18 +7,16 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="keywords" content="yijic, yijinchun, Jace, JaceYi, Jace Yi, 易进春, 易进春的博客, yi个程序猿, 前端, 前端开发, 前端博客">
   <meta name="description" content="易进春的个人博客，分享日常生活、学习笔记和踩过的那些坑~" />
-  <title>易进春的博客【Web前端开发】</title>
+  <title>JS静态作用域导致的问题 - 易进春的博客【Web前端开发】</title>
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
   <link rel="stylesheet" href="/css/base.css">
-  
-  <link rel="stylesheet" href="/css/index.css">
-  
+  <link rel="stylesheet" href="/css/post.css">
+  <link rel="stylesheet" href="/css/prism.css">
   <script src="/js/util.js"></script>
 </head>
 
 <body>
-  <div id="header">
-  <div class="wrap">
+  <div id="header" style="background-image: url(/images/bg-banner.jpg)">
     <div class="top">
   <div class="title">
     <a href="/">Jace Blog</a>
@@ -97,130 +95,39 @@
   })(document, window);
 </script>
 
-    <div class="banner">
-      <div class="center">
-        <div class="text">记录学习笔记、日常生活。</div>
-        <div class="search-box">
-          <input type="text" placeholder="搜索文章" id="search-input">
-          <div class="icon">
-            <i class="iconfont">&#xe601;</i>
-          </div>
-          <div id="results-container"></div>
-        </div>
+    <div class="content">
+      <h1 class="post-title">JS静态作用域导致的问题</h1>
+      <div class="post-description">JS静态作用域导致使用 React Hooks 频繁出现的问题</div>
+      <div class="post-date">2019-06-29</div>
+      <div class="tags">
+        
+        <a class="tag" href="/tags/#JavaScript" title="JavaScript">JavaScript</a>
+        
+        <a class="tag" href="/tags/#React" title="React">React</a>
+        
       </div>
     </div>
   </div>
-</div>
-
-<script src="/js/simple-jekyll-search.min.js"></script>
-
-<script>
-  (function (d, w) {
-    var $searchInput = d.getElementById('search-input');
-    var $resultsContainer = d.getElementById('results-container');
-
-    SimpleJekyllSearch({
-      searchInput: $searchInput,
-      resultsContainer: $resultsContainer,
-      json: '/search.json',
-      searchResultTemplate:
-        '<li class="search-results-item">' +
-        '<a href="{url}" title="{title}">' +
-        '<div class="title">' +
-        '<h4>{title}</h4><span>{date}</span>' +
-        '</div>' +
-        '<p class="description">{description}</p>' +
-        '<p class="search-tags">{tags}</p>' +
-        '</a>' +
-        '</li>',
-      noResultsText: '<div class="not-data">哎呀，没有找到！</div>',
-      limit: 20,
-      fuzzy: false
-    })
-  })(document, window);
-</script>
-
 
   <div class="container">
-  <ul class="posts">
-    
-    <li class="post">
-      <a href="/2019/06/29/JS-%E9%9D%99%E6%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%AF%BC%E8%87%B4%E7%9A%84%E9%97%AE%E9%A2%98.html">
-        <h2 class="title">JS静态作用域导致的问题</h2>
-        <div class="excerpt">JS静态作用域导致使用 React Hooks 频繁出现的问题</div>
-        <div class="excerpt">前言
-JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域静态作用域：函数的作用域在函数定义的时候就决定了。
-
-  Hook
+    <div class="main">
+      <h2>前言</h2>
+<p>JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域静态作用域：函数的作用域在函数定义的时候就决定了。</p>
+<p>
+  <a target="_blank" href="https://reactjs.org/docs/hooks-intro.html">Hook</a>
   是在 React 16.8版本中新出的一个功能，作用：可以在不编写 Class 的情况下使用 State 以及其他的 React 特性。
+</p>
+<!--more-->
 
 
-
-...</div>
-        <div class="time">2019-06-29 </div>
-      </a>
-    </li>
-    
-    <li class="post">
-      <a href="/2019/06/13/%E4%B8%9C%E6%9E%81%E5%B2%9B%E4%B8%89%E6%97%A5%E6%B8%B8.html">
-        <h2 class="title">东极岛三日游</h2>
-        <div class="excerpt">2019年端午节东极岛旅游各种采坑笔记</div>
-        <div class="excerpt">前言
-本篇讲述2019年端午节去东极岛玩遇到的各种坑，总结一波，下次出行一定要计划的美美的~
-
-
-...</div>
-        <div class="time">2019-06-13 </div>
-      </a>
-    </li>
-    
-    <li class="post">
-      <a href="/2019/05/30/JS-%E5%AE%9E%E7%8E%B0%E5%A4%8D%E5%88%B6%E4%B8%8E%E7%B2%98%E8%B4%B4.html">
-        <h2 class="title">JS 实现复制与粘贴</h2>
-        <div class="excerpt">如何使用 JS 获取剪贴板的内容与添加内容到剪贴板</div>
-        <div class="excerpt">复制
-拦截复制
-应用场景：拦截用户复制事件，或者改变用户复制的内容。
-
-
-...</div>
-        <div class="time">2019-05-30 </div>
-      </a>
-    </li>
-    
-    <li class="post">
-      <a href="/2019/04/27/CSS-%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91.html">
-        <h2 class="title">CSS 在线编辑</h2>
-        <div class="excerpt">使用 Contenteditable 属性实现 CSS 在线编辑</div>
-        <div class="excerpt">先了解一下 Contenteditable 属性的作用：规定元素内容是否可编辑。
-给页面加上 style 标签，设置 style 属性为 display: block，contenteditable 属性为 true。
-
-
-...</div>
-        <div class="time">2019-04-27 </div>
-      </a>
-    </li>
-    
-  </ul>
-  <div class="tags">
-    <h3 class="title">All TAGS</h3>
-    <div class="box">
-      
-      <a class="tag" href="/tags/#CSS">CSS</a>
-      
-      <a class="tag" href="/tags/#JavaScript">JavaScript</a>
-      
-      <a class="tag" href="/tags/#旅游">旅游</a>
-      
-      <a class="tag" href="/tags/#生活">生活</a>
-      
-      <a class="tag" href="/tags/#React">React</a>
-      
+      <div class="date">发布时间：2019-06-29</div>
+    </div>
+    <div class="nav-container">
+      <div class="main-nav">
+        <div class="title">目录</div>
+      </div>
     </div>
   </div>
-</div>
-
-
   <footer id="footer">
   <a href="https://github.com/jaceyi">
     <i class="iconfont">&#xe600;</i>
@@ -235,7 +142,6 @@ JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域静�
     <i class="iconfont">&#xe635;</i>
   </a>
 </footer>
-
 
   <div class="back-top">
   <i class="iconfont">&#xe6d9;</i>
@@ -279,6 +185,50 @@ JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域静�
   })(document, window);
 </script>
 
+  <script src="/js/prism.js"></script>
+  <script>
+    (function (w, d) {
+      var $nav = document.querySelector('.main-nav');
+      var $main = document.querySelector('.main');
+      var titleNodeNames = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
+      var contentItems = [];
+      var navItems = [];
+      for (var i = 0; i < $main.children.length; i++) {
+        var element = $main.children[i];
+        if (titleNodeNames.includes(element.nodeName)) {
+          var link = document.createElement('a');
+          link.href = '#' + element.innerText;
+          link.innerText = element.innerText;
+
+          $nav.appendChild(link);
+          navItems.push(link);
+          element.id = element.innerText;
+          contentItems.push(element);
+        }
+      }
+
+      function bindEvent() {
+        var scrollTop = d.documentElement.scrollTop || d.body.scrollTop;
+        if (scrollTop >= $nav.parentNode.offsetTop) {
+          addClass($nav, 'active');
+        } else {
+          removeClass($nav, 'active');
+        }
+        for (var i = 0; i < navItems.length; i ++) {
+          removeClass(navItems[i], 'active');
+        }
+        for (var i = contentItems.length - 1; i >= 0; i --) {
+          if (scrollTop >= getElementTop(contentItems[i])) {
+            addClass(navItems[i], 'active');
+            return;
+          }
+        }
+        addClass(navItems[0], 'active');
+      }
+      w.addEventListener('scroll', bindEvent);
+      w.addEventListener('load', bindEvent);
+    })(window, document)
+  </script>
 </body>
 
 </html>

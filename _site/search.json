@@ -1,6 +1,15 @@
 [
   
     {
+      "title": "JS静态作用域导致的问题",
+      "category": "",
+      "description": "JS静态作用域导致使用 React Hooks 频繁出现的问题",
+      "tags": "JavaScript, React",
+      "url": "/2019/06/29/JS-%E9%9D%99%E6%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%AF%BC%E8%87%B4%E7%9A%84%E9%97%AE%E9%A2%98.html",
+      "date": "2019-06-29"
+    } ,
+  
+    {
       "title": "东极岛三日游",
       "category": "",
       "description": "2019年端午节东极岛旅游各种采坑笔记",
