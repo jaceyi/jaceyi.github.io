@@ -11,7 +11,7 @@ css: /css/index.css
       <a href="{{ post.url }}">
         <h2 class="title">{{ post.title }}</h2>
         <div class="excerpt">{{ post.description}}</div>
-        <div class="excerpt">{{ post.excerpt | strip_html }}...</div>
+        <div class="excerpt">{{ post.excerpt | strip_html }}</div>
         <div class="time">{{ post.date | date: '%Y-%m-%d' }} </div>
       </a>
     </li>

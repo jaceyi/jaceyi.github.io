@@ -84,6 +84,7 @@ ul, li {
             margin: 24px 0 16px;
             position: relative;
             padding-left: 12px;
+            color: #333;
 
             &::before {
                 content: "";
@@ -129,6 +130,7 @@ ul, li {
         .title {
             margin-bottom: 8px;
             font-size: 18px;
+            color: #333;
         }
 
         &.active {
