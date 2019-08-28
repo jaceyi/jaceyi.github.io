@@ -296,6 +296,7 @@
     })(window, document)
   </script>
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/md5.min.js"></script>
   <script>
     const gitalk = new Gitalk({
       clientID: '0f8a52875fe9bbe1f36a',
@@ -303,8 +304,8 @@
       repo: 'jaceyi.github.io',
       owner: 'jaceyi',
       admin: ['jaceyi'],
-      id: location.pathname,
-      distractionFreeMode: true,
+      id: md5(location.pathname),
+      distractionFreeMode: false,
       createIssueManually: true
     })
 
