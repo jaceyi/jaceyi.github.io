@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/post.css">
   <link rel="stylesheet" href="/css/prism.css">
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
   <script src="/js/util.js"></script>
 </head>
 
@@ -185,6 +186,7 @@
 </p>
 
       <div class="date">发布时间：2019-05-30</div>
+      <div id="gitalk-container"></div>
     </div>
     <div class="nav-container">
       <div class="main-nav">
@@ -278,10 +280,10 @@
         } else {
           removeClass($nav, 'active');
         }
-        for (var i = 0; i < navItems.length; i ++) {
+        for (var i = 0; i < navItems.length; i++) {
           removeClass(navItems[i], 'active');
         }
-        for (var i = contentItems.length - 1; i >= 0; i --) {
+        for (var i = contentItems.length - 1; i >= 0; i--) {
           if (scrollTop >= getElementTop(contentItems[i])) {
             addClass(navItems[i], 'active');
             return;
@@ -292,6 +294,20 @@
       w.addEventListener('scroll', bindEvent);
       w.addEventListener('load', bindEvent);
     })(window, document)
+  </script>
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script>
+    const gitalk = new Gitalk({
+      clientID: 'GitHub Application Client ID',
+      clientSecret: 'GitHub Application Client Secret',
+      repo: 'GitHub repo',
+      owner: 'GitHub repo owner',
+      admin: ['GitHub repo owner and collaborators, only these guys can initialize github issues'],
+      id: location.pathname,      // Ensure uniqueness and length less than 50
+      distractionFreeMode: false  // Facebook-like distraction free mode
+    })
+
+    gitalk.render('gitalk-container')
   </script>
 </body>
 
