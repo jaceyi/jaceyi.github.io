@@ -9,10 +9,10 @@
   <meta name="description" content="易进春的个人博客，分享日常生活、学习笔记和踩过的那些坑~" />
   <title>CSS 在线编辑 - 易进春的博客【Web前端开发】</title>
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <link rel="stylesheet" href="/css/prism.css">
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/post.css">
-  <link rel="stylesheet" href="/css/prism.css">
-  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
   <script src="/js/util.js"></script>
 </head>
 
@@ -116,13 +116,13 @@
 <p>给页面加上 style 标签，设置 style 属性为 display: block，contenteditable 属性为 true。</p>
 <!--more-->
 <pre>
-    <code class="language-html">
-        &lt;style style="display: block" contenteditable="true"&gt;
-            body {
-                color: red;
-            }
-        &lt;/style&gt;
-    </code>
+  <code class="language-html">
+&lt;style style="display: block" contenteditable="true"&gt;
+  body {
+    color: red;
+  }
+&lt;/style&gt;
+  </code>
 </pre>
 <h3>实时编辑</h3>
 <p>效果如下，选中下方内容，可以编辑并且能影响到本页面的样式。</p>
@@ -183,7 +183,7 @@
 
     $upTop.onclick = function () {
       scrollTo(0);
-    }
+    };
 
     function bindEvent() {
       var scrollTop = d.documentElement.scrollTop || d.body.scrollTop;
