@@ -47,11 +47,11 @@
         animationEndCallback = function () {
           removeClass($navBox, 'zoomIn');
         }
-      }
+      };
 
       $navBox.onclick = function (e) {
         e.stopPropagation();
-      }
+      };
 
       $navBox.addEventListener('animationend', function (e) {
         animationEndCallback && animationEndCallback();
@@ -66,12 +66,22 @@
       var topHeight = $top.offsetHeight;
       w.addEventListener('scroll', function () {
         var scrollTop = d.documentElement.scrollTop || d.body.scrollTop;
-        if (scrollTop > $header.offsetHeight - topHeight) {
+        var step = $header.className.indexOf('visible') >= 0 ? topHeight : 0;
+        if (scrollTop > $header.offsetHeight - step) {
           addClass($header, 'active');
         } else {
           removeClass($header, 'active');
         }
       }, false);
+
+      d.addEventListener('mousewheel', function(e) {
+        console.log(e.wheelDeltaY);
+        if (e.wheelDeltaY >= 0) {
+          addClass($header, 'visible');
+        } else {
+          removeClass($header, 'visible');
+        }
+      })
     }
   })(document, window);
 </script>

@@ -21,7 +21,6 @@ code {
   background-color: #f9f2f4;
   border-radius: 4px;
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-  word-break: break-all;
 }
 
 em {
@@ -32,10 +31,6 @@ em {
 ul,
 li {
   list-style: none;
-}
-
-p {
-  line-height: 1.8;
 }
 
 pre[class*="language-"] {
@@ -174,12 +169,12 @@ pre[class*="language-"] {
 
   .banner {
     height: $bannerHeight;
-    background: #888 url("/images/bg-banner.jpg") no-repeat center;
+    background: #888 url("/images/bg-banner.jpg") no-repeat center scroll;
     background-size: cover;
-    background-attachment: scroll;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-position 0.6s;
 
     .center {
       margin-top: 20px;
@@ -326,16 +321,16 @@ pre[class*="language-"] {
 
     .wrap {
       position: fixed;
-      top: 0;
+      top: ceil(0 - $navHeight);
       left: 0;
       width: 100%;
       z-index: 30;
+      transition: top 0.5s;
     }
 
     .banner {
       height: $navHeight;
-      background-position: center;
-      transition: background-position 0.6s;
+      background-position: bottom left;
       box-shadow: 0 0 16px rgba(0, 0, 0, 0.3);
 
       .center {
@@ -351,6 +346,12 @@ pre[class*="language-"] {
 
       .search-box {
         height: 32px;
+      }
+    }
+
+    &.visible {
+      .wrap {
+        top: 0;
       }
     }
   }
