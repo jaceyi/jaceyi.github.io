@@ -3,25 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e8f35cf5-b83f-4361-92e7-5b45bf0ba334" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.sass-cache/b8c69b106545532dd689440fabcce162bb892c88/about.scssc" beforeDir="false" afterPath="$PROJECT_DIR$/.sass-cache/b8c69b106545532dd689440fabcce162bb892c88/about.scssc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.sass-cache/b8c69b106545532dd689440fabcce162bb892c88/base.scssc" beforeDir="false" afterPath="$PROJECT_DIR$/.sass-cache/b8c69b106545532dd689440fabcce162bb892c88/base.scssc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.sass-cache/b8c69b106545532dd689440fabcce162bb892c88/index.scssc" beforeDir="false" afterPath="$PROJECT_DIR$/.sass-cache/b8c69b106545532dd689440fabcce162bb892c88/index.scssc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.sass-cache/b8c69b106545532dd689440fabcce162bb892c88/post.scssc" beforeDir="false" afterPath="$PROJECT_DIR$/.sass-cache/b8c69b106545532dd689440fabcce162bb892c88/post.scssc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.sass-cache/b8c69b106545532dd689440fabcce162bb892c88/tags.scssc" beforeDir="false" afterPath="$PROJECT_DIR$/.sass-cache/b8c69b106545532dd689440fabcce162bb892c88/tags.scssc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_includes/nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/_includes/nav.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_sass/base.scss" beforeDir="false" afterPath="$PROJECT_DIR$/_sass/base.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_sass/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/_sass/index.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_sass/post.scss" beforeDir="false" afterPath="$PROJECT_DIR$/_sass/post.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/2019/04/27/CSS-在线编辑.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/2019/04/27/CSS-在线编辑.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/2019/05/30/JS-实现复制与粘贴.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/2019/05/30/JS-实现复制与粘贴.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/2019/06/13/东极岛三日游.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/2019/06/13/东极岛三日游.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/2019/08/31/使用-Jekyll-搭建一个自己的博客.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/2019/08/31/使用-Jekyll-搭建一个自己的博客.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/about/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/about/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/css/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/_site/css/base.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/css/base.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/_site/css/base.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/css/post.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/_site/css/post.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/tags/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/tags/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_posts/2019-8-31-使用 Jekyll 搭建一个自己的博客.html" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/2019-8-31-使用 Jekyll 搭建一个自己的博客.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -98,7 +80,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
