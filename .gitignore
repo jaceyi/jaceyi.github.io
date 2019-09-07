@@ -6,6 +6,8 @@ yarn-error.log*
 server_config.js*
 *.lock
 
+.idea
+
 # Editor directories and files
 .idea
 .vscode

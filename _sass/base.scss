@@ -196,9 +196,13 @@ pre[class*="language-"] {
       .icon {
         position: absolute;
         right: 14px;
-        top: 8px;
+        top: 0;
         color: #fff;
         cursor: pointer;
+        bottom: 0;
+        margin: auto;
+        display: flex;
+        align-items: center;
       }
     }
 
@@ -321,7 +325,7 @@ pre[class*="language-"] {
 
     .wrap {
       position: fixed;
-      top: ceil(0 - $navHeight);
+      top: ceil(-1 - $navHeight);
       left: 0;
       width: 100%;
       z-index: 30;
@@ -331,7 +335,7 @@ pre[class*="language-"] {
     .banner {
       height: $navHeight;
       background-position: bottom left;
-      box-shadow: 0 0 16px rgba(0, 0, 0, 0.3);
+      box-shadow: none;
 
       .center {
         margin: 0;
@@ -352,6 +356,10 @@ pre[class*="language-"] {
     &.visible {
       .wrap {
         top: 0;
+      }
+
+      .banner {
+        box-shadow: 0 0 16px rgba(0, 0, 0, 0.3);
       }
     }
   }
