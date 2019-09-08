@@ -74,6 +74,7 @@ li {
   .main {
     flex: 1 1 auto;
     margin-top: 24px;
+    width: 70%;
 
     h1,
     h2,
@@ -206,7 +207,7 @@ li {
       width: $containerWidth;
 
       .post-title {
-        font-size: 22px;
+        font-size: 20px;
         margin-bottom: 10px;
       }
 
@@ -224,7 +225,6 @@ li {
   .container {
     width: $containerWidth;
     font-size: 14px;
-    display: block;
 
     h1 {
       margin-bottom: 24px;

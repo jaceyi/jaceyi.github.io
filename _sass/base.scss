@@ -34,8 +34,13 @@ li {
   list-style: none;
 }
 
+p {
+  line-height: 1.8;
+}
+
 pre[class*="language-"] {
   padding: 0 1.5em;
+  word-break: break-all;
 }
 
 @font-face {
