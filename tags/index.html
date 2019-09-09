@@ -36,3 +36,16 @@ css: /css/tags.css
       {% endfor %}
     </div>
   </div>
+  <script>
+    (function (w, d) {
+      var $tag = d.querySelectorAll('.tag');
+      var $header = d.querySelector('#header');
+      for (var i = 0; i < $tag.length; i++) {
+        $tag[i].addEventListener('click', function() {
+          if ($header) {
+            removeClass($header, 'visible');
+          }
+        })
+      }
+    })(window, document)
+  </script>
