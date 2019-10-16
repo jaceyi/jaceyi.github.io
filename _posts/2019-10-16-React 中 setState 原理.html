@@ -1,0 +1,27 @@
+---
+layout: post
+title: React 中 setState 原理
+description: 关于 setState 的一些注意事项
+tags: React
+bannerImg: /images/bg-banner2.jpeg
+---
+<h2>前言</h2>
+<p>本篇讲述 React Class 组件中 setState 方法在不同情况下“异步”、同步执行，以及其带来的影响。</p>
+<h2>“异步”执行</h2>
+<p>初学 React 的同学或许会碰到下面的问题。在 setState 后数据并没有实时更新，取到的数据还是老数据。</p>
+<pre>
+  <code class="language-jsx">
+state = {
+  num: 0
+}
+
+handleClickAdd() {
+  this.setState({
+    num: this.state.num + 1
+  });
+  console.log(this.state.num) // 0
+}
+  </code>
+</pre>
+<p>在上面输出的 num 还是为 0，这是否代表 setState 是异步操作呢</p>
+<p>未完待续</p>

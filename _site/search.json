@@ -1,6 +1,15 @@
 [
   
     {
+      "title": "React 中 setState 原理",
+      "category": "",
+      "description": "关于 setState 的一些注意事项",
+      "tags": "React",
+      "url": "/2019/10/16/React-%E4%B8%AD-setState-%E5%8E%9F%E7%90%86.html",
+      "date": "2019-10-16"
+    } ,
+  
+    {
       "title": "使用 Jekyll 搭建一个自己的博客",
       "category": "",
       "description": "如何利用 Github Pages 加 Jekyll 搭建一个自己的博客",
