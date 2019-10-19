@@ -1,6 +1,15 @@
 [
   
     {
+      "title": "CentOS7 搭建 Shadowsocks",
+      "category": "",
+      "description": "使用 CenOS7 搭建 Shadowsocks 并配置多用户多端口访问",
+      "tags": "CentOS, Shadowsocks",
+      "url": "/2019/10/18/CentOS7-%E6%90%AD%E5%BB%BA-Shadowsocks.html",
+      "date": "2019-10-18"
+    } ,
+  
+    {
       "title": "React 中 setState 原理",
       "category": "",
       "description": "关于 setState 的一些注意事项",
