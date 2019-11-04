@@ -84,20 +84,7 @@ li {
     h6 {
       line-height: 1;
       margin: 24px 0 16px;
-      position: relative;
-      padding-left: 12px;
       color: #333;
-
-      &::before {
-        content: "";
-        display: block;
-        width: 4px;
-        height: 94%;
-        position: absolute;
-        left: 0;
-        top: 3%;
-        background-color: $color;
-      }
     }
 
     p {
