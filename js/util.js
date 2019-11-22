@@ -14,4 +14,4 @@ function getElementTop(el) {
     parent = parent.offsetParent;
     if (parent === null) return top;
   }
-};
+}

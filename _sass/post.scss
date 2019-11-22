@@ -74,7 +74,7 @@ li {
   .main {
     flex: 1 1 auto;
     margin-top: 24px;
-    width: 70%;
+    width: calc(100% - 190px);
 
     h1,
     h2,
