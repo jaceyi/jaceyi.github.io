@@ -17,7 +17,7 @@
 </head>
 
 <body>
-  <div id="header" style="background-image: url(/images/bg-banner.jpg)">
+  <div id="header" style="background-image: url(/images/bg-banner.jpeg)">
     <div class="top">
   <div class="title">
     <a href="/">Jace Blog</a>
@@ -122,8 +122,8 @@
   <div class="container">
     <div class="main">
       <h2>前言</h2>
-<p>使用 Github Pages 可以让在 Github 托管的 html 代码以网页的形式展示</p>
-<p><a href="https://jekyllrb.com/">Jekyll</a> 是 Github 官方推荐的工具，可以将 Markdown、Liquid、HTML和CSS打包部署成为一个静态网页。</p>
+<p>使用 <b>Github Pages</b> 可以让在 <b>Github</b> 托管的 HTML 代码以静态页面的形式展示。</p>
+<p><a href="https://jekyllrb.com/">Jekyll</a> 是 Github 官方推荐的工具，可以将 Markdown、Liquid、HTML 和 CSS 打包部署成为一个静态网页。</p>
 <!--more-->
 <h2>安装 Jekyll</h2>
 <h2>macOS</h2>
@@ -131,7 +131,7 @@
 <p>首先安装命令行工具，用于编译本机扩展。<code>xcode-select --install</code></p>
 <p>这个如果总是安装失败这里可以到
   <a href="https://developer.apple.com/download/more/">Developer Apple</a>
-  主动下载一个<code>Command Line Tools for Xcode</code>安装。
+  主动下载一个 <code>Command Line Tools for Xcode</code> 安装。
 </p>
 <h3>安装 Ruby</h3>
 <h4>使用 Homebrew</h4>
@@ -164,9 +164,9 @@ sudo gem install jekyll
 </pre>
 <p>安装完成，以上内容参考 <a href="">Jekyll on macOS</a></p>
 <h2>Windows</h2>
-<p>我这里给 Windows 装了一个 Ubuntu 的子系统，所以就直接在 Ubuntu 上安装了。参考 <a href="https://jekyllrb.com/docs/installation/ubuntu/">Jekyll on Ubuntu</a> 三步搞定</p>
+<p>我这里给 Windows 装了一个 <b>Ubuntu</b> 的子系统，所以就直接在 Ubuntu 上安装了。参考 <a href="https://jekyllrb.com/docs/installation/ubuntu/">Jekyll on Ubuntu</a> 三步搞定</p>
 <h2>搭建博客</h2>
-<p>这里可以 Fork 我的项目 <a href="https://github.com/jaceyi/jaceyi.github.io">jaceyi.github.io</a> 直接改 <code>_posts</code> 文件夹里面的内就可以。也可以参考 <a href="https://jekyllrb.com/docs/">Jekyll</a> 自己从头搭建。</p>
+<p>因为我使用的是 <a href="https://gitalk.github.io/">Gitalk</a> 搭建的留言板，所以 Fork 后 <code>Issues</code> 就用不了了，所以这里可以 <code>clone</code> 我的项目 <a href="https://github.com/jaceyi/jaceyi.github.io">jaceyi.github.io</a> 直接改内容。也可以参考 <a href="https://jekyllrb.com/docs/">Jekyll</a> 自己从头搭建。</p>
 <p>这里重点讲我这个项目的结构。</p>
 <ul>
   <li><code>_includes</code> 文件夹内的东西可以理解为公共组件，哪里需要在哪引入。</li>
@@ -178,10 +178,10 @@ sudo gem install jekyll
   <li><code>index.html</code> 是博客的入口文件。</li>
 </ul>
 <h3>留言板</h3>
-<p>留言板我是使用 <a href="https://gitalk.github.io/">Gitalk</a> 搭建的，它将 Github Issues 变相的转为留言板功能，所有的服务都基于 Github Issues 服务，包括登陆、回复、评论、邮件通知等功能，具体用法可参考
+<p>上面提到留言板是使用 <a href="https://gitalk.github.io/">Gitalk</a> 搭建的，它将 <b>Github Issues</b> 变相的转为留言板功能，所有的服务都基于 <b>Github Issues</b> 服务，包括登陆、回复、评论、邮件通知等功能，具体用法可参考
   <a href="https://github.com/gitalk/gitalk#install">Gitalk</a> 。</p>
 <h3>代码语法高亮</h3>
-<p>作为一个技术类型的博客，代码片段肯定是必不能少的，我在博客中使用的是 <a href="https://prismjs.com">PrismJS</a> ，在 <a href="https://prismjs.com/download.html">这里</a> 自定义主题与需要的代码高亮，我的博客里面引用了 <code>markup+css+clike+javascript+bash+typescript+scss+jsx+tsx</code>这些规则，如果需要变更则可以下载对应的规则替换我的 <code>js</code> 和 <code>css</code> 文件即可。</p>
+<p>作为一个技术类型的博客，代码片段肯定是必不能少的，我在博客中使用的是 <a href="https://prismjs.com">PrismJS</a> ，在 <a href="https://prismjs.com/download.html">这里</a> 自定义主题与需要的代码高亮，我的博客里面引用了 <code>markup+css+clike+javascript+bash+typescript+scss+jsx+tsx</code> 这些规则，如果需要变更则可以下载对应的规则替换我的 <code>js</code> 和 <code>css</code> 文件即可。</p>
 <h2>致谢</h2>
 <p>参考 <a href="https://github.com/qiubaiying/qiubaiying.github.io">qiubaiying</a>、<a href="https://github.com/Huxpro/huxpro.github.io">Hux Blog</a>。</p>
 
