@@ -1,14 +1,14 @@
 ---
 layout: post
 title: 使用ES新语法提高开发效率 — Optional Chaining
-description: 借助 Babel 使用ES新语法 Optional Chaining [提案阶段] 简化代码，提升效率。
+description: 借助 Babel 使用ES新语法 Optional Chaining [提案阶段] 简化代码。
 tags: JavaScript
 bannerImg: /images/bg-banner.jpeg
 ---
 <h2>前言</h2>
 <p>在现在 Object 属性链的调用中，很容易因使用不当导致某个属性不存在而抛出 <code>Cannot read property 'xxx' of undefined</code> 的错误。</p>
-<p>现在已经有一个草案 <a href="https://tc39.es/proposal-optional-chaining/">Optional Chaining</a> 可以封方便的解决这个问题。</p>
 <!--more-->
+<p>现在已经有一个草案 <a href="https://tc39.es/proposal-optional-chaining/">Optional Chaining</a> 可以很方便的解决这个问题。</p>
 <h2>例子</h2>
 <h3>访问深层次嵌套的属性</h3>
 <pre>
@@ -16,9 +16,9 @@ bannerImg: /images/bg-banner.jpeg
 const obj = {
   foo: {
     bar: {
-      baz: 42,
-    },
-  },
+      baz: 42
+    }
+  }
 };
 
 const baz = obj?.foo?.bar?.baz; // 42
@@ -34,9 +34,9 @@ const obj = {
     bar: {
       baz() {
         return 42;
-      },
-    },
-  },
+      }
+    }
+  }
 };
 
 const baz = obj?.foo?.bar?.baz(); // 42
@@ -69,7 +69,7 @@ yarn add @babel/plugin-proposal-optional-chaining -D
 </pre>
 <h3>.babelrc</h3>
 <pre>
-  <code class="language-js">
+  <code class="language-json">
 {
   "plugins": ["@babel/plugin-proposal-optional-chaining"]
 }
