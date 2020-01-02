@@ -19,11 +19,7 @@
   background-color: #fff;
 
   &:hover {
-    box-shadow: 0 0 20px rgba(#333, 0.1);
-    transform: translateY(-6px);
-    border-color: #fff;
-
-    .title, .excerpt {
+    .title, .excerpt, .time {
       color: $color2;
     }
   }

@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="keywords" content="jaceyi, yijinchun, Jace, JaceYi, Jace Yi, 易进春, 易进春的博客, yi个程序猿, 前端, 前端开发, 前端博客">
   <meta name="description" content="易进春的个人博客，分享日常生活、学习笔记和踩过的那些坑~" />
-  <title>CSS 在线编辑 - 易进春的博客【Web前端开发】</title>
+  <title>使用ES新语法提高开发效率 — Optional Chaining - 易进春的博客【Web前端开发】</title>
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
   <link rel="stylesheet" href="/css/gitalk.css">
   <link rel="stylesheet" href="/css/prism.css">
@@ -106,12 +106,12 @@
 </script>
 
     <div class="content">
-      <h1 class="post-title">CSS 在线编辑</h1>
-      <div class="post-description">使用 Contenteditable 属性实现 CSS 在线编辑</div>
-      <div class="post-date">2019-04-27</div>
+      <h1 class="post-title">使用ES新语法提高开发效率 — Optional Chaining</h1>
+      <div class="post-description">借助 Babel 使用ES新语法 Optional Chaining [提案阶段] 简化代码，提升效率。</div>
+      <div class="post-date">2019-12-31</div>
       <div class="tags">
         
-        <a class="tag" href="/tags/#CSS" title="CSS">CSS</a>
+        <a class="tag" href="/tags/#JavaScript" title="JavaScript">JavaScript</a>
         
       </div>
     </div>
@@ -120,29 +120,77 @@
   <div class="container">
     <div class="main">
       <h2>前言</h2>
-<p>先了解一下 Contenteditable 属性的作用：规定元素内容是否可编辑。</p>
-<h2>案例</h2>
-<p>给页面加上 style 标签，设置 style 属性为 display: block，contenteditable 属性为 true。</p>
+<p>在现在 Object 属性链的调用中，很容易因使用不当导致某个属性不存在而抛出 <code>Cannot read property 'xxx' of undefined</code> 的错误。</p>
+<p>现在已经有一个草案 <a href="https://tc39.es/proposal-optional-chaining/">Optional Chaining</a> 可以封方便的解决这个问题。</p>
 <!--more-->
+<h2>例子</h2>
+<h3>访问深层次嵌套的属性</h3>
 <pre>
-  <code class="language-html">
-&lt;style style="display: block" contenteditable="true"&gt;
-  body {
-    color: red;
-  }
-&lt;/style&gt;
+  <code class="language-js">
+const obj = {
+  foo: {
+    bar: {
+      baz: 42,
+    },
+  },
+};
+
+const baz = obj?.foo?.bar?.baz; // 42
+
+const safe = obj?.qux?.baz; // undefined
   </code>
 </pre>
-<h2>实时编辑</h2>
-<p>效果如下，选中下方内容，可以编辑并且能影响到本页面的样式。</p>
-<style style="display: block; border: 1px solid #ddd; padding: 10px; background-color: #f5f2f0;" contenteditable="true">
-  body .container {
-    color: red;
-  }
-</style>
-<p>编辑的时候不能换行，否则就会插入一个 div 导致后面的样式失效。</p>
+<h3>调用层次嵌套的函数</h3>
+<pre>
+  <code class="language-js">
+const obj = {
+  foo: {
+    bar: {
+      baz() {
+        return 42;
+      },
+    },
+  },
+};
 
-      <div class="date">发布时间：2019-04-27</div>
+const baz = obj?.foo?.bar?.baz(); // 42
+
+const safe = obj?.qux?.baz(); // undefined
+const safe2 = obj?.foo.bar.qux?.(); // undefined
+const safe3 = obj?.xxx?.yyy?.[0]; // undefined
+
+const willThrow = obj?.foo.bar.qux(); // Error: not a function
+  </code>
+</pre>
+<h3>顶层函数</h3>
+<pre>
+  <code class="language-js">
+function test() {
+  return 42;
+}
+
+test?.(); // 42
+exists?.(); // undefined
+  </code>
+</pre>
+<blockquote>类的写法同方法一样。</blockquote>
+<h2>用法</h2>
+<h3>安装插件</h3>
+<pre>
+  <code class="language-shell">
+yarn add @babel/plugin-proposal-optional-chaining -D
+  </code>
+</pre>
+<h3>.babelrc</h3>
+<pre>
+  <code class="language-js">
+{
+  "plugins": ["@babel/plugin-proposal-optional-chaining"]
+}
+  </code>
+</pre>
+
+      <div class="date">发布时间：2019-12-31</div>
       <div id="gitalk-container"></div>
     </div>
     <div class="nav-container">
