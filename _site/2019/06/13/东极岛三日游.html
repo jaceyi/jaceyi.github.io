@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="keywords" content="jaceyi, yijinchun, Jace, JaceYi, Jace Yi, 易进春, 易进春的博客, yi个程序猿, 前端, 前端开发, 前端博客">
+  <meta name="keywords" content="jaceyi,yijinchun,Jace,JaceYi,Jace Yi,易进春,易进春的博客,yi个程序猿,前端,前端开发,前端博客,旅游,生活">
   <meta name="description" content="易进春的个人博客，分享日常生活、学习笔记和踩过的那些坑~" />
   <title>东极岛三日游 - 易进春的博客【Web前端开发】</title>
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
@@ -20,7 +20,7 @@
   <div id="header" style="background-image: url(/images/bg-banner.jpeg)">
     <div class="top">
   <div class="title">
-    <a href="/">Jace Blog</a>
+    <a href="/">Jace's Blog</a>
   </div>
   <nav class="nav">
     <div class="item">
@@ -121,7 +121,8 @@
 
   <div class="container">
     <div class="main">
-      <h2>前言</h2>
+      <div class="article">
+        <h2>前言</h2>
 <p>本篇讲述2019年端午节去东极岛玩遇到的各种坑，总结一波，下次出行一定要计划的美美的~</p>
 <!--more-->
 <p>2019年端午节跟两个朋友计划去舟山东极岛玩几天。端午节是星期五，船票没抢到，行程调整为周四早上，苏州的那个朋友不方便就没来了。</p>
@@ -174,7 +175,8 @@
   <li>东极岛内几个岛的船票是在当地码头买，提前一个小时开售。</li>
 </ul>
 
-      <div class="date">发布时间：2019-06-13</div>
+        <div class="date">发布时间：2019-06-13</div>
+      </div>
       <div id="gitalk-container"></div>
     </div>
     <div class="nav-container">
@@ -244,12 +246,12 @@
   <script>
     (function (w, d) {
       var $nav = document.querySelector('.main-nav');
-      var $main = document.querySelector('.main');
+      var $article = document.querySelector('.article');
       var titleNodeNames = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
       var contentItems = [];
       var navItems = [];
-      for (var i = 0; i < $main.children.length; i++) {
-        var element = $main.children[i];
+      for (var i = 0; i < $article.children.length; i++) {
+        var element = $article.children[i];
         if (titleNodeNames.includes(element.nodeName)) {
           var link = document.createElement('a');
           link.href = '#' + element.innerText;

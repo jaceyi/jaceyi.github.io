@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="keywords" content="jaceyi, yijinchun, Jace, JaceYi, Jace Yi, 易进春, 易进春的博客, yi个程序猿, 前端, 前端开发, 前端博客">
+  <meta name="keywords" content="jaceyi,yijinchun,Jace,JaceYi,Jace Yi,易进春,易进春的博客,yi个程序猿,前端,前端开发,前端博客,JavaScript">
   <meta name="description" content="易进春的个人博客，分享日常生活、学习笔记和踩过的那些坑~" />
   <title>使用ES新语法提高开发效率 — Optional Chaining - 易进春的博客【Web前端开发】</title>
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
@@ -20,7 +20,7 @@
   <div id="header" style="background-image: url(/images/bg-banner.jpeg)">
     <div class="top">
   <div class="title">
-    <a href="/">Jace Blog</a>
+    <a href="/">Jace's Blog</a>
   </div>
   <nav class="nav">
     <div class="item">
@@ -119,7 +119,8 @@
 
   <div class="container">
     <div class="main">
-      <h2>前言</h2>
+      <div class="article">
+        <h2>前言</h2>
 <p>在现在 Object 属性链的调用中，很容易因使用不当导致某个属性不存在而抛出 <code>Cannot read property 'xxx' of undefined</code> 的错误。</p>
 <!--more-->
 <p>现在已经有一个草案 <a href="https://tc39.es/proposal-optional-chaining/">Optional Chaining</a> 可以很方便的解决这个问题。</p>
@@ -190,7 +191,8 @@ yarn add @babel/plugin-proposal-optional-chaining -D
   </code>
 </pre>
 
-      <div class="date">发布时间：2019-12-31</div>
+        <div class="date">发布时间：2019-12-31</div>
+      </div>
       <div id="gitalk-container"></div>
     </div>
     <div class="nav-container">
@@ -260,12 +262,12 @@ yarn add @babel/plugin-proposal-optional-chaining -D
   <script>
     (function (w, d) {
       var $nav = document.querySelector('.main-nav');
-      var $main = document.querySelector('.main');
+      var $article = document.querySelector('.article');
       var titleNodeNames = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
       var contentItems = [];
       var navItems = [];
-      for (var i = 0; i < $main.children.length; i++) {
-        var element = $main.children[i];
+      for (var i = 0; i < $article.children.length; i++) {
+        var element = $article.children[i];
         if (titleNodeNames.includes(element.nodeName)) {
           var link = document.createElement('a');
           link.href = '#' + element.innerText;

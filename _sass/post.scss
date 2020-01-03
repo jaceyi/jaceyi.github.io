@@ -76,6 +76,13 @@ li {
     margin-top: 24px;
     width: calc(100% - 190px);
 
+    .article {
+      background-image: linear-gradient(90deg, rgba(50, 0, 0, 0.05) 3%, rgba(0, 0, 0, 0) 3%), linear-gradient(360deg, rgba(50, 0, 0, 0.05) 3%, rgba(0, 0, 0, 0) 3%);
+      background-image: linear-gradient(90deg, rgba(50, 0, 0, 0.05) 3%, rgba(0, 0, 0, 0) 3%), linear-gradient(360deg, rgba(50, 0, 0, 0.05) 3%, rgba(0, 0, 0, 0) 3%);
+      background-size: 20px 20px;
+      background-position: center center;
+    }
+
     h1,
     h2,
     h3,
@@ -93,10 +100,11 @@ li {
 
     .date {
       color: #666;
-      text-align: right;
-      font-size: 14px;
+      text-align: center;
+      font-size: 13px;
       font-weight: 300;
       padding: 0 10px;
+      line-height: 1.6;
     }
   }
 
@@ -112,6 +120,7 @@ li {
   .main-nav {
     width: inherit;
     position: relative;
+    box-sizing: border-box;
     padding: 14px;
     height: 100%;
     transition: all 0.3s;
