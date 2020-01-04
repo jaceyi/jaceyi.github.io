@@ -35,7 +35,7 @@ li {
 }
 
 #header {
-  height: 400px;
+  min-height: 400px;
   background-position: center;
   background-size: cover;
   background-color: #888;
@@ -196,7 +196,7 @@ li {
   $containerWidth: 90vw;
 
   #header {
-    height: 260px;
+    min-height: 260px;
 
     .content {
       padding-top: 34px;
