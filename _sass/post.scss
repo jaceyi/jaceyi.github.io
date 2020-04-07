@@ -35,7 +35,7 @@ li {
 }
 
 #header {
-  height: 400px;
+  min-height: 400px;
   background-position: center;
   background-size: cover;
   background-color: #888;
@@ -110,7 +110,7 @@ li {
 
   .nav-container {
     position: relative;
-    width: 160px;
+    width: 200px;
     flex: 0 0 auto;
     margin-top: 24px;
     margin-left: 30px;
@@ -118,10 +118,9 @@ li {
   }
 
   .main-nav {
-    width: inherit;
     position: relative;
     box-sizing: border-box;
-    padding: 14px;
+    padding: 12px;
     height: 100%;
     transition: all 0.3s;
 
@@ -196,7 +195,7 @@ li {
   $containerWidth: 90vw;
 
   #header {
-    height: 260px;
+    min-height: 260px;
 
     .content {
       padding-top: 34px;
