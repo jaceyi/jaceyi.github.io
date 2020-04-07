@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="keywords" content="jaceyi,yijinchun,Jace,JaceYi,Jace Yi,易进春,易进春的博客,yi个程序猿,前端,前端开发,前端博客,CentOS,Shadowsocks">
   <meta name="description" content="易进春的个人博客，分享日常生活、学习笔记和踩过的那些坑~" />
-  <title>CentOS7 搭建 Shadowsocks - 易进春的博客【Web前端开发】</title>
+  <title>CentOS7 搭建 Shadowsocks 科学上网 - 易进春的博客【Web前端开发】</title>
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
   <link rel="stylesheet" href="/css/gitalk.css">
   <link rel="stylesheet" href="/css/prism.css">
@@ -106,7 +106,7 @@
 </script>
 
     <div class="content">
-      <h1 class="post-title">CentOS7 搭建 Shadowsocks</h1>
+      <h1 class="post-title">CentOS7 搭建 Shadowsocks 科学上网</h1>
       <div class="post-description">使用 CenOS7 搭建 Shadowsocks 并配置多用户多端口访问</div>
       <div class="post-date">2019-10-18</div>
       <div class="tags">
@@ -165,13 +165,14 @@ Shadowsocks-libev (pid 14577) is running...
 <p>查看编辑配置文件。</p>
 <pre>
   <code class="language-shell">
+# /etc/shadowsocks-libev/config.json
 {
-    "server": "0.0.0.0", #主机IP
-    "server_port": 5000, #Shadowsocks 服务在服务器端监听的端口
-    "local_port": 1080, #客户端的端口
-    "password": "XXXXXX", #密码
-    "timeout": 60, #连接超时时（单位：秒）
-    "method": "aes-256-cfb" #加密方式
+    "server": "0.0.0.0", # 主机IP
+    "server_port": 5000, # Shadowsocks 服务在服务器端监听的端口
+    "local_port": 1080, # 客户端的端口
+    "password": "XXXXXX", # 密码
+    "timeout": 60, # 连接超时时（单位：秒）
+    "method": "aes-256-cfb" # 加密方式
 }
   </code>
 </pre>

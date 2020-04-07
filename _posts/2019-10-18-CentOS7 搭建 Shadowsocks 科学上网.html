@@ -1,6 +1,6 @@
 ---
 layout: post
-title: CentOS7 搭建 Shadowsocks
+title: CentOS7 搭建 Shadowsocks 科学上网
 description: 使用 CenOS7 搭建 Shadowsocks 并配置多用户多端口访问
 tags: CentOS Shadowsocks
 bannerImg: /images/bg-banner.jpeg
@@ -48,13 +48,14 @@ Shadowsocks-libev (pid 14577) is running...
 <p>查看编辑配置文件。</p>
 <pre>
   <code class="language-shell">
+# /etc/shadowsocks-libev/config.json
 {
-    "server": "0.0.0.0", #主机IP
-    "server_port": 5000, #Shadowsocks 服务在服务器端监听的端口
-    "local_port": 1080, #客户端的端口
-    "password": "XXXXXX", #密码
-    "timeout": 60, #连接超时时（单位：秒）
-    "method": "aes-256-cfb" #加密方式
+    "server": "0.0.0.0", # 主机IP
+    "server_port": 5000, # Shadowsocks 服务在服务器端监听的端口
+    "local_port": 1080, # 客户端的端口
+    "password": "XXXXXX", # 密码
+    "timeout": 60, # 连接超时时（单位：秒）
+    "method": "aes-256-cfb" # 加密方式
 }
   </code>
 </pre>
