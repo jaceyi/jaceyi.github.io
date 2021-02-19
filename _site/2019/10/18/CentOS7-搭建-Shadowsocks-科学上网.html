@@ -5,11 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="keywords" content="jaceyi,yijinchun,Jace,JaceYi,Jace Yi,易进春,易进春的博客,yi个程序猿,前端,前端开发,前端博客,CentOS,Shadowsocks">
+  <meta name="keywords"
+    content="jaceyi,yijinchun,Jace,JaceYi,Jace Yi,易进春,易进春的博客,yi个程序猿,前端,前端开发,前端博客,CentOS,Shadowsocks">
   <meta name="description" content="易进春的个人博客，分享日常生活、学习笔记和踩过的那些坑~" />
   <title>CentOS7 搭建 Shadowsocks 科学上网 - 易进春的博客【Web前端开发】</title>
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
-  <link rel="stylesheet" href="/css/gitalk.css">
   <link rel="stylesheet" href="/css/prism.css">
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/post.css">
@@ -211,7 +211,6 @@ ps ax | grep ss-server
 
         <div class="date">发布时间：2019-10-18</div>
       </div>
-      <div id="gitalk-container"></div>
     </div>
     <div class="nav-container">
       <div class="main-nav">
@@ -319,22 +318,6 @@ ps ax | grep ss-server
       w.addEventListener('scroll', bindEvent);
       w.addEventListener('load', bindEvent);
     })(window, document)
-  </script>
-  <script src="/js/gitalk.js"></script>
-  <script src="/js/md5.min.js"></script>
-  <script>
-    const gitalk = new Gitalk({
-      clientID: '0f8a52875fe9bbe1f36a',
-      clientSecret: '89d33c21a76dd5e6368eb450f91c0d4c64c7d298',
-      repo: 'jaceyi.github.io',
-      owner: 'jaceyi',
-      admin: ['jaceyi'],
-      id: md5(location.pathname),
-      distractionFreeMode: false,
-      createIssueManually: true
-    });
-
-    gitalk.render('gitalk-container');
   </script>
 </body>
 
