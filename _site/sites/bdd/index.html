@@ -12,7 +12,7 @@
       padding: 0;
     }
 
-    .loader {
+    .arjs-loader {
       position: absolute;
       top: 0;
       left: 0;
@@ -33,23 +33,23 @@
 
     @keyframes move {
       0% {
-        transform: translate(-20px);
+        transform: translateX(-20px);
       }
 
       30% {
-        transform: translate(18px);
+        transform: translateX(18px);
       }
 
       32% {
-        transform: translate(19px);
+        transform: translateX(19px);
       }
 
       34% {
-        transform: translate(20px);
+        transform: translateX(20px);
       }
 
       100% {
-        transform: translate(-20px);
+        transform: translateX(-20px);
       }
     }
 
@@ -66,13 +66,24 @@
       color: #fff;
       margin-top: 3vh;
     }
+
+    .tip {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+      position: fixed;
+      z-index: 999;
+      right: 0;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    }
   </style>
   <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/aframe/1.0.4/aframe.min.js"></script>
   <script src="/sites/bdd/scripts/aframe-ar-nft.js"></script>
 </head>
 
 <body>
-  <div class="loader">
+  <div class="arjs-loader">
     <div class="content">
       <div class="image">
         <svg t="1644572330971" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -89,6 +100,9 @@
         <span>冰墩墩正在赶来的路上…</span>
       </div>
     </div>
+  </div>
+  <div class="tip">
+    请将摄像头对准冰墩墩和雪容融的图片
   </div>
   <a-scene vr-mode-ui="enabled: false;" device-orientation-permission-ui="enabled: false"
     renderer="logarithmicDepthBuffer: true;" embedded
