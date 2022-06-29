@@ -1,0 +1,7 @@
+I"O<h2 id="前言">前言</h2>
+
+<p>使用 <strong>Github Pages</strong> 可以让在 <strong>Github</strong> 托管的 HTML 代码以静态页面的形式展示。</p>
+
+<p><a href="https://jekyllrb.com/">Jekyll</a> 是 Github 官方推荐的工具，可以将 Markdown、Liquid、HTML 和 CSS 打包部署成为一个静态网页。</p>
+
+:ET

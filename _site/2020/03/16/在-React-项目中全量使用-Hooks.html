@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="keywords"
+    content="jaceyi,yijinchun,Jace,JaceYi,Jace Yi,易进春,易进春的博客,yi个程序猿,前端,前端开发,前端博客,CSS">
+  <meta name="description" content="易进春的个人博客，分享日常生活、学习笔记和踩过的那些坑~" />
+  <title>在 React 项目中全量使用 Hooks - 易进春的博客【Web前端开发】</title>
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/css/prism.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/post.css">
+  <script src="/js/util.js"></script>
+</head>
+
+<body>
+  <div id="header" style="background-image: url(/static/images/bg-banner.jpeg)">
+    <div class="top">
+  <div class="title">
+    <a href="/">Jace's Blog</a>
+  </div>
+  <nav class="nav">
+    <div class="item">
+      <a href="/">Home</a>
+    </div>
+    <div class="item">
+      <a href="/about">About</a>
+    </div>
+    <div class="item">
+      <a href="/tags">Tags</a>
+    </div>
+  </nav>
+  <div class="mobile-nav">
+    <div class="mobile-nav-menu icon">
+      <i class="iconfont">&#xe633;</i>
+    </div>
+    <div class="mobile-nav-box">
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/tags">Tags</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function (d, w) {
+    w.onload = function () {
+      var $menuIcon = d.querySelector('.mobile-nav-menu');
+      var $navBox = d.querySelector('.mobile-nav-box');
+      var animationEndCallback = null;
+      function hideNavBox() {
+        addClass($navBox, 'zoomOut');
+        animationEndCallback = function () {
+          removeClass($navBox, 'zoomOut');
+          $navBox.style.display = 'none';
+        }
+      }
+
+      $menuIcon.onclick = function (e) {
+        e.stopPropagation();
+        if ($navBox.style.display === 'block') return hideNavBox();
+        $navBox.style.display = 'block';
+        addClass($navBox, 'zoomIn');
+        animationEndCallback = function () {
+          removeClass($navBox, 'zoomIn');
+        }
+      };
+
+      $navBox.onclick = function (e) {
+        e.stopPropagation();
+      };
+
+      $navBox.addEventListener('animationend', function (e) {
+        animationEndCallback && animationEndCallback();
+      }, false);
+
+      d.body.addEventListener('click', function () {
+        if ($navBox.style.display === 'block') hideNavBox();
+      }, false);
+
+      var $header = d.querySelector('#header');
+      var $top = d.querySelector('.top');
+      var topHeight = $top.offsetHeight;
+      w.addEventListener('scroll', function () {
+        var scrollTop = d.documentElement.scrollTop || d.body.scrollTop;
+        var step = $header.className.indexOf('visible') >= 0 ? topHeight : 0;
+        if (scrollTop > $header.offsetHeight - step) {
+          addClass($header, 'active');
+        } else {
+          removeClass($header, 'active');
+        }
+      }, false);
+
+      d.addEventListener('mousewheel', function(e) {
+        if (e.wheelDeltaY >= 0) {
+          addClass($header, 'visible');
+        } else {
+          removeClass($header, 'visible');
+        }
+      })
+    }
+  })(document, window);
+</script>
+
+    <div class="content">
+      <h1 class="post-title">在 React 项目中全量使用 Hooks</h1>
+      <div class="post-description">React 全部 Hooks 总结，以及 React Redux、React Router 中常用 Hooks 整理。</div>
+      <div class="post-date">2020-03-16</div>
+      <div class="tags">
+        
+        <a class="tag" href="/tags/#CSS" title="CSS">CSS</a>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="main">
+      <div class="article">
+        <p>此文章只是整理了在 React 项目开发中常用的一些 Hooks，具体的用法及使用场景后续会持续跟新，并会加上链接。</p>
+
+<h2 id="react-hooks">React Hooks</h2>
+
+<blockquote>
+  <p>Hooks 只能用于函数组件当中。</p>
+</blockquote>
+
+<!--more-->
+
+<h3 id="usestate">useState</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">useState</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">Component</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">count</span><span class="p">,</span> <span class="nx">setCount</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">setCount</span><span class="p">(</span><span class="nx">count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)}</span><span class="o">&gt;</span><span class="nx">click</span><span class="o">&lt;</span><span class="sr">/button&gt;</span><span class="err">;
+</span><span class="p">};</span>
+</code></pre></div></div>
+
+<p>此方法会返回两个值：当期状态和更新状态的函数。效果同 <code class="language-plaintext highlighter-rouge">this.state</code> 与 <code class="language-plaintext highlighter-rouge">this.setState</code>，区别是 <code class="language-plaintext highlighter-rouge">useState</code> 传入的值并不一定要对象，并且在更新的时候不会把当前的 state 与旧的 state 合并。</p>
+
+<h3 id="usereducer">useReducer</h3>
+
+<p><code class="language-plaintext highlighter-rouge">useReducer</code> 接收两个参数，第一个是 reducer 函数，通过该函数可以更新 state，第二个参数为 state 的初始值，是 <code class="language-plaintext highlighter-rouge">useReducer</code> 返回的数组的第一个值，也是在 reducer 函数第一次被调用时传入的一个参数。</p>
+
+<p><strong>基础用法</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">useReducer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">Component</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">count</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useReducer</span><span class="p">((</span><span class="nx">count</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">case</span> <span class="dl">"</span><span class="s2">subtract</span><span class="dl">"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nx">count</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="k">case</span> <span class="dl">"</span><span class="s2">add</span><span class="dl">"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nx">count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">},</span> <span class="mi">0</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">span</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">count</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/span</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">dispatch</span><span class="p">(</span><span class="dl">"</span><span class="s2">subtract</span><span class="dl">"</span><span class="p">)}</span><span class="o">&gt;</span><span class="nx">subtract</span><span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">dispatch</span><span class="p">(</span><span class="dl">"</span><span class="s2">add</span><span class="dl">"</span><span class="p">)}</span><span class="o">&gt;</span><span class="nx">add</span><span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>在基础用法中，返回一个 dispatch 通过 dispatch 触发不同的 action 来加减 state。这里既然能传 <code class="language-plaintext highlighter-rouge">string</code> action 那么肯定也能传递更复杂的参数来面对更复杂的场景。</p>
+
+<p><strong>进阶用法</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">useReducer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">Component</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">userInfo</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useReducer</span><span class="p">(</span>
+    <span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="p">{</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">payload</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">switch</span> <span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="dl">"</span><span class="s2">setName</span><span class="dl">"</span><span class="p">:</span>
+          <span class="k">return</span> <span class="p">{</span>
+            <span class="p">...</span><span class="nx">state</span><span class="p">,</span>
+            <span class="na">name</span><span class="p">:</span> <span class="nx">payload</span><span class="p">,</span>
+          <span class="p">};</span>
+        <span class="k">case</span> <span class="dl">"</span><span class="s2">setAge</span><span class="dl">"</span><span class="p">:</span>
+          <span class="k">return</span> <span class="p">{</span>
+            <span class="p">...</span><span class="nx">state</span><span class="p">,</span>
+            <span class="na">age</span><span class="p">:</span> <span class="nx">payload</span><span class="p">,</span>
+          <span class="p">};</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Jace</span><span class="dl">"</span><span class="p">,</span>
+      <span class="na">age</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span>
+    <span class="p">}</span>
+  <span class="p">);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">dispatch</span><span class="p">({</span> <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">setName</span><span class="dl">"</span><span class="p">,</span> <span class="na">payload</span><span class="p">:</span> <span class="dl">"</span><span class="s2">John</span><span class="dl">"</span> <span class="p">})}</span><span class="o">&gt;</span>
+      <span class="nx">click</span>
+    <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h3 id="usecontext">useContext</h3>
+
+<p>在上述案例 <code class="language-plaintext highlighter-rouge">useReducer</code> 中，我们将函数的参数改为一个对象，分别有 <code class="language-plaintext highlighter-rouge">type</code> 和 <code class="language-plaintext highlighter-rouge">payload</code> 两个参数，<code class="language-plaintext highlighter-rouge">type</code> 用来决定更新什么数据，<code class="language-plaintext highlighter-rouge">payload</code> 则是更新的数据。写过 react-redux 的同学可能发这个 reducer 与 react-redux 中的 reducer 很像，我们借助 react-redux 的思想可以实现一个对象部分更改的 reducer ，那么我们便可以使用 React Hooks 的 <code class="language-plaintext highlighter-rouge">useContext</code> 来实现一个状态管理。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">useMemo</span><span class="p">,</span> <span class="nx">createContext</span><span class="p">,</span> <span class="nx">useContext</span><span class="p">,</span> <span class="nx">useReducer</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">createContext</span><span class="p">([]);</span>
+
+<span class="kd">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">reducerValue</span> <span class="o">=</span> <span class="nx">useReducer</span><span class="p">(</span>
+    <span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="p">{</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">payload</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">switch</span> <span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="dl">"</span><span class="s2">setName</span><span class="dl">"</span><span class="p">:</span>
+          <span class="k">return</span> <span class="p">{</span>
+            <span class="p">...</span><span class="nx">state</span><span class="p">,</span>
+            <span class="na">name</span><span class="p">:</span> <span class="nx">payload</span><span class="p">,</span>
+          <span class="p">};</span>
+        <span class="k">case</span> <span class="dl">"</span><span class="s2">setAge</span><span class="dl">"</span><span class="p">:</span>
+          <span class="k">return</span> <span class="p">{</span>
+            <span class="p">...</span><span class="nx">state</span><span class="p">,</span>
+            <span class="na">age</span><span class="p">:</span> <span class="nx">payload</span><span class="p">,</span>
+          <span class="p">};</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Jace</span><span class="dl">"</span><span class="p">,</span>
+      <span class="na">age</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span>
+    <span class="p">}</span>
+  <span class="p">);</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">reducerValue</span><span class="p">;</span>
+
+  <span class="kd">const</span> <span class="nx">storeValue</span> <span class="o">=</span> <span class="nx">useMemo</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">reducerValue</span><span class="p">,</span> <span class="nx">reducerValue</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">store</span><span class="p">.</span><span class="nx">Provider</span> <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="nx">storeValue</span><span class="p">}</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Child</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="sr">/store.Provider</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">Child</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useContext</span><span class="p">(</span><span class="nx">store</span><span class="p">);</span> <span class="c1">// 在子组件中使用</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">state</span><span class="p">);</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">dispatch</span><span class="p">({</span> <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">setName</span><span class="dl">"</span><span class="p">,</span> <span class="na">payload</span><span class="p">:</span> <span class="dl">"</span><span class="s2">John</span><span class="dl">"</span> <span class="p">})}</span><span class="o">&gt;</span>
+      <span class="nx">click</span>
+    <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h3 id="useeffect">useEffect</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">useState</span><span class="p">,</span> <span class="nx">useEffect</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">let</span> <span class="nx">timer</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">Component</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">count</span><span class="p">,</span> <span class="nx">setCount</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+  <span class="c1">// 类似于 class 组件的 componentDidMount 和 componentDidUpdate:</span>
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">`You clicked </span><span class="p">${</span><span class="nx">count</span><span class="p">}</span><span class="s2"> times`</span><span class="p">;</span>
+
+    <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="c1">// events ...</span>
+    <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="c1">// 类似 componentWillUnmount</span>
+      <span class="c1">// unmount events ...</span>
+      <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span> <span class="c1">// 组件卸载 移除计时器</span>
+    <span class="p">};</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">count</span><span class="p">]);</span>
+
+  <span class="c1">// ...</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>如果 <code class="language-plaintext highlighter-rouge">useEffect</code> 第二个参数数组内的值发生了变化，那么 <code class="language-plaintext highlighter-rouge">useEffect</code> 第一个参数的回调将会被再执行一遍。</p>
+
+<h3 id="uselayouteffect">useLayoutEffect</h3>
+
+<p><code class="language-plaintext highlighter-rouge">useLayoutEffect</code> 与 <code class="language-plaintext highlighter-rouge">useEffect</code> 的 API 相同，区别：<code class="language-plaintext highlighter-rouge">useEffect</code> 在浏览器渲染后执行，<code class="language-plaintext highlighter-rouge">useLayoutEffect</code> 在浏览器渲染之前执行，由于 JS 是单线程，所以 <code class="language-plaintext highlighter-rouge">useLayoutEffect</code> 还会阻塞浏览器的渲染。区别就是这，那么应用场景肯定是从区别中得到的，<code class="language-plaintext highlighter-rouge">useLayoutEffect</code> 在渲染前执行，也就是说我们如果有状态变了需要依据该状态来操作 DOM，为了避免状态变化导致组件渲染，然后更新 <code class="language-plaintext highlighter-rouge">DOM</code> 后又渲染，给用户肉眼能看到的闪烁，我们可以在这种情况下使用 <code class="language-plaintext highlighter-rouge">useLayoutEffect</code>。</p>
+
+<blockquote>
+  <p>当然这个不只是状态的改变，在任何导致组件重新渲染，而且又要改变 <code class="language-plaintext highlighter-rouge">DOM</code> 的情况下都是 <code class="language-plaintext highlighter-rouge">useLayoutEffect</code> 的使用场景。当然这种场景不多，<code class="language-plaintext highlighter-rouge">useLayoutEffect</code> 也不能多用，且使用时同步操作时长不能过长，不然会给用户带来明显的卡顿。</p>
+</blockquote>
+
+<h3 id="useref">useRef</h3>
+
+<p>细心的同学有可能发现我在上面写 <code class="language-plaintext highlighter-rouge">useEffect</code> 中有一个 <code class="language-plaintext highlighter-rouge">timer</code> 变量，我将其定义在了函数组件外面，这样写简单使用是没问题的，但是如果该组件在同一页面有多个实例，那么组件外部的这个变量将会成共用的，会带来一个冲突，所以我们需要一个能在函数组件声明周期内部的变量，可以使用 <code class="language-plaintext highlighter-rouge">useState</code> 中的 state 但是 state 发生变化组件也会随之刷新，在有些情况是不需要刷新的，只是想单纯的存一个值，例如计时器的 <code class="language-plaintext highlighter-rouge">timer</code> 以及子组件的 Ref 实例等等。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useRef</span><span class="p">,</span> <span class="nx">useState</span><span class="p">,</span> <span class="nx">useEffect</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">Compnent</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">timer</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">count</span><span class="p">,</span> <span class="nx">setCount</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">timer</span><span class="p">.</span><span class="nx">current</span><span class="p">);</span>
+    <span class="nx">timer</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">setCount</span><span class="p">(</span><span class="nx">count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">count</span><span class="p">]);</span>
+
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">UseRef</span> <span class="na">count</span><span class="p">:</span> <span class="p">{</span><span class="nx">count</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/div&gt;</span><span class="err">;
+</span><span class="p">};</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">useRef</code> 只接受一个参数，就是 初始值，之后可以通过赋值 <code class="language-plaintext highlighter-rouge">ref.current</code> 来更改，我们可以将一些不影响组件声明周期的参数放在 ref 中，还可以将 ref 直接传递给子组件，子元素。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">ref</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">();</span>
+
+<span class="o">&lt;</span><span class="nx">div</span> <span class="nx">ref</span><span class="o">=</span><span class="p">{</span><span class="nx">ref</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">Hello</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span><span class="c1">// or</span>
+<span class="o">&lt;</span><span class="nx">Child</span> <span class="nx">ref</span><span class="o">=</span><span class="p">{</span><span class="nx">ref</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span></code></pre></div></div>
+
+<p>或许有同学这时候会想到，当子组件为 Class 组件时，ref 获取的是 Class 组件的实例，上面包含 Class 的所有方法属性等。但当子组件为 Function 组件时，ref 能拿到什么，总不可能是 function 内定义的方法、变量。</p>
+
+<h3 id="useimperativehandle">useImperativeHandle</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useRef</span><span class="p">,</span> <span class="nx">useState</span><span class="p">,</span> <span class="nx">useImperativeHandle</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">ref</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">();</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">Child</span> <span class="nx">ref</span><span class="o">=</span><span class="p">{</span><span class="nx">ref</span><span class="p">}</span> <span class="sr">/&gt;</span><span class="err">;
+</span><span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">Child</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">forwardRef</span><span class="p">((</span><span class="nx">props</span><span class="p">,</span> <span class="nx">ref</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">inputRef</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">();</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">value</span><span class="p">,</span> <span class="nx">setValue</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+  <span class="nx">useImperativeHandle</span><span class="p">(</span><span class="nx">ref</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">({</span>
+    <span class="nx">value</span><span class="p">,</span> <span class="c1">// 内部变量</span>
+    <span class="nx">setValue</span><span class="p">,</span> <span class="c1">// 方法</span>
+    <span class="na">input</span><span class="p">:</span> <span class="nx">inputRef</span><span class="p">.</span><span class="nx">current</span><span class="p">,</span> <span class="c1">// Ref</span>
+  <span class="p">}));</span>
+
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="nx">value</span><span class="p">}</span> <span class="nx">inputRef</span><span class="o">=</span><span class="p">{</span><span class="nx">inputRef</span><span class="p">}</span> <span class="sr">/&gt;</span><span class="err">;
+</span><span class="p">});</span>
+</code></pre></div></div>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">useImperativeHandle</code> 钩子可以自定义将子组件中任何的变量，挂载到 ref 上。<code class="language-plaintext highlighter-rouge">React.forwardRef</code> 方法可以让组件能接收到 ref ，然后再使用或者透传到更下层。</p>
+
+<h3 id="usecallback">useCallback</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useCallback</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">Component</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">setUserInfo</span> <span class="o">=</span> <span class="p">(</span><span class="nx">payload</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{};</span> <span class="c1">// request api</span>
+
+  <span class="kd">const</span> <span class="nx">updateUserInfo</span> <span class="o">=</span> <span class="nx">useCallback</span><span class="p">(</span>
+    <span class="p">(</span><span class="nx">payload</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">setUserInfo</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">({},</span> <span class="nx">userInfo</span><span class="p">,</span> <span class="nx">payload</span><span class="p">));</span>
+    <span class="p">},</span>
+    <span class="p">[</span><span class="nx">userInfo</span><span class="p">]</span>
+  <span class="p">);</span>
+
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">UserCard</span> <span class="nx">updateUserInfo</span><span class="o">=</span><span class="p">{</span><span class="nx">updateUserInfo</span><span class="p">}</span> <span class="sr">/&gt;</span><span class="err">;
+</span><span class="p">};</span>
+</code></pre></div></div>
+
+<p>useCallback 会在二个参数的依赖项发生改变后才重新更新，如果将此函数传递到子组件时，每次父组件渲染此函数更新，就会导致子组件也重新渲染，可以通过传递第二个参数以避免一些非必要性的渲染。</p>
+
+<h3 id="usememo">useMemo</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useMemo</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">Component</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">count</span><span class="p">,</span> <span class="nx">setCount</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+  <span class="kd">const</span> <span class="nx">sum</span> <span class="o">=</span> <span class="nx">useMemo</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// 求和逻辑</span>
+    <span class="k">return</span> <span class="nx">sum</span><span class="p">;</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">count</span><span class="p">]);</span>
+
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">sum</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/div&gt;</span><span class="err">;
+</span><span class="p">};</span>
+</code></pre></div></div>
+
+<p>useMemo 的用法跟 useCallback 一样，区别就是一个返回的是缓存的方法，一个返回的是缓存的值。上述如果依赖值 count 不发生变化，计算 sum 的逻辑也就只会执行一次，从而性能。</p>
+
+<blockquote>
+  <p>这是之后更新的：<a href="https://juejin.im/post/6844904101445124110">useCallback 与 useMemo 详解</a> 欢迎阅读。</p>
+</blockquote>
+
+<h2 id="react-redux-hooks">React Redux Hooks</h2>
+
+<h3 id="useselector">useSelector</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">shallowEqual</span><span class="p">,</span> <span class="nx">useSelector</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react-redux</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">Component</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">userInfo</span> <span class="o">=</span> <span class="nx">useSelector</span><span class="p">((</span><span class="nx">state</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">state</span><span class="p">.</span><span class="nx">userInfo</span><span class="p">,</span> <span class="nx">shallowEqual</span><span class="p">);</span>
+
+  <span class="c1">// ...</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>useSelector 的第二个参数是一个比较函数，useSelector 中默认使用的是 <code class="language-plaintext highlighter-rouge">===</code> 来判断两次计算的结果是否相同，如果我们返回的是一个对象，那么在 useSelector 中每次调用都会返回一个新对象，所以所以为了减少一些没必要的 <code class="language-plaintext highlighter-rouge">re-render</code>，我们可以使用一些比较函数，如 react-redux 自带的 <code class="language-plaintext highlighter-rouge">shallowEqual</code>，或者是 Lodash 的 <code class="language-plaintext highlighter-rouge">_.isEqual()</code>、Immutable 的比较功能。</p>
+
+<h3 id="usedispatch">useDispatch</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useCallback</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">useDispatch</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-redux</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">Compnent</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">dispatch</span> <span class="o">=</span> <span class="nx">useDispatch</span><span class="p">();</span>
+  <span class="kd">const</span> <span class="nx">clearUserInfo</span> <span class="o">=</span> <span class="nx">useCallback</span><span class="p">(</span>
+    <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">dispatch</span><span class="p">({</span> <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">clearUserInfo</span><span class="dl">'</span> <span class="p">}),</span>
+    <span class="p">[</span><span class="nx">dispatch</span><span class="p">]</span>
+  <span class="p">);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">clearUserInfo</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">click</span><span class="o">&lt;</span><span class="sr">/buttn</span><span class="err">&gt;
+</span>  <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">dispatch</code> 来调度操作，加上 <code class="language-plaintext highlighter-rouge">useCallback</code> 来减少不必要的渲染。</p>
+
+<h2 id="react-router-hooks">React Router Hooks</h2>
+
+<h3 id="usehistory">useHistory</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">useHistory</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-router</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">Compnent</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">history</span> <span class="o">=</span> <span class="nx">useHistory</span><span class="p">();</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">history</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="dl">'</span><span class="s1">/home</span><span class="dl">'</span><span class="p">)}</span><span class="o">&gt;</span><span class="nx">go</span> <span class="nx">home</span><span class="o">&lt;</span><span class="sr">/buttn</span><span class="err">&gt;
+</span>  <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="uselocation">useLocation</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useEffect</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react</span><span class="dl">"</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">useLocation</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react-router</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">Compnent</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">location</span> <span class="o">=</span> <span class="nx">useLocation</span><span class="p">();</span>
+
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">location</span><span class="p">]);</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>URL 一发生变化，将返回新的 <code class="language-plaintext highlighter-rouge">location</code> ，一般可以用来监听 <code class="language-plaintext highlighter-rouge">location.search</code> 。</p>
+
+<h3 id="useparams">useParams</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">useParams</span><span class="p">,</span> <span class="nx">useEffect</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react-router</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">Component</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">params</span> <span class="o">=</span> <span class="nx">useParams</span><span class="p">();</span>
+
+  <span class="kd">const</span> <span class="nx">getUserInfo</span> <span class="o">=</span> <span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// request api</span>
+    <span class="c1">// some event</span>
+  <span class="p">};</span>
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// parms 的 uid 发生变化就会重新请求用户信息</span>
+    <span class="nx">getUserInfo</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">uid</span><span class="p">);</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">params</span><span class="p">.</span><span class="nx">uid</span><span class="p">]);</span>
+
+  <span class="c1">// ...</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>useParams 返回 react-router 的参数键值对</p>
+
+<h3 id="useroutematch">useRouteMatch</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">useRouteMatch</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">react-router</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">Component</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">match</span> <span class="o">=</span> <span class="nx">useRouteMatch</span><span class="p">(</span><span class="dl">"</span><span class="s2">/login</span><span class="dl">"</span><span class="p">);</span>
+
+  <span class="c1">// ...</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>useRouteMatch 可以传入一个参数 <code class="language-plaintext highlighter-rouge">path</code>，不传参数则返回当前路由的参数信息，如果传了参数则用来判断当前路由是否能匹配上传递的 <code class="language-plaintext highlighter-rouge">path</code>，适用于判断一些全局性组件在不同路由下差异化的展示。</p>
+
+<h3 id="结语">结语</h3>
+
+<p>使用 Hooks 能为开发提升不少效率，但并不代表就要抛弃 Class Component，依旧还有很多场景我们还得用到它，比如需要封装一个公共的可继承的组件，当然通过自定义 hooks 也能将一些共用的逻辑进行封装，以便再多个组件内共用。</p>
+
+<p>推荐一篇我后来写的文章吧 <a href="https://juejin.im/post/6864871906567749645">在 React 中自定义 Hooks 的应用场景</a> ，此篇文章主要讲一些 Hooks 的高阶应用。</p>
+
+<p>参考</p>
+
+<ul>
+  <li><a href="https://reactjs.org/docs/hooks-intro.html">React Hooks</a></li>
+  <li><a href="https://react-redux.js.org/api/hooks">React Redux Hooks</a></li>
+  <li><a href="https://reacttraining.com/react-router/web/api/Hooks">React Router Hooks</a></li>
+</ul>
+
+        <div class="date">发布时间：2020-03-16</div>
+      </div>
+    </div>
+    <div class="nav-container">
+      <div class="main-nav">
+        <div class="title">目录</div>
+      </div>
+    </div>
+  </div>
+  <footer id="footer">
+  <a href="https://github.com/jaceyi">
+    <i class="iconfont">&#xe600;</i>
+  </a>
+  <a href="https://juejin.im/user/5a3b2016f265da43231b22a7">
+    <i class="iconfont">&#xe610;</i>
+  </a>
+  <a href="https://twitter.com/jaceyi123">
+    <i class="iconfont">&#xe602;</i>
+  </a>
+  <a href="https://www.facebook.com/jaceyi123">
+    <i class="iconfont">&#xe635;</i>
+  </a>
+</footer>
+
+  <div class="back-top">
+  <i class="iconfont">&#xe6d9;</i>
+</div>
+<script>
+  (function (d, w) {
+    function scrollTo(targetY) {
+      var currentY =
+        d.documentElement.scrollTop || d.body.scrollTop;
+      var distance = targetY - currentY;
+      var num = 0;
+
+      function animate() {
+        var currentY =
+          d.documentElement.scrollTop || d.body.scrollTop;
+        w.scrollTo(0, currentY + distance / 10);
+        num++;
+        if (num === 10) return;
+        w.requestAnimationFrame(animate);
+      }
+
+      animate();
+    }
+    var $upTop = d.querySelector('.back-top');
+
+    $upTop.onclick = function () {
+      scrollTo(0);
+    };
+
+    function bindEvent() {
+      var scrollTop = d.documentElement.scrollTop || d.body.scrollTop;
+      if (scrollTop > 100) {
+        $upTop.style.display = 'block';
+      } else {
+        $upTop.style.display = 'none';
+      }
+    }
+
+    w.addEventListener('scroll', bindEvent);
+    w.addEventListener('load', bindEvent);
+  })(document, window);
+</script>
+
+  <script src="/js/prism.js"></script>
+  <script>
+    (function (w, d) {
+      var $nav = document.querySelector('.main-nav');
+      var $article = document.querySelector('.article');
+      var titleNodeNames = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
+      var contentItems = [];
+      var navItems = [];
+      for (var i = 0; i < $article.children.length; i++) {
+        var element = $article.children[i];
+        if (titleNodeNames.includes(element.nodeName)) {
+          var link = document.createElement('a');
+          link.href = '#' + element.innerText;
+          link.innerText = element.innerText;
+          link.setAttribute('data-head', element.nodeName)
+
+          $nav.appendChild(link);
+          navItems.push(link);
+          element.id = element.innerText;
+          contentItems.push(element);
+        }
+      }
+
+      function bindEvent() {
+        var scrollTop = d.documentElement.scrollTop || d.body.scrollTop;
+        if (scrollTop >= $nav.parentNode.offsetTop) {
+          addClass($nav, 'active');
+        } else {
+          removeClass($nav, 'active');
+        }
+        for (var i = 0; i < navItems.length; i++) {
+          removeClass(navItems[i], 'active');
+        }
+        for (var i = contentItems.length - 1; i >= 0; i--) {
+          if (scrollTop >= getElementTop(contentItems[i])) {
+            addClass(navItems[i], 'active');
+            return;
+          }
+        }
+        addClass(navItems[0], 'active');
+      }
+      w.addEventListener('scroll', bindEvent);
+      w.addEventListener('load', bindEvent);
+    })(window, document)
+  </script>
+</body>
+
+</html>

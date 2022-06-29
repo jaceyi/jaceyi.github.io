@@ -1,0 +1,73 @@
+I"�<h2>前言</h2>
+<p>在现在 Object 属性链的调用中，很容易因使用不当导致某个属性不存在而抛出 <code>Cannot read property 'xxx' of undefined</code> 的错误。</p>
+<!--more-->
+<p>现在已经有一个草案 <a href="https://tc39.es/proposal-optional-chaining/">Optional Chaining</a> 可以很方便的解决这个问题。</p>
+<h2>例子</h2>
+<h3>访问深层次嵌套的属性</h3>
+<pre>
+  <code class="language-js">
+const obj = {
+  foo: {
+    bar: {
+      baz: 42
+    }
+  }
+};
+
+const baz = obj?.foo?.bar?.baz; // 42
+
+const safe = obj?.qux?.baz; // undefined
+  </code>
+</pre>
+<h3>调用层次嵌套的函数</h3>
+<pre>
+  <code class="language-js">
+const obj = {
+  foo: {
+    bar: {
+      baz() {
+        return 42;
+      }
+    }
+  }
+};
+
+const baz = obj?.foo?.bar?.baz(); // 42
+
+const safe = obj?.qux?.baz(); // undefined
+const safe2 = obj?.foo.bar.qux?.(); // undefined
+const safe3 = obj?.xxx?.yyy?.[0]; // undefined
+
+const willThrow = obj?.foo.bar.qux(); // Error: not a function
+  </code>
+</pre>
+<h3>顶层函数</h3>
+<pre>
+  <code class="language-js">
+function test() {
+  return 42;
+}
+
+test?.(); // 42
+exists?.(); // undefined
+  </code>
+</pre>
+<blockquote>
+  <p>类的写法同方法一样。</p>
+</blockquote>
+<h2>用法</h2>
+<h3>安装插件</h3>
+<pre>
+  <code class="language-shell">
+yarn add @babel/plugin-proposal-optional-chaining -D
+  </code>
+</pre>
+<h3>.babelrc</h3>
+<pre>
+  <code class="language-json">
+{
+  "plugins": ["@babel/plugin-proposal-optional-chaining"]
+}
+  </code>
+</pre>
+:ET

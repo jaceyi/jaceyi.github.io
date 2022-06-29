@@ -1,0 +1,31 @@
+I"�<h2 id="前言">前言</h2>
+
+<p>先了解一下 Contenteditable 属性的作用：规定元素内容是否可编辑。</p>
+
+<h2 id="案例">案例</h2>
+
+<p>给页面加上 style 标签，设置 style 属性为 display: block，contenteditable 属性为 true。</p>
+
+<!--more-->
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;pre&gt;</span>
+  <span class="nt">&lt;code</span> <span class="na">class=</span><span class="s">"language-html"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;style </span><span class="na">style=</span><span class="s">"display: block"</span> <span class="na">contenteditable=</span><span class="s">"true"</span><span class="nt">&gt;</span>
+  <span class="nt">body</span> <span class="p">{</span>
+    <span class="nl">color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+  <span class="nt">&lt;/code&gt;</span>
+<span class="nt">&lt;/pre&gt;</span>
+</code></pre></div></div>
+
+<h2>实时编辑</h2>
+<p>效果如下，选中下方内容，可以编辑并且能影响到本页面的样式。</p>
+<style style="display: block; border: 1px solid #ddd; padding: 10px; background-color: #f5f2f0;" contenteditable="true">
+  body .container {
+    color: red;
+  }
+</style>
+
+<p>编辑的时候不能换行，否则就会插入一个 div 导致后面的样式失效。</p>
+:ET

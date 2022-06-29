@@ -15,15 +15,6 @@ a {
   cursor: pointer;
 }
 
-code {
-  padding: 2px 4px;
-  color: $red;
-  background-color: #f9f2f4;
-  border-radius: 4px;
-  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-  word-break: break-all;
-}
-
 blockquote {
   background: #fafbfc;
   border-left: 6px solid #e0e0e0;
@@ -46,19 +37,15 @@ p {
   line-height: 1.8;
 }
 
-pre[class*="language-"] {
-  padding: 0 1.5em;
-  word-break: break-all;
-}
-
 @font-face {
-  font-family: 'iconfont';  /* project id 1049298 */
+  font-family: 'iconfont';
+  /* project id 1049298 */
   src: url('//at.alicdn.com/t/font_1049298_79f2l2wsdba.eot');
   src: url('//at.alicdn.com/t/font_1049298_79f2l2wsdba.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_1049298_79f2l2wsdba.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_1049298_79f2l2wsdba.woff') format('woff'),
-  url('//at.alicdn.com/t/font_1049298_79f2l2wsdba.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_1049298_79f2l2wsdba.svg#iconfont') format('svg');
+    url('//at.alicdn.com/t/font_1049298_79f2l2wsdba.woff2') format('woff2'),
+    url('//at.alicdn.com/t/font_1049298_79f2l2wsdba.woff') format('woff'),
+    url('//at.alicdn.com/t/font_1049298_79f2l2wsdba.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_1049298_79f2l2wsdba.svg#iconfont') format('svg');
 }
 
 .iconfont {

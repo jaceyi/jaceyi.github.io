@@ -1,0 +1,39 @@
+I")<h2 id="前言">前言</h2>
+
+<p>在日常开发中经常有遇到判断一个变量是否存在，存在就用它不存在就用另一个。</p>
+
+<!--more-->
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">foo</span> <span class="p">?</span> <span class="nx">foo</span> <span class="p">:</span> <span class="k">default</span>
+</code></pre></div></div>
+
+<p>以上这种写法虽说是可以简写为 <code>foo || default</code> 但是在很多情况下我们又需要将 <code>0</code> 等假值展示出来，还要加以判断。</p>
+<p>现在已经有一个草案 <a href="https://tc39.es/proposal-nullish-coalescing/">Nullish Coalescing Operator</a> 可以很方便的解决这个问题。它内部是将
+  <code>null</code> 和 <code>undefined</code> 过滤掉了。
+</p>
+<h2>例子</h2>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">baz</span> <span class="o">=</span> <span class="nx">a</span> <span class="p">??</span> <span class="dl">'</span><span class="s1">default</span><span class="dl">'</span><span class="p">;</span> <span class="c1">// 'default'</span>
+
+<span class="kd">const</span> <span class="nx">b</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">baz2</span> <span class="o">=</span> <span class="nx">b</span> <span class="p">??</span> <span class="dl">'</span><span class="s1">default</span><span class="dl">'</span><span class="p">;</span> <span class="c1">// 'default'</span>
+
+<span class="kd">const</span> <span class="nx">c</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">baz3</span> <span class="o">=</span> <span class="nx">c</span> <span class="p">??</span> <span class="dl">'</span><span class="s1">default</span><span class="dl">'</span><span class="p">;</span> <span class="c1">// 0</span>
+
+<span class="kd">const</span> <span class="nx">d</span> <span class="o">=</span> <span class="kc">NaN</span><span class="p">;</span>
+<span class="nx">conost</span> <span class="nx">baz4</span> <span class="o">=</span> <span class="nx">d</span> <span class="p">??</span> <span class="dl">'</span><span class="s1">default</span><span class="dl">'</span><span class="p">;</span> <span class="c1">// NaN</span>
+
+</code></pre></div></div>
+
+<h2>用法</h2>
+<h3>安装插件</h3>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yarn add @babel/plugin-proposal-nullish-coalescing-operator <span class="nt">-D</span>
+</code></pre></div></div>
+<h3 id="babelrc">.babelrc</h3>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"plugins"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"@babel/plugin-proposal-nullish-coalescing-operator"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+:ET

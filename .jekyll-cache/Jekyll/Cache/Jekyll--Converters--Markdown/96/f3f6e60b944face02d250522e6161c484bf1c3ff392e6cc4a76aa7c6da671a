@@ -1,0 +1,44 @@
+I"�<h2>前言</h2>
+<p>在日常开发中经常有遇到判断一个变量是否存在，存在就用它不存在就用另一个。</p>
+<!--more-->
+<pre>
+  <code class="language-js">
+foo ? foo : default
+  </code>
+</pre>
+<p>以上这种写法虽说是可以简写为 <code>foo || default</code> 但是在很多情况下我们又需要将 <code>0</code> 等假值展示出来，还要加以判断。</p>
+<p>现在已经有一个草案 <a href="https://tc39.es/proposal-nullish-coalescing/">Nullish Coalescing Operator</a> 可以很方便的解决这个问题。它内部是将
+  <code>null</code> 和 <code>undefined</code> 过滤掉了。
+</p>
+<h2>例子</h2>
+<pre>
+  <code class="language-js">
+const a = undefined;
+const baz = a ?? 'default'; // 'default'
+
+const b = null;
+const baz2 = b ?? 'default'; // 'default'
+
+const c = 0;
+const baz3 = c ?? 'default'; // 0
+
+const d = NaN;
+conost baz4 = d ?? 'default'; // NaN
+  </code>
+</pre>
+<h2>用法</h2>
+<h3>安装插件</h3>
+<pre>
+  <code class="language-shell">
+yarn add @babel/plugin-proposal-nullish-coalescing-operator -D
+  </code>
+</pre>
+<h3>.babelrc</h3>
+<pre>
+  <code class="language-json">
+{
+  "plugins": ["@babel/plugin-proposal-nullish-coalescing-operator"]
+}
+  </code>
+</pre>
+:ET

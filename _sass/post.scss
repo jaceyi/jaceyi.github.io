@@ -90,12 +90,12 @@ li {
     h5,
     h6 {
       line-height: 1;
-      margin: 24px 0 16px;
+      margin: 36px 0 18px;
       color: #333;
     }
 
     p {
-      margin: 20px 0;
+      margin: 18px 0;
     }
 
     .date {
@@ -105,6 +105,36 @@ li {
       font-weight: 300;
       padding: 0 10px;
       line-height: 1.6;
+    }
+
+    blockquote {
+      p {
+        margin: 0;
+      }
+    }
+
+    pre {
+      padding: 10px 12px;
+      border-radius: 4px;
+      word-break: break-all;
+      font-size: 13px;
+      line-height: 1.75;
+
+      code {
+        padding: 0;
+      }
+    }
+
+    .highlighter-rouge {
+      padding: 2px 4px;
+      color: $red;
+      background-color: #f9f2f4;
+      border-radius: 4px;
+      font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    }
+
+    .token.operator {
+      background-color: transparent;
     }
   }
 
@@ -154,6 +184,14 @@ li {
         background: repeating-linear-gradient(90deg, #e4f6fd 0%, #f0f8fb 30%, #fff 100%);
         color: $color;
       }
+    }
+
+    a[data-head="H3"] {
+      padding-left: 18px;
+    }
+
+    a[data-head="H4"] {
+      padding-left: 30px;
     }
   }
 }

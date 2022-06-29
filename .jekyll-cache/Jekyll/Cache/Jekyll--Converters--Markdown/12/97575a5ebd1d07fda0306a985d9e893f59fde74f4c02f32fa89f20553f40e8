@@ -1,0 +1,87 @@
+I"<h2>前言</h2>
+<p>想要搭梯子肯定是需要一台国外的服务器，这里推荐买香港的服务器，延迟低一些。</p>
+<!--more-->
+<h2>安装</h2>
+<h3>下载安装文件</h3>
+<pre>
+  <code class="language-shell">
+wget --no-check-certificate -O shadowsocks-libev.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-libev.sh
+  </code>
+</pre>
+<h3>给予文件执行权限</h3>
+<pre>
+  <code class="language-shell">
+chmod +x shadowsocks-libev.sh
+  </code>
+</pre>
+<h3>执行文件</h3>
+<pre>
+  <code class="language-shell">
+./shadowsocks-libev.sh 2&gt;&amp;1 | tee shadowsocks-libev.log
+  </code>
+</pre>
+<p>执行完上一步命令后会提示让输入密码、端口号以及加密方式，这里推荐选择 [aes-256-cfb] 加密方式，接下来按任意键开始安装安装。安装完成后会显示你之前设置的配置参数。</p>
+<h2>安装完成</h2>
+<p>使用 <code>service shadowsocks status</code> 命令查看 Shadowsocks 运行状态。这里记住要将服务器防火墙的对应端口打开。</p>
+<pre>
+  <code class="language-shell">
+service shadowsocks status
+
+Shadowsocks-libev (pid 14577) is running...
+  </code>
+</pre>
+<p>相关命令</p>
+<ul>
+  <li><code>service shadowsocks start</code> 启动服务</li>
+  <li><code>service shadowsocks stop</code> 停止服务</li>
+  <li><code>service shadowsocks restart</code> 重启服务</li>
+  <li><code>service shadowsocks status</code> 查看服务状态</li>
+</ul>
+<h3>配置文件</h3>
+<p>查看编辑配置文件。</p>
+<pre>
+  <code class="language-shell">
+# /etc/shadowsocks-libev/config.json
+{
+    "server": "0.0.0.0", # 主机IP
+    "server_port": 5000, # Shadowsocks 服务在服务器端监听的端口
+    "local_port": 1080, # 客户端的端口
+    "password": "XXXXXX", # 密码
+    "timeout": 60, # 连接超时时（单位：秒）
+    "method": "aes-256-cfb" # 加密方式
+}
+  </code>
+</pre>
+<h2>客户端</h2>
+<ul>
+  <li><a href="https://github.com/shadowsocks/shadowsocks-windows/releases">Windows 版本</a></li>
+  <li><a href="https://github.com/shadowsocks/shadowsocks-iOS/releases">Mac 版本</a></li>
+</ul>
+<p>下载客户端设置对应配置即可。走到这里已经实现了科学上网，能访问 Google 了。</p>
+<h2>多用户配置</h2>
+<p>复制配置文件，并编辑新的配置文件，设置端口密码等。一个用户一个配置文件。</p>
+<pre>
+  <code class="language-shell">
+cp /etc/shadowsocks-libev/config.json /etc/shadowsocks-libev/user2.json
+
+vim /etc/shadowsocks-libev/user2.json
+  </code>
+</pre>
+<p>根据新的配置启动 ss-server 服务， 服务启动后就可在客户客户端进行访问了。</p>
+<pre>
+  <code class="language-shell">
+setsid ss-server -c /etc/shadowsocks-libev/user2.json -u
+  </code>
+</pre>
+<p>使用 <code>ps ax | grep ss-server</code> 查看服务进程的PID</p>
+<pre>
+  <code class="language-shell">
+ps ax | grep ss-server
+
+24145 ?        Ss     0:00 /usr/local/bin/ss-server -v -c /etc/shadowsocks-libev/config.json -f /var/run/shadowsocks-libev.pid
+25575 ?        Ss     0:00 ss-server -c /etc/shadowsocks-libev/user2.json
+25591 pts/0    R+     0:00 grep --color=auto ss-server
+  </code>
+</pre>
+<p>使用 <code>netstat -lnp</code> 查看监听的端口，使用 <code>kill [PID]</code> 终止 <code>ss-server</code> 启动的服务进程。</p>
+:ET

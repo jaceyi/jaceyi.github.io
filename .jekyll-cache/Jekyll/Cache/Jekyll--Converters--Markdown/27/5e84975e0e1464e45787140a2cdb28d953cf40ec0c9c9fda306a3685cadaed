@@ -1,0 +1,10 @@
+I"
+<h2 id="前言">前言</h2>
+
+<p>先了解一下 Contenteditable 属性的作用：规定元素内容是否可编辑。</p>
+
+<h2 id="案例">案例</h2>
+
+<p>给页面加上 style 标签，设置 style 属性为 display: block，contenteditable 属性为 true。</p>
+
+:ET

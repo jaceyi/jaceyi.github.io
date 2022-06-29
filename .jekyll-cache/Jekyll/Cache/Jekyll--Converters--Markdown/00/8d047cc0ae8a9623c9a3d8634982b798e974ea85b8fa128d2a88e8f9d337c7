@@ -1,0 +1,94 @@
+I"<h2 id="前言">前言</h2>
+
+<p>想要搭梯子肯定是需要一台国外的服务器，这里推荐买香港的服务器，延迟低一些。</p>
+
+<!--more-->
+
+<h2 id="安装">安装</h2>
+
+<h3 id="下载安装文件">下载安装文件</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget <span class="nt">--no-check-certificate</span> <span class="nt">-O</span> shadowsocks-libev.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-libev.sh
+</code></pre></div></div>
+
+<h3 id="给予文件执行权限">给予文件执行权限</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">chmod</span> +x shadowsocks-libev.sh
+</code></pre></div></div>
+
+<h3 id="执行文件">执行文件</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./shadowsocks-libev.sh 2&gt;&amp;1 | <span class="nb">tee </span>shadowsocks-libev.log
+</code></pre></div></div>
+
+<p>执行完上一步命令后会提示让输入密码、端口号以及加密方式，这里推荐选择 [aes-256-cfb] 加密方式，接下来按任意键开始安装安装。安装完成后会显示你之前设置的配置参数。</p>
+
+<h2 id="安装完成">安装完成</h2>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">service shadowsocks status</code> 命令查看 Shadowsocks 运行状态。这里记住要将服务器防火墙的对应端口打开。</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>service shadowsocks status
+
+Shadowsocks-libev <span class="o">(</span>pid 14577<span class="o">)</span> is running...
+</code></pre></div></div>
+
+<p><strong>相关命令</strong></p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">service shadowsocks start</code> 启动服务</li>
+  <li><code class="language-plaintext highlighter-rouge">service shadowsocks stop</code> 停止服务</li>
+  <li><code class="language-plaintext highlighter-rouge">service shadowsocks restart</code> 重启服务</li>
+  <li><code class="language-plaintext highlighter-rouge">service shadowsocks status</code> 查看服务状态</li>
+</ul>
+
+<h3 id="配置文件">配置文件</h3>
+
+<p>查看编辑配置文件。</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># /etc/shadowsocks-libev/config.json</span>
+<span class="o">{</span>
+    <span class="s2">"server"</span>: <span class="s2">"0.0.0.0"</span>, <span class="c"># 主机IP</span>
+    <span class="s2">"server_port"</span>: 5000, <span class="c"># Shadowsocks 服务在服务器端监听的端口</span>
+    <span class="s2">"local_port"</span>: 1080, <span class="c"># 客户端的端口</span>
+    <span class="s2">"password"</span>: <span class="s2">"XXXXXX"</span>, <span class="c"># 密码</span>
+    <span class="s2">"timeout"</span>: 60, <span class="c"># 连接超时时（单位：秒）</span>
+    <span class="s2">"method"</span>: <span class="s2">"aes-256-cfb"</span> <span class="c"># 加密方式</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="客户端">客户端</h2>
+
+<ul>
+  <li><a href="https://github.com/shadowsocks/shadowsocks-windows/releases">Windows 版本</a></li>
+  <li><a href="https://github.com/shadowsocks/shadowsocks-iOS/releases">Mac 版本</a></li>
+</ul>
+
+<p>下载客户端设置对应配置即可。走到这里已经实现了科学上网，能访问 Google 了。</p>
+
+<h2 id="多用户配置">多用户配置</h2>
+
+<p>复制配置文件，并编辑新的配置文件，设置端口密码等。一个用户一个配置文件。</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cp</span> /etc/shadowsocks-libev/config.json /etc/shadowsocks-libev/user2.json
+
+vim /etc/shadowsocks-libev/user2.json
+</code></pre></div></div>
+
+<p>根据新的配置启动 ss-server 服务， 服务启动后就可在客户客户端进行访问了。</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>setsid ss-server <span class="nt">-c</span> /etc/shadowsocks-libev/user2.json <span class="nt">-u</span>
+</code></pre></div></div>
+
+<p>使用 <code>ps ax | grep ss-server</code> 查看服务进程的PID</p>
+<pre>
+  <code class="language-shell">
+ps ax | grep ss-server
+
+24145 ? Ss 0:00 /usr/local/bin/ss-server -v -c /etc/shadowsocks-libev/config.json -f /var/run/shadowsocks-libev.pid
+25575 ? Ss 0:00 ss-server -c /etc/shadowsocks-libev/user2.json
+25591 pts/0 R+ 0:00 grep --color=auto ss-server
+</code>
+
+</pre>
+<p>使用 <code>netstat -lnp</code> 查看监听的端口，使用 <code>kill [PID]</code> 终止 <code>ss-server</code> 启动的服务进程。</p>
+:ET

@@ -9,7 +9,7 @@
     content="jaceyi,yijinchun,Jace,JaceYi,Jace Yi,易进春,易进春的博客,yi个程序猿,前端,前端开发,前端博客,JavaScript">
   <meta name="description" content="易进春的个人博客，分享日常生活、学习笔记和踩过的那些坑~" />
   <title>使用ES新语法提高开发效率 — Optional Chaining - 易进春的博客【Web前端开发】</title>
-  <link rel="shortcut icon" type="image/x-icon" href="/static/images/favicon.ico" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="stylesheet" href="/css/prism.css">
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/post.css">
@@ -120,76 +120,79 @@
   <div class="container">
     <div class="main">
       <div class="article">
-        <h2>前言</h2>
-<p>在现在 Object 属性链的调用中，很容易因使用不当导致某个属性不存在而抛出 <code>Cannot read property 'xxx' of undefined</code> 的错误。</p>
+        <h2 id="前言">前言</h2>
+
+<p>在现在 Object 属性链的调用中，很容易因使用不当导致某个属性不存在而抛出 <code class="language-plaintext highlighter-rouge">Cannot read property 'xxx' of undefined</code> 的错误。</p>
+
 <!--more-->
+
 <p>现在已经有一个草案 <a href="https://tc39.es/proposal-optional-chaining/">Optional Chaining</a> 可以很方便的解决这个问题。</p>
-<h2>例子</h2>
-<h3>访问深层次嵌套的属性</h3>
-<pre>
-  <code class="language-js">
-const obj = {
-  foo: {
-    bar: {
-      baz: 42
-    }
-  }
-};
 
-const baz = obj?.foo?.bar?.baz; // 42
+<h2 id="例子">例子</h2>
 
-const safe = obj?.qux?.baz; // undefined
-  </code>
-</pre>
-<h3>调用层次嵌套的函数</h3>
-<pre>
-  <code class="language-js">
-const obj = {
-  foo: {
-    bar: {
-      baz() {
-        return 42;
-      }
-    }
-  }
-};
+<h3 id="访问深层次嵌套的属性">访问深层次嵌套的属性</h3>
 
-const baz = obj?.foo?.bar?.baz(); // 42
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">foo</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">bar</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">baz</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+<span class="p">};</span>
 
-const safe = obj?.qux?.baz(); // undefined
-const safe2 = obj?.foo.bar.qux?.(); // undefined
-const safe3 = obj?.xxx?.yyy?.[0]; // undefined
+<span class="kd">const</span> <span class="nx">baz</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">?.</span><span class="nx">foo</span><span class="p">?.</span><span class="nx">bar</span><span class="p">?.</span><span class="nx">baz</span><span class="p">;</span> <span class="c1">// 42</span>
 
-const willThrow = obj?.foo.bar.qux(); // Error: not a function
-  </code>
-</pre>
-<h3>顶层函数</h3>
-<pre>
-  <code class="language-js">
-function test() {
-  return 42;
-}
+<span class="kd">const</span> <span class="nx">safe</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">?.</span><span class="nx">qux</span><span class="p">?.</span><span class="nx">baz</span><span class="p">;</span> <span class="c1">// undefined</span>
+</code></pre></div></div>
 
-test?.(); // 42
-exists?.(); // undefined
-  </code>
-</pre>
-<blockquote>类的写法同方法一样。</blockquote>
-<h2>用法</h2>
-<h3>安装插件</h3>
-<pre>
-  <code class="language-shell">
-yarn add @babel/plugin-proposal-optional-chaining -D
-  </code>
-</pre>
-<h3>.babelrc</h3>
-<pre>
-  <code class="language-json">
-{
-  "plugins": ["@babel/plugin-proposal-optional-chaining"]
-}
-  </code>
-</pre>
+<h3 id="调用层次嵌套的函数">调用层次嵌套的函数</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">foo</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">bar</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nx">baz</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">42</span><span class="p">;</span>
+      <span class="p">},</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+<span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">baz</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">?.</span><span class="nx">foo</span><span class="p">?.</span><span class="nx">bar</span><span class="p">?.</span><span class="nx">baz</span><span class="p">();</span> <span class="c1">// 42</span>
+
+<span class="kd">const</span> <span class="nx">safe</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">?.</span><span class="nx">qux</span><span class="p">?.</span><span class="nx">baz</span><span class="p">();</span> <span class="c1">// undefined</span>
+<span class="kd">const</span> <span class="nx">safe2</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">?.</span><span class="nx">foo</span><span class="p">.</span><span class="nx">bar</span><span class="p">.</span><span class="nx">qux</span><span class="p">?.();</span> <span class="c1">// undefined</span>
+<span class="kd">const</span> <span class="nx">safe3</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">?.</span><span class="nx">xxx</span><span class="p">?.</span><span class="nx">yyy</span><span class="p">?.[</span><span class="mi">0</span><span class="p">];</span> <span class="c1">// undefined</span>
+
+<span class="kd">const</span> <span class="nx">willThrow</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">?.</span><span class="nx">foo</span><span class="p">.</span><span class="nx">bar</span><span class="p">.</span><span class="nx">qux</span><span class="p">();</span> <span class="c1">// Error: not a function</span>
+</code></pre></div></div>
+
+<h3 id="顶层函数">顶层函数</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">test</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="mi">42</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">test</span><span class="p">?.();</span> <span class="c1">// 42</span>
+<span class="nx">exists</span><span class="p">?.();</span> <span class="c1">// undefined</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>类的写法同方法一样。</p>
+</blockquote>
+
+<h2 id="用法">用法</h2>
+
+<h3 id="安装插件">安装插件</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yarn add @babel/plugin-proposal-optional-chaining <span class="nt">-D</span>
+</code></pre></div></div>
+
+<h3 id="babelrc">.babelrc</h3>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"plugins"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"@babel/plugin-proposal-optional-chaining"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
 
         <div class="date">发布时间：2019-12-31</div>
       </div>
@@ -271,6 +274,7 @@ yarn add @babel/plugin-proposal-optional-chaining -D
           var link = document.createElement('a');
           link.href = '#' + element.innerText;
           link.innerText = element.innerText;
+          link.setAttribute('data-head', element.nodeName)
 
           $nav.appendChild(link);
           navItems.push(link);
