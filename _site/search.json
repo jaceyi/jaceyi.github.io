@@ -1,10 +1,37 @@
 [
   
     {
+      "title": "在 React 中自定义 Hooks 的应用场景",
+      "category": "",
+      "description": "自定义 Hooks 其实就是在现有 React 提供的 Hooks 上做一层封装，实现一些更有针对性的逻辑，或者可以将一些比较通用的业务逻辑做一个封装。",
+      "tags": "JavaScript, React",
+      "url": "/2020/08/25/%E5%9C%A8-React-%E4%B8%AD%E8%87%AA%E5%AE%9A%E4%B9%89-Hooks-%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.html",
+      "date": "2020-08-25"
+    } ,
+  
+    {
+      "title": "JS函数式编程&amp;高阶函数的应用",
+      "category": "",
+      "description": "本篇讲述何为函数式编程以及高阶函数的应用，熟练地使用高阶函数能大幅的提高开发效率、减少代码量、优雅封装。",
+      "tags": "JavaScript",
+      "url": "/2020/07/05/JS%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B&%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E7%9A%84%E5%BA%94%E7%94%A8.html",
+      "date": "2020-07-05"
+    } ,
+  
+    {
+      "title": "详解 React useCallback &amp; useMemo",
+      "category": "",
+      "description": "本文详细的讲述了 useCallback 与 useMemo 的使用场景，以及有哪些使用中常遇到的问题与采坑点。",
+      "tags": "JavaScript, React",
+      "url": "/2020/03/24/%E8%AF%A6%E8%A7%A3-React-useCallback-&-useMemo.html",
+      "date": "2020-03-24"
+    } ,
+  
+    {
       "title": "在 React 项目中全量使用 Hooks",
       "category": "",
       "description": "React 全部 Hooks 总结，以及 React Redux、React Router 中常用 Hooks 整理。",
-      "tags": "CSS",
+      "tags": "JavaScript, React",
       "url": "/2020/03/16/%E5%9C%A8-React-%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%85%A8%E9%87%8F%E4%BD%BF%E7%94%A8-Hooks.html",
       "date": "2020-03-16"
     } ,
@@ -40,7 +67,7 @@
       "title": "使用 Jekyll 搭建一个自己的博客",
       "category": "",
       "description": "如何利用 Github Pages 加 Jekyll 搭建一个自己的博客",
-      "tags": "Jekyll, 生活",
+      "tags": "瞎研究",
       "url": "/2019/08/31/%E4%BD%BF%E7%94%A8-Jekyll-%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2.html",
       "date": "2019-08-31"
     } ,

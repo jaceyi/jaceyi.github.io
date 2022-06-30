@@ -1,11 +1,21 @@
 .container {
-  padding: 50px 0;
+  padding: 80px 0 40px;
   width: 1000px;
   margin: 0 auto;
   color: #333;
 
   p {
     margin-bottom: 1.5em;
+  }
+}
+
+#header {
+  .banner {
+    height: 50vh;
+
+    .banner-bg {
+      background: #888 url("https://jaceyi.com/static/images/bg1.jpg") no-repeat center 40%;
+    }
   }
 }
 
@@ -24,7 +34,7 @@
 @media (max-width: 768px) {
   .container {
     width: 90vw;
-    padding: 20px 0;
+    padding: 20px 0 10px;
     font-size: 14px;
   }
 }

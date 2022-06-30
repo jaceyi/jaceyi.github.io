@@ -1,0 +1,258 @@
+I"�s<h2 id="前言">前言</h2>
+
+<h3 id="函数是-javascript-的一等公民">函数是 JavaScript 的一等公民</h3>
+
+<p>简单提一下，一等公民都具备以下特性：</p>
+
+<ul>
+  <li>可以被存入变量或者其他数据结构</li>
+  <li>可以作为函数的参数</li>
+  <li>可以作为函数的返回值</li>
+  <li>可以判断相等性
+<!--more--></li>
+</ul>
+
+<p>写过 JS 的人肯定都知道函数是能满足上述的特性。</p>
+
+<blockquote>
+  <p>函数式编程是一种编程范式，其中函数定义的是表达式树，每个表达式都返回一个值，而不是改变程序状态的命令语句。因为函数是 JavaScript 的一等公民，所以可以把函数作为其他函数的参数或者返回值，这样就可以将其中小功能以模块化的方式组合在一起。</p>
+</blockquote>
+
+<h2 id="纯函数">纯函数</h2>
+
+<p>可以通过禁止更改外部状态和数据来定义纯函数，纯函数是只依赖实际参数，不管任何全局或者局部的状态。<strong>既输入相同的参数，输出的内容永远都是一样的。</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">sum</span> <span class="o">=</span> <span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+<span class="nx">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// 3</span>
+</code></pre></div></div>
+
+<p><strong>原生例子</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// [1]</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// [1]</span>
+<span class="nx">arr</span><span class="p">;</span> <span class="c1">// [1, 2, 3]</span>
+
+<span class="nx">arr</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// [1]</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// [2]</span>
+<span class="nx">arr</span><span class="p">;</span> <span class="c1">// [3]</span>
+</code></pre></div></div>
+
+<p>由上可见数组的 <code class="language-plaintext highlighter-rouge">slice</code> 方法是纯函数，不会改变原对象；<code class="language-plaintext highlighter-rouge">splice</code> 改变了原对象，导致每次操作自身都发生变化，所以不是纯函数。</p>
+
+<h3 id="纯函数的好处---memoize">纯函数的好处 - memoize</h3>
+
+<blockquote>
+  <p>使用纯函数时我们发现程序出现了与预期不符的情况，也就是输出的值不是想要得值，那么只用检查输入的参数就 OK。</p>
+</blockquote>
+
+<p>上面提到纯函数，输入值不变，那么输出值也会不变，这里就可以对比输入的参数是否发生变化，来决定是否要重新渲染来实现一个缓存优化。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">memoize</span> <span class="o">=</span> <span class="p">(</span><span class="nx">f</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// 缓存函数</span>
+  <span class="kd">let</span> <span class="nx">cache</span> <span class="o">=</span> <span class="p">{};</span>
+  <span class="k">return</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// 这里为了方便 就只接收一个参数了</span>
+    <span class="kd">const</span> <span class="nx">prevValue</span> <span class="o">=</span> <span class="nx">cache</span><span class="p">[</span><span class="nx">a</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">prevValue</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`cache </span><span class="p">${</span><span class="nx">prevValue</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+      <span class="k">return</span> <span class="nx">prevValue</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">(</span><span class="nx">cache</span><span class="p">[</span><span class="nx">a</span><span class="p">]</span> <span class="o">=</span> <span class="nx">f</span><span class="p">(</span><span class="nx">a</span><span class="p">));</span> <span class="c1">// 缓存纯函数的值</span>
+  <span class="p">};</span>
+<span class="p">};</span>
+<span class="kd">const</span> <span class="nx">double</span> <span class="o">=</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">// 运算函数（纯函数）</span>
+<span class="kd">const</span> <span class="nx">f</span> <span class="o">=</span> <span class="nx">memoize</span><span class="p">(</span><span class="nx">double</span><span class="p">);</span>
+
+<span class="nx">f</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="c1">// 4</span>
+<span class="nx">f</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="c1">// cache 4</span>
+
+<span class="nx">f</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span> <span class="c1">// 16</span>
+<span class="nx">f</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span> <span class="c1">// cache 16</span>
+</code></pre></div></div>
+
+<h2 id="柯里化-curry">柯里化 Curry</h2>
+
+<p>柯里化是把接收多个参数的函数变成接收单一参数的函数，剩下的参数再通过返回的函数来进行接收。
+简单理解就是把函数拆的更细，返回的函数依赖第一个参数进行计算，可以缩小适用范围，创建一个针对性更强的函数。</p>
+
+<ul>
+  <li>可以将上述求和纯函数改成下面的写法</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">sum</span> <span class="o">=</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">y</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+<span class="nx">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)(</span><span class="mi">2</span><span class="p">);</span> <span class="c1">// 3</span>
+</code></pre></div></div>
+
+<p>将 <code class="language-plaintext highlighter-rouge">sum</code> 函数转为只接收一个参数，并返回一个函数，再次调用将得到结果。
+或许有人觉得这样写纯属蛋疼，那么就举一个业务中会用到的一个例子。我们需要一个可以将金额转为千分位的函数，但是金额的单位不定，有可能是分，有可能是角等。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">formatMoney</span> <span class="o">=</span> <span class="p">(</span><span class="nx">money</span><span class="p">,</span> <span class="nx">step</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="p">(</span><span class="nx">money</span> <span class="o">/</span> <span class="nx">step</span><span class="p">).</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="c1">// 两位小数</span>
+  <span class="kd">const</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="dl">"</span><span class="s2">.</span><span class="dl">"</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">index</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">start</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">index</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">\B(?=(?:\d{3})</span><span class="sr">+$</span><span class="se">)</span><span class="sr">/g</span><span class="p">,</span> <span class="dl">"</span><span class="s2">,</span><span class="dl">"</span><span class="p">);</span> <span class="c1">// 增加千分位符号</span>
+    <span class="k">return</span> <span class="nx">start</span> <span class="o">+</span> <span class="nx">str</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="nx">index</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">str</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="nx">formatMoney</span><span class="p">(</span><span class="mi">1000000</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span> <span class="c1">// 分 10,000.00</span>
+<span class="nx">formatMoney</span><span class="p">(</span><span class="mi">123456</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span> <span class="c1">// 分 1,234.56</span>
+<span class="nx">formatMoney</span><span class="p">(</span><span class="mi">123456</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span> <span class="c1">// 角 12,345.60</span>
+</code></pre></div></div>
+
+<p>传入两个参数 <code class="language-plaintext highlighter-rouge">(money, step)</code> 金额和单位，在函数中依据单位来实时金额。但是每次都要传单位，造成重复的代码。</p>
+
+<p><strong>我们可以将上述方法转为柯里化函数：</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">formatMoney</span> <span class="o">=</span> <span class="p">(</span><span class="nx">step</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">money</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="p">(</span><span class="nx">money</span> <span class="o">/</span> <span class="nx">step</span><span class="p">).</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="c1">// 两位小数</span>
+  <span class="kd">const</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="dl">"</span><span class="s2">.</span><span class="dl">"</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">index</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">start</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">index</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">\B(?=(?:\d{3})</span><span class="sr">+$</span><span class="se">)</span><span class="sr">/g</span><span class="p">,</span> <span class="dl">"</span><span class="s2">,</span><span class="dl">"</span><span class="p">);</span> <span class="c1">// 增加千分位符号</span>
+    <span class="k">return</span> <span class="nx">start</span> <span class="o">+</span> <span class="nx">str</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="nx">index</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">str</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="kd">const</span> <span class="nx">pennyMoney</span> <span class="o">=</span> <span class="nx">formatMoney</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span> <span class="c1">// 单位是分</span>
+<span class="nx">pennyMoney</span><span class="p">(</span><span class="mi">1000000</span><span class="p">);</span> <span class="c1">// 10,000.00</span>
+<span class="nx">pennyMoney</span><span class="p">(</span><span class="mi">123456</span><span class="p">);</span> <span class="c1">// 1,234.56</span>
+
+<span class="kd">const</span> <span class="nx">dimeMoney</span> <span class="o">=</span> <span class="nx">formatMoney</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> <span class="c1">// 单位是角</span>
+<span class="nx">dimeMoney</span><span class="p">(</span><span class="mi">1000000</span><span class="p">);</span> <span class="c1">// 100,000.00</span>
+<span class="nx">dimeMoney</span><span class="p">(</span><span class="mi">123456</span><span class="p">);</span> <span class="c1">// 12,345.60</span>
+
+<span class="nx">formatMoney</span><span class="p">(</span><span class="mi">1</span><span class="p">)(</span><span class="mi">1000000</span><span class="p">);</span> <span class="c1">// 1,000,000; // 元</span>
+</code></pre></div></div>
+
+<p>我们通过柯里化的方式预先传入单位，返回一个针对该单位的格式化方法，这样我们就能在不同的情况下加以复用，其中 <code class="language-plaintext highlighter-rouge">pennyMoney</code> 与 <code class="language-plaintext highlighter-rouge">dimeMoney</code> 也能加以复用，不用在每次都传入要通过什么单位来格式化。</p>
+
+<h2 id="高阶函数">高阶函数</h2>
+
+<blockquote>
+  <p>高阶函数可以把其他函数作为参数输入或者作为其返回值输出。</p>
+</blockquote>
+
+<p>原生的方法有很多都是高阶函数，例如 <code class="language-plaintext highlighter-rouge">Array.prototype.map</code> 方法，他接收一回调函数，从回调函数中获取返回值，再使用这些值创建一个新的数组并返回。</p>
+
+<h3 id="高阶函数的应用">高阶函数的应用</h3>
+
+<p>上述我们通过柯里化的方式优化了格式金额的方法，可以看到柯里化的方式也会返回一个函数，那么我们可以认为，他也是高阶函数。下面我们将再自定义一些高阶函数，让我们更加理解高阶函数的应用。</p>
+
+<h4 id="-防抖函数">🌰 防抖函数</h4>
+
+<p>我有一个方法会根据窗口大小进行动态加载对应的组件，既然需要动态加载组件那么资源的请求以及组件的渲染肯定是对网络、内存等消耗要大一些的，那么我们就可以进行一个<strong>防抖</strong>操作，让窗口大小发生变化时没必要要那么实时变化。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">debounce</span> <span class="o">=</span> <span class="p">(</span><span class="nx">func</span><span class="p">,</span> <span class="nx">wait</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">timer</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="k">return</span> <span class="p">(...</span><span class="nx">args</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span>
+    <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">func</span><span class="p">(...</span><span class="nx">args</span><span class="p">);</span>
+    <span class="p">},</span> <span class="nx">wait</span><span class="p">);</span>
+  <span class="p">};</span>
+<span class="p">};</span>
+
+<span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span>
+  <span class="dl">"</span><span class="s2">resize</span><span class="dl">"</span><span class="p">,</span>
+  <span class="nx">debounce</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">matchMedia</span><span class="p">(</span><span class="dl">"</span><span class="s2">(min-width:768px)</span><span class="dl">"</span><span class="p">))</span> <span class="p">{</span>
+      <span class="c1">// loader component</span>
+    <span class="p">}</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">resize</span><span class="dl">"</span><span class="p">);</span>
+  <span class="p">},</span> <span class="mi">500</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>上述代码实现了一个 <code class="language-plaintext highlighter-rouge">debounce</code> 函数，将接收一个函数和一个等待时间作为参数，返回一个新的函数，函数执行时会做一个延时防抖的操作。这样在窗口频繁的 <code class="language-plaintext highlighter-rouge">resize</code> 时短时间内也不会多次触发加载组件的方法。当然该防抖函数还能应用于其他很多场景。</p>
+
+<h4 id="-组合-compose">🌰 组合 compose</h4>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">compose</span> <span class="o">=</span>
+  <span class="p">(...</span><span class="nx">funcs</span><span class="p">)</span> <span class="o">=&gt;</span>
+  <span class="p">(</span><span class="nx">arg</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">funcs</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">val</span><span class="p">,</span> <span class="nx">f</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">f</span><span class="p">(</span><span class="nx">val</span><span class="p">),</span> <span class="nx">arg</span><span class="p">);</span>
+  <span class="p">};</span>
+</code></pre></div></div>
+
+<p>这是一个很经典的高阶函数，他接收多个函数作为参数，返回一个函数，返回的这个函数呢会接收一个参数。那他的作用是什么呢？可以执行以下代码看看。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">compose</span> <span class="o">=</span>
+  <span class="p">(...</span><span class="nx">funcs</span><span class="p">)</span> <span class="o">=&gt;</span>
+  <span class="p">(</span><span class="nx">arg</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">funcs</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">val</span><span class="p">,</span> <span class="nx">f</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">f</span><span class="p">(</span><span class="nx">val</span><span class="p">);</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+      <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+    <span class="p">},</span> <span class="nx">arg</span><span class="p">);</span>
+  <span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">pennyTransform</span> <span class="o">=</span> <span class="p">(</span><span class="nx">money</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">money</span> <span class="o">/</span> <span class="mi">100</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">fixedMoney</span> <span class="o">=</span> <span class="p">(</span><span class="nx">money</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="o">+</span><span class="nx">money</span><span class="p">).</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">thousandthMoney</span> <span class="o">=</span> <span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="dl">"</span><span class="s2">.</span><span class="dl">"</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">index</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">start</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">index</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">\B(?=(?:\d{3})</span><span class="sr">+$</span><span class="se">)</span><span class="sr">/g</span><span class="p">,</span> <span class="dl">"</span><span class="s2">,</span><span class="dl">"</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">start</span> <span class="o">+</span> <span class="nx">str</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="nx">index</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">str</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">formatMoney</span> <span class="o">=</span> <span class="nx">compose</span><span class="p">(</span><span class="nx">pennyTransform</span><span class="p">,</span> <span class="nx">fixedMoney</span><span class="p">,</span> <span class="nx">thousandthMoney</span><span class="p">);</span>
+<span class="nx">formatMoney</span><span class="p">(</span><span class="mi">1000000</span><span class="p">);</span>
+
+<span class="c1">// 10000</span>
+<span class="c1">// 10000.00</span>
+<span class="c1">// 10,000.00</span>
+</code></pre></div></div>
+
+<p>上述代码依旧是格式化金额，只不过换了种写法。我们可以从输出的 log 中看出，我们的方法 <code class="language-plaintext highlighter-rouge">compose</code> 是把所有的方法进行一个组合，依次调用，将上一个函数的返回值传入给下一个参数（第一个参数为调用时传的参数）。这样我们就可以将函数功能拆分的很细，一个只做一件事，每个都是纯函数，每一个很小的功能就是一个粒子，我们可以随意将其组合拆分，使其应用场景更广泛。</p>
+
+<p>很多同学或许搞不懂 <code class="language-plaintext highlighter-rouge">compose</code> 这个函数具体的逻辑，接下来就仔细讲一讲。可以在代码中看到最重要的 <code class="language-plaintext highlighter-rouge">reduce</code> 这个函数，这是数组原生的一个方法，可以先看看 MDN 上对这个方法的描述 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce">
+Array.prototype.reduce</a>：方法会对数组中的每一个元素执行传入的函数，再将其汇总结果返回。</p>
+
+<p><strong>接收两个参数：</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">callback</code> 执行数组中每个值，此函数会接收四个参数，这里我们只看用到的前两个参数：</p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">accumulator</code> 累计器累计回调的返回值，简单理解就是上一个调用回调函数的返回值。如果是第一个次调用那么就是下面的 <code class="language-plaintext highlighter-rouge">initialValue</code> 或者 <code class="language-plaintext highlighter-rouge">undefined</code>。</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">currentValue</code> 数组中当前正在处理的元素。我们数组内的元素都是方法，也就是这里将是当前需要执行的方法。</p>
+  </li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">initialValue</code> 第一次调用回调函数传的值。</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">compose</span> <span class="o">=</span>
+  <span class="p">(...</span><span class="nx">funcs</span><span class="p">)</span> <span class="o">=&gt;</span>
+  <span class="p">(</span><span class="nx">initialValue</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">funcs</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">accumulator</span><span class="p">,</span> <span class="nx">currentValue</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="c1">// 第一次执行 accumulator 为传入的 initialValue</span>
+
+      <span class="c1">// 将 accumulator 传入 currentValue（当前需要执行的方法），</span>
+      <span class="c1">// 这里也会将函数调用的结果进行立即返回，返回的值将会在执行到下一个函数时当 accumulator 使用</span>
+      <span class="c1">// 一直到执行完最后一个函数，将最后一个函数的返回值进行返回。</span>
+      <span class="k">return</span> <span class="nx">currentValue</span><span class="p">(</span><span class="nx">accumulator</span><span class="p">);</span>
+    <span class="p">},</span> <span class="nx">initialValue</span><span class="p">);</span>
+  <span class="p">};</span>
+</code></pre></div></div>
+
+<p>这里大致讲了讲函数的执行流程，方便理解，有问题欢迎评论区留言，有错误欢迎指正。</p>
+
+<p><strong>参考</strong></p>
+
+<ul>
+  <li><a href="https://llh911001.gitbooks.io/mostly-adequate-guide-chinese/content/">函数式编程指北</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/First-class_citizen">First-class citizen</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/First-class_function">First-class function</a></li>
+</ul>
+
+<h2 id="最后">最后</h2>
+
+<p>原本打算顺带把高阶组件写一写，想一想还是放到下一个文章里面吧，打算写一写 React 的高阶组件与自定义 Hook。</p>
+
+<p>2020.8.25 更新 <a href="https://juejin.im/post/6864871906567749645">在 React 中自定义 Hooks 的应用场景</a></p>
+:ET

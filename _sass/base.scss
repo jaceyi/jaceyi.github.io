@@ -20,7 +20,7 @@ blockquote {
   border-left: 6px solid #e0e0e0;
   color: inherit;
   padding: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 em {
@@ -169,12 +169,19 @@ p {
 
   .banner {
     height: $bannerHeight;
-    background: #888 url("/static/images/bg-banner.jpeg") no-repeat center scroll;
-    background-size: cover;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-position 0.6s;
+    position: relative;
+
+    .banner-bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-size: cover !important;
+      transition: background-position 0.6s;
+      z-index: -1;
+    }
 
     .center {
       margin-top: 20px;
@@ -182,15 +189,16 @@ p {
 
     .text {
       margin-bottom: 30px;
-      font-size: 24px;
+      font-size: 18px;
       color: #fff;
       text-align: center;
-      font-weight: 300;
+      font-weight: 400;
+
     }
 
     .search-box {
       position: relative;
-      height: 36px;
+      height: 42px;
       transition: height 0.3s;
 
       .icon {
@@ -208,11 +216,11 @@ p {
 
     #search-input {
       height: 100%;
-      width: 300px;
+      width: 320px;
       border-radius: 9em;
-      background-color: rgba(255, 255, 255, 0);
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      padding: 0 36px 0 14px;
+      background-color: rgba(0, 0, 0, 0.4);
+      border: none;
+      padding: 0 40px 0 18px;
       color: #fff;
       font-weight: 300;
       font-size: 16px;
@@ -220,7 +228,7 @@ p {
       transition: background-color 0.6s, border-color 0.3s;
 
       &:focus {
-        background-color: rgba(0, 0, 0, 0.2);
+        background-color: rgba(0, 0, 0, 0.5);
         border-color: rgba(255, 255, 255, 0.7);
       }
     }
@@ -334,7 +342,6 @@ p {
 
     .banner {
       height: $navHeight;
-      background-position: center 40%;
       box-shadow: none;
 
       .center {
@@ -411,6 +418,15 @@ p {
       #results-container {
         left: 0;
         right: 0;
+      }
+
+      .search-box {
+        height: 38px;
+      }
+
+      #search-input {
+        padding: 0 36px 0 14px;
+        width: 280px;
       }
     }
 

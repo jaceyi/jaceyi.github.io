@@ -2,7 +2,7 @@
 layout: post
 title: 在 React 项目中全量使用 Hooks
 description: React 全部 Hooks 总结，以及 React Redux、React Router 中常用 Hooks 整理。
-tags: CSS
+tags: JavaScript React
 bannerImg: /static/images/bg-banner.jpeg
 ---
 

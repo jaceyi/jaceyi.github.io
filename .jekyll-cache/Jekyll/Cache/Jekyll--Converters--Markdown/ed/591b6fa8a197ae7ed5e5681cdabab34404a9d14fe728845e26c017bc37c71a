@@ -1,0 +1,17 @@
+I"x<h2 id="前言">前言</h2>
+
+<p>阅读本文章需要对 <a href="https://reactjs.org/docs/hooks-intro.html">React hooks</a> 中 <a href="https://reactjs.org/docs/hooks-state.html">useState</a> 和 <a href="https://reactjs.org/docs/hooks-effect.html">useEffect</a> 有基础的了解。我的这篇文章内有大致介绍 <a href="https://juejin.im/post/6844904093824073742">在 React 项目中全量使用 Hooks</a>。</p>
+
+<h2 id="usecallback">useCallback</h2>
+
+<h3 id="usecallback-的作用">useCallback 的作用</h3>
+
+<p>官方文档：</p>
+
+<blockquote>
+  <p>Pass an inline callback and an array of dependencies. useCallback will return a memoized version of the callback that only changes if one of the dependencies has changed.</p>
+</blockquote>
+
+<p>简单来说就是返回一个函数，只有在依赖项发生变化的时候才会更新（返回一个新的函数）。</p>
+
+:ET

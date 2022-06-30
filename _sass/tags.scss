@@ -67,6 +67,18 @@
   }
 }
 
+#header {
+  .banner {
+    background: #888 url("https://jaceyi.com/static/images/bg3.jpg") no-repeat center 92%;
+  }
+
+  &.active {
+    .banner {
+      background-position: center 20%;
+    }
+  }
+}
+
 @media (max-width: 1200px) {
   .container {
     width: 800px;

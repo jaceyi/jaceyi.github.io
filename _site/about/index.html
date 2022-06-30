@@ -107,118 +107,36 @@
 </script>
 
     <div class="banner">
-      <div class="center">
-        <div class="text">记录学习笔记、日常生活。</div>
-        <div class="search-box">
-          <input type="text" placeholder="搜索文章" id="search-input">
-          <div class="icon">
-            <i class="iconfont">&#xe601;</i>
-          </div>
-          <div id="results-container"></div>
-        </div>
-      </div>
+      <div class="banner-bg"></div>
     </div>
   </div>
 </div>
 
-<script src="/js/simple-jekyll-search.min.js"></script>
-
-<script>
-  (function (d, w) {
-    var $searchInput = d.getElementById('search-input');
-    var $resultsContainer = d.getElementById('results-container');
-
-    SimpleJekyllSearch({
-      searchInput: $searchInput,
-      resultsContainer: $resultsContainer,
-      json: '/search.json',
-      searchResultTemplate:
-        '<li class="search-results-item">' +
-        '<a href="{url}" title="{title}">' +
-        '<div class="title">' +
-        '<h4>{title}</h4><span>{date}</span>' +
-        '</div>' +
-        '<p class="description">{description}</p>' +
-        '<p class="search-tags">{tags}</p>' +
-        '</a>' +
-        '</li>',
-      noResultsText: '<div class="not-data">哎呀，没有找到！</div>',
-      limit: 20,
-      fuzzy: false
-    })
-  })(document, window);
-</script>
-
 
   <div class="container">
   <p>你好，我叫易进春，家乡陕西，目前在上海从事前端开发相关工作。</p>
-  <p>平时喜欢游泳、打台球、玩VR、去欢乐谷坐过山车，有兴趣相投的朋友加个联系方式有空一起玩呀~</p>
+  <p>平时喜欢游泳、打台球、玩VR、画画、坐过山车，有兴趣相投的朋友加个联系方式有空一起玩呀~</p>
   <p>这是我利用 GitHub Pages 和 Jekyll 搭建的个人博客，仓库地址
     <a href="https://github.com/jaceyi/jaceyi.github.io">Github </a>，有问题欢迎提
     <a href="https://github.com/jaceyi/jaceyi.github.io/issues">Issue </a>。
   </p>
-  <p>博客暂不维护了，技术文章以后就在<a href="https://juejin.im/user/5a3b2016f265da43231b22a7/posts">掘金</a>上写了。</p>
-  <p>我的<a href="https://jaceyi.com/">个人网站</a>。</p>
 </div>
 
 
   <footer id="footer">
-  <a href="https://github.com/jaceyi">
+  <a title="Github" href="https://github.com/jaceyi">
     <i class="iconfont">&#xe600;</i>
   </a>
-  <a href="https://juejin.im/user/5a3b2016f265da43231b22a7">
+  <a title="掘金" href="https://juejin.im/user/5a3b2016f265da43231b22a7">
     <i class="iconfont">&#xe610;</i>
   </a>
-  <a href="https://twitter.com/jaceyi123">
+  <a title="个人网站" href="https://jaceyi.com/">
+    <i class="iconfont">&#xe789;</i>
+  </a>
+  <a title="Twitter" href="https://twitter.com/jaceyi123">
     <i class="iconfont">&#xe602;</i>
   </a>
-  <a href="https://www.facebook.com/jaceyi123">
-    <i class="iconfont">&#xe635;</i>
-  </a>
 </footer>
-
-
-  <div class="back-top">
-  <i class="iconfont">&#xe6d9;</i>
-</div>
-<script>
-  (function (d, w) {
-    function scrollTo(targetY) {
-      var currentY =
-        d.documentElement.scrollTop || d.body.scrollTop;
-      var distance = targetY - currentY;
-      var num = 0;
-
-      function animate() {
-        var currentY =
-          d.documentElement.scrollTop || d.body.scrollTop;
-        w.scrollTo(0, currentY + distance / 10);
-        num++;
-        if (num === 10) return;
-        w.requestAnimationFrame(animate);
-      }
-
-      animate();
-    }
-    var $upTop = d.querySelector('.back-top');
-
-    $upTop.onclick = function () {
-      scrollTo(0);
-    };
-
-    function bindEvent() {
-      var scrollTop = d.documentElement.scrollTop || d.body.scrollTop;
-      if (scrollTop > 100) {
-        $upTop.style.display = 'block';
-      } else {
-        $upTop.style.display = 'none';
-      }
-    }
-
-    w.addEventListener('scroll', bindEvent);
-    w.addEventListener('load', bindEvent);
-  })(document, window);
-</script>
 
 </body>
 
