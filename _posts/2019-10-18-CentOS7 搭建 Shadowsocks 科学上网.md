@@ -3,7 +3,7 @@ layout: post
 title: CentOS7 搭建 Shadowsocks 科学上网
 description: 使用 CenOS7 搭建 Shadowsocks 并配置多用户多端口访问
 tags: CentOS Shadowsocks
-bannerImg: /static/images/bg-banner.jpeg
+bannerImg: /static/images/bg4.jpg
 ---
 
 ## 前言

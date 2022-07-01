@@ -86,12 +86,12 @@
 
 #header {
   .banner-bg {
-    background: #888 url("https://jaceyi.com/static/images/bg1.jpg") no-repeat center 40%;
+    background: #888 url("/static/images/bg4.jpg") no-repeat center 30%;
   }
 
   &.active {
     .banner-bg {
-      background-position: center 28%;
+      background-position: center 0;
     }
   }
 }

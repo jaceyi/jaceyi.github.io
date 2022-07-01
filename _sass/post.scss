@@ -35,7 +35,7 @@ li {
 }
 
 #header {
-  min-height: 400px;
+  min-height: 30vh;
   background-position: center;
   background-size: cover;
   background-color: #888;
@@ -45,7 +45,7 @@ li {
   .content {
     width: $containerWidth;
     margin: $navHeight auto 0;
-    padding-top: 100px;
+    padding: 8vh 0 2vh;
   }
 
   .post-title {
@@ -73,7 +73,7 @@ li {
 
   .main {
     flex: 1 1 auto;
-    margin-top: 24px;
+    margin-top: 10px;
     width: calc(100% - 190px);
 
     .article {
@@ -105,6 +105,7 @@ li {
       font-weight: 300;
       padding: 0 10px;
       line-height: 1.6;
+      margin-top: 30px;
     }
 
     blockquote {
@@ -146,20 +147,20 @@ li {
   }
 
   .nav-container {
-    position: relative;
-    width: 200px;
+    width: 220px;
     flex: 0 0 auto;
-    margin-top: 24px;
-    margin-left: 30px;
+    margin-top: 30px;
+    margin-left: 16px;
     font-size: 14px;
+    background-color: #fff;
   }
 
   .main-nav {
-    position: relative;
     box-sizing: border-box;
     padding: 12px;
-    height: 100%;
-    transition: all 0.3s;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 10px;
 
     .title {
       margin-bottom: 8px;
@@ -167,28 +168,22 @@ li {
       color: #333;
     }
 
-    &.active {
-      position: fixed;
-      top: 0;
-      box-shadow: -3px 0 3px rgba(0, 0, 0, 0.06);
-    }
-
     a {
       display: block;
       font-weight: 600;
-      line-height: 1;
-      padding: 6px;
+      padding: 6px 8px;
       border-radius: 2px;
       transition: all 0.3s;
       color: #333;
       margin-bottom: 4px;
+      line-height: 1.4;
 
       &:hover {
-        background: repeating-linear-gradient(90deg, #f1f1f1 0%, #f3f3f3 30%, #fff 100%);
+        background: repeating-linear-gradient(90deg, #f1f1f1 0%, #f3f3f3 60%, #fff 100%);
       }
 
       &.active {
-        background: repeating-linear-gradient(90deg, #e4f6fd 0%, #f0f8fb 30%, #fff 100%);
+        background: repeating-linear-gradient(90deg, #e4f6fd 0%, #f0f8fb 60%, #fff 100%);
         color: $color;
       }
     }

@@ -3,7 +3,7 @@ layout: post
 title: 详解 React useCallback & useMemo
 description: 本文详细的讲述了 useCallback 与 useMemo 的使用场景，以及有哪些使用中常遇到的问题与采坑点。
 tags: JavaScript React
-bannerImg: /static/images/bg-banner.jpeg
+bannerImg: /static/images/bg4.jpg
 ---
 
 ## 前言

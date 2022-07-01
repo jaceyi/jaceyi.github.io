@@ -3,7 +3,7 @@ layout: post
 title: 使用ES新语法提高开发效率 — Optional Chaining
 description: 借助 Babel 使用ES新语法 Optional Chaining [提案阶段] 简化代码。
 tags: JavaScript
-bannerImg: /static/images/bg-banner.jpeg
+bannerImg: /static/images/bg4.jpg
 ---
 
 ## 前言

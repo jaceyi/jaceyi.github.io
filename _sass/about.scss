@@ -14,7 +14,7 @@
     height: 50vh;
 
     .banner-bg {
-      background: #888 url("https://jaceyi.com/static/images/bg1.jpg") no-repeat center 40%;
+      background: #888 url("/static/images/bg1.jpg") no-repeat center;
     }
   }
 }
@@ -36,5 +36,15 @@
     width: 90vw;
     padding: 20px 0 10px;
     font-size: 14px;
+  }
+
+  #header {
+    .banner {
+      height: 50vh;
+
+      .banner-bg {
+        background: #888 url("/static/images/bg2.jpg") no-repeat center;
+      }
+    }
   }
 }

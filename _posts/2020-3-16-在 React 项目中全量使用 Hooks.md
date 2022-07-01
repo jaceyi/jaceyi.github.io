@@ -3,7 +3,7 @@ layout: post
 title: 在 React 项目中全量使用 Hooks
 description: React 全部 Hooks 总结，以及 React Redux、React Router 中常用 Hooks 整理。
 tags: JavaScript React
-bannerImg: /static/images/bg-banner.jpeg
+bannerImg: /static/images/bg4.jpg
 ---
 
 此文章只是整理了在 React 项目开发中常用的一些 Hooks，具体的用法及使用场景后续会持续跟新，并会加上链接。

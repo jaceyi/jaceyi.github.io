@@ -3,7 +3,7 @@ layout: post
 title: 在 React 中自定义 Hooks 的应用场景
 description: 自定义 Hooks 其实就是在现有 React 提供的 Hooks 上做一层封装，实现一些更有针对性的逻辑，或者可以将一些比较通用的业务逻辑做一个封装。
 tags: JavaScript React
-bannerImg: /static/images/bg-banner.jpeg
+bannerImg: /static/images/bg4.jpg
 ---
 
 <!--more-->

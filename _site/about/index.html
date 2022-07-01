@@ -19,7 +19,7 @@
 <body>
   <div id="header">
   <div class="wrap">
-    <div class="top">
+    <div class="bar">
   <div class="title">
     <a href="/">Jace's Blog</a>
   </div>
@@ -28,10 +28,10 @@
       <a href="/">Home</a>
     </div>
     <div class="item">
-      <a href="/about">About</a>
+      <a href="/tags">Tags</a>
     </div>
     <div class="item">
-      <a href="/tags">Tags</a>
+      <a href="/about">About</a>
     </div>
   </nav>
   <div class="mobile-nav">
@@ -40,8 +40,8 @@
     </div>
     <div class="mobile-nav-box">
       <a href="/">Home</a>
-      <a href="/about">About</a>
       <a href="/tags">Tags</a>
+      <a href="/about">About</a>
     </div>
   </div>
 </div>
@@ -83,11 +83,11 @@
       }, false);
 
       var $header = d.querySelector('#header');
-      var $top = d.querySelector('.top');
-      var topHeight = $top.offsetHeight;
-      w.addEventListener('scroll', function () {
+      var $bar = d.querySelector('.bar');
+      var barHeight = $bar.offsetHeight;
+      w.addEventListener('scroll', function (e) {
         var scrollTop = d.documentElement.scrollTop || d.body.scrollTop;
-        var step = $header.className.indexOf('visible') >= 0 ? topHeight : 0;
+        var step = $header.className.indexOf('visible') >= 0 ? barHeight : 0;
         if (scrollTop > $header.offsetHeight - step) {
           addClass($header, 'active');
         } else {
@@ -95,11 +95,13 @@
         }
       }, false);
 
-      d.addEventListener('mousewheel', function(e) {
-        if (e.wheelDeltaY >= 0) {
-          addClass($header, 'visible');
-        } else {
-          removeClass($header, 'visible');
+      d.addEventListener('mousewheel', function (e) {
+        if (e.target.tagName === 'BODY') {
+          if (e.wheelDeltaY >= 0) {
+            addClass($header, 'visible');
+          } else {
+            removeClass($header, 'visible');
+          }
         }
       })
     }
