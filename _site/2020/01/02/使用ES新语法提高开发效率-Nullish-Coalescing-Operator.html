@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/post.css">
   <script src="/js/util.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4613132254509352"
+    crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -97,8 +99,8 @@
             addClass($header, 'visible');
           }
         } else {
+          console.log('remove')
           removeClass($header, ['active', 'visible']);
-
         }
         prev = scrollTop;
       }, false);

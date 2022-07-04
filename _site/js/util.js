@@ -7,8 +7,9 @@ function removeClass(el, className) {
     for (var i = 0; i < className.length; i++) {
       el.classList.remove(className[i]);
     }
+  } else {
+    el.classList.remove(className);
   }
-  el.classList.remove(className);
 }
 
 function getElementTop(el) {

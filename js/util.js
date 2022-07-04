@@ -3,7 +3,13 @@ function addClass(el, className) {
 }
 
 function removeClass(el, className) {
-  el.classList.remove(className);
+  if (Object.prototype.toString.call(className) === "[object Array]") {
+    for (var i = 0; i < className.length; i++) {
+      el.classList.remove(className[i]);
+    }
+  } else {
+    el.classList.remove(className);
+  }
 }
 
 function getElementTop(el) {
