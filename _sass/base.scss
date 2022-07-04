@@ -3,6 +3,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 input {
@@ -82,7 +83,6 @@ p {
   left: 0;
   z-index: 1;
   width: 100%;
-  box-sizing: border-box;
   height: $navHeight;
   font-weight: 800;
   color: #fff;
@@ -224,7 +224,6 @@ p {
       color: #fff;
       font-weight: 300;
       font-size: 16px;
-      box-sizing: border-box;
       transition: background-color 0.6s, border-color 0.3s;
 
       &:focus {

@@ -1,6 +1,10 @@
 @import "./theme.scss";
 
-$containerWidth: 1100px;
+$containerWidth: 1200px;
+
+body {
+  background-color: #f7f7f7;
+}
 
 img {
   width: 100%;
@@ -71,17 +75,13 @@ li {
   color: #333;
   display: flex;
 
-  .main {
+  .article {
     flex: 1 1 auto;
-    margin-top: 10px;
-    width: calc(100% - 190px);
-
-    .article {
-      background-image: linear-gradient(90deg, rgba(50, 0, 0, 0.05) 3%, rgba(0, 0, 0, 0) 3%), linear-gradient(360deg, rgba(50, 0, 0, 0.05) 3%, rgba(0, 0, 0, 0) 3%);
-      background-image: linear-gradient(90deg, rgba(50, 0, 0, 0.05) 3%, rgba(0, 0, 0, 0) 3%), linear-gradient(360deg, rgba(50, 0, 0, 0.05) 3%, rgba(0, 0, 0, 0) 3%);
-      background-size: 20px 20px;
-      background-position: center center;
-    }
+    margin-top: 20px;
+    width: calc(100% - 280px);
+    background-color: #fff;
+    padding: 24px;
+    overflow-x: hidden;
 
     h1,
     h2,
@@ -92,6 +92,10 @@ li {
       line-height: 1;
       margin: 36px 0 20px;
       color: #333;
+
+      &:first-child {
+        margin-top: 0;
+      }
     }
 
     p {
@@ -147,20 +151,20 @@ li {
   }
 
   .nav-container {
-    width: 220px;
+    width: 260px;
     flex: 0 0 auto;
-    margin-top: 30px;
-    margin-left: 16px;
+    margin: 20px 0 0 20px;
     font-size: 14px;
     background-color: #fff;
   }
 
   .main-nav {
-    box-sizing: border-box;
     padding: 12px;
     position: -webkit-sticky;
     position: sticky;
-    top: 10px;
+    top: 0;
+    max-height: 100vh;
+    overflow-y: scroll;
 
     .title {
       margin-bottom: 8px;
@@ -258,8 +262,17 @@ li {
   }
 
   .container {
-    width: $containerWidth;
     font-size: 14px;
+    padding: 0;
+    background-color: #fff;
+    width: 100%;
+
+    .article {
+      margin: 0 auto;
+      padding: 20px 0;
+      width: $containerWidth;
+      flex: 0;
+    }
 
     h1 {
       margin-bottom: 24px;
