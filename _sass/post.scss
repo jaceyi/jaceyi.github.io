@@ -155,7 +155,6 @@ li {
     flex: 0 0 auto;
     margin: 20px 0 0 20px;
     font-size: 14px;
-    background-color: #fff;
   }
 
   .main-nav {
@@ -165,6 +164,7 @@ li {
     top: 0;
     max-height: 100vh;
     overflow-y: scroll;
+    background-color: #fff;
 
     .title {
       margin-bottom: 8px;
