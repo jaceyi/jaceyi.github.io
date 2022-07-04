@@ -3,6 +3,11 @@ function addClass(el, className) {
 }
 
 function removeClass(el, className) {
+  if (Object.prototype.toString.call(className) === "[object Array]") {
+    for (var i = 0; i < className.length; i++) {
+      el.classList.remove(className[i]);
+    }
+  }
   el.classList.remove(className);
 }
 

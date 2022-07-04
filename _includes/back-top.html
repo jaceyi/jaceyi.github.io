@@ -6,15 +6,15 @@
     function scrollTo(targetY) {
       var currentY =
         d.documentElement.scrollTop || d.body.scrollTop;
-      var distance = targetY - currentY;
-      var num = 0;
+      var distance = (currentY - targetY) / 10;
 
       function animate() {
         var currentY =
           d.documentElement.scrollTop || d.body.scrollTop;
-        w.scrollTo(0, currentY + distance / 10);
-        num++;
-        if (num === 10) return;
+        var top = currentY - distance;
+        top = top < 0 ? 0 : top;
+        w.scrollTo(0, top);
+        if (top === 0) return;
         w.requestAnimationFrame(animate);
       }
 

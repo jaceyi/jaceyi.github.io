@@ -84,25 +84,24 @@
       var $header = d.querySelector('#header');
       var $bar = d.querySelector('.bar');
       var barHeight = $bar.offsetHeight;
+      var prev = 0;
       w.addEventListener('scroll', function (e) {
         var scrollTop = d.documentElement.scrollTop || d.body.scrollTop;
         var step = $header.className.indexOf('visible') >= 0 ? barHeight : 0;
         if (scrollTop > $header.offsetHeight - step) {
           addClass($header, 'active');
-        } else {
-          removeClass($header, 'active');
-        }
-      }, false);
 
-      d.addEventListener('mousewheel', function (e) {
-        if (e.target.tagName === 'BODY') {
-          if (e.wheelDeltaY >= 0) {
-            addClass($header, 'visible');
-          } else {
+          if (scrollTop > prev) {
             removeClass($header, 'visible');
+          } else {
+            addClass($header, 'visible');
           }
+        } else {
+          removeClass($header, ['active', 'visible']);
+
         }
-      })
+        prev = scrollTop;
+      }, false);
     }
   })(document, window);
 </script>
@@ -467,15 +466,15 @@ a === b; // false
     function scrollTo(targetY) {
       var currentY =
         d.documentElement.scrollTop || d.body.scrollTop;
-      var distance = targetY - currentY;
-      var num = 0;
+      var distance = (currentY - targetY) / 10;
 
       function animate() {
         var currentY =
           d.documentElement.scrollTop || d.body.scrollTop;
-        w.scrollTo(0, currentY + distance / 10);
-        num++;
-        if (num === 10) return;
+        var top = currentY - distance;
+        top = top < 0 ? 0 : top;
+        w.scrollTo(0, top);
+        if (top === 0) return;
         w.requestAnimationFrame(animate);
       }
 

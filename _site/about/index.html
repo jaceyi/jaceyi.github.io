@@ -85,25 +85,24 @@
       var $header = d.querySelector('#header');
       var $bar = d.querySelector('.bar');
       var barHeight = $bar.offsetHeight;
+      var prev = 0;
       w.addEventListener('scroll', function (e) {
         var scrollTop = d.documentElement.scrollTop || d.body.scrollTop;
         var step = $header.className.indexOf('visible') >= 0 ? barHeight : 0;
         if (scrollTop > $header.offsetHeight - step) {
           addClass($header, 'active');
-        } else {
-          removeClass($header, 'active');
-        }
-      }, false);
 
-      d.addEventListener('mousewheel', function (e) {
-        if (e.target.tagName === 'BODY') {
-          if (e.wheelDeltaY >= 0) {
-            addClass($header, 'visible');
-          } else {
+          if (scrollTop > prev) {
             removeClass($header, 'visible');
+          } else {
+            addClass($header, 'visible');
           }
+        } else {
+          removeClass($header, ['active', 'visible']);
+
         }
-      })
+        prev = scrollTop;
+      }, false);
     }
   })(document, window);
 </script>

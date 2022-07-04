@@ -70,14 +70,14 @@
 #header {
   .banner {
     .banner-bg {
-      background: #888 url("/static/images/bg3.jpg") no-repeat center 78%;
+      background: #888 url("/static/images/bg6.jpg") no-repeat center 10%;
     }
   }
 
   &.active {
     .banner {
       .banner-bg {
-        background-position: center 40%;
+        background-position: center 30%;
       }
     }
   }
@@ -100,5 +100,21 @@
     width: 90vw;
     padding: 20px 0;
     font-size: 14px;
+  }
+
+  #header {
+    .banner {
+      .banner-bg {
+        background: #888 url("/static/images/bg5.jpg") no-repeat center;
+      }
+    }
+
+    &.active {
+      .banner {
+        .banner-bg {
+          background-position: center 25%;
+        }
+      }
+    }
   }
 }
