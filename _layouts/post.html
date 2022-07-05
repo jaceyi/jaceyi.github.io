@@ -8,7 +8,7 @@
   <meta name="keywords"
     content="jaceyi,yijinchun,Jace,JaceYi,Jace Yi,易进春,易进春的博客,yi个程序猿,前端,前端开发,前端博客{% for tag in page.tags %},{{ tag }}{% endfor %}">
   <meta name="description" content="易进春的个人博客，分享日常生活、学习笔记和踩过的那些坑~" />
-  <title>{{ page.title }} - 易进春的博客【Web前端开发】</title>
+  <title>{{ page.title }} - 易进春的博客</title>
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="stylesheet" href="/css/prism.css">
   <link rel="stylesheet" href="/css/base.css">
@@ -34,9 +34,14 @@
   </div>
 
   <div class="container">
-    <div class="article">
-      {{ content }}
-      <div class="date">发布时间：{{ page.date | date: '%Y-%m-%d' }}</div>
+    <div class="main">
+      <div class="article">
+        {{ content }}
+        <div class="date">发布时间：{{ page.date | date: '%Y-%m-%d' }}</div>
+      </div>
+      <div id="comment">
+        {% include comment.html %}
+      </div>
     </div>
     <div class="nav-container">
       <div class="main-nav">
@@ -44,17 +49,16 @@
           <div class="title">目录</div>
           <div class="nav-content"></div>
         </div>
-        <div>
+        <!-- <div>
           <script async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4613132254509352"
             crossorigin="anonymous"></script>
-          <!-- post-article -->
-          <ins class="adsbygoogle" style="display:block; height: 200px" data-ad-client="ca-pub-4613132254509352"
-            data-ad-slot="8065948199"></ins>
-          <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-          </script>
-        </div>
+        <ins class="adsbygoogle" style="display:block; height: 200px" data-ad-client="ca-pub-4613132254509352"
+          data-ad-slot="8065948199"></ins>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div> -->
       </div>
     </div>
   </div>

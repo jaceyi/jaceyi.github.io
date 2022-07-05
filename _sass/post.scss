@@ -75,10 +75,13 @@ li {
   color: #333;
   display: flex;
 
-  .article {
-    flex: 1 1 auto;
+  .main {
     margin-top: 20px;
     width: calc(100% - 280px);
+    flex: 1 1 auto;
+  }
+
+  .article {
     background-color: #fff;
     padding: 24px;
     overflow-x: hidden;
@@ -148,6 +151,12 @@ li {
     .token.operator {
       background-color: transparent;
     }
+  }
+
+  #comment {
+    background-color: #fff;
+    padding: 24px;
+    margin-top: 20px;
   }
 
   .nav-container {
@@ -270,11 +279,14 @@ li {
     background-color: #fff;
     width: 100%;
 
-    .article {
-      margin: 0 auto;
-      padding: 24px 20px;
-      width: $containerWidth;
+    .main {
       flex: auto;
+      width: $containerWidth;
+      margin: 0 auto;
+    }
+
+    .article {
+      padding: 24px 20px;
     }
 
     h1 {

@@ -8,7 +8,7 @@
   <meta name="keywords"
     content="jaceyi,yijinchun,Jace,JaceYi,Jace Yi,易进春,易进春的博客,yi个程序猿,前端,前端开发,前端博客,CentOS,Shadowsocks">
   <meta name="description" content="易进春的个人博客，分享日常生活、学习笔记和踩过的那些坑~" />
-  <title>CentOS7 搭建 Shadowsocks 科学上网 - 易进春的博客【Web前端开发】</title>
+  <title>CentOS7 搭建 Shadowsocks 科学上网 - 易进春的博客</title>
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="stylesheet" href="/css/prism.css">
   <link rel="stylesheet" href="/css/base.css">
@@ -122,8 +122,9 @@
   </div>
 
   <div class="container">
-    <div class="article">
-      <h2 id="前言">前言</h2>
+    <div class="main">
+      <div class="article">
+        <h2 id="前言">前言</h2>
 
 <p>想要搭梯子肯定是需要一台国外的服务器，这里推荐买香港的服务器，延迟低一些。</p>
 
@@ -215,7 +216,29 @@ vim /etc/shadowsocks-libev/user2.json
 
 <p>使用 <code class="language-plaintext highlighter-rouge">netstat -lnp</code> 查看监听的端口，使用 <code class="language-plaintext highlighter-rouge">kill [PID]</code> 终止 <code class="language-plaintext highlighter-rouge">ss-server</code> 启动的服务进程。</p>
 
-      <div class="date">发布时间：2019-10-18</div>
+        <div class="date">发布时间：2019-10-18</div>
+      </div>
+      <div id="comment">
+        <div id="disqus_thread"></div>
+<script>
+  /**
+  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+  /*
+  var disqus_config = function () {
+  this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  };
+  */
+  (function () { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://jaceyi.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+      </div>
     </div>
     <div class="nav-container">
       <div class="main-nav">
@@ -223,17 +246,16 @@ vim /etc/shadowsocks-libev/user2.json
           <div class="title">目录</div>
           <div class="nav-content"></div>
         </div>
-        <div>
+        <!-- <div>
           <script async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4613132254509352"
             crossorigin="anonymous"></script>
-          <!-- post-article -->
-          <ins class="adsbygoogle" style="display:block; height: 200px" data-ad-client="ca-pub-4613132254509352"
-            data-ad-slot="8065948199"></ins>
-          <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-          </script>
-        </div>
+        <ins class="adsbygoogle" style="display:block; height: 200px" data-ad-client="ca-pub-4613132254509352"
+          data-ad-slot="8065948199"></ins>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div> -->
       </div>
     </div>
   </div>

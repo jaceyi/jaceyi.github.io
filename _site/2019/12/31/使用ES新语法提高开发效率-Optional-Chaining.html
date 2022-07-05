@@ -8,7 +8,7 @@
   <meta name="keywords"
     content="jaceyi,yijinchun,Jace,JaceYi,Jace Yi,易进春,易进春的博客,yi个程序猿,前端,前端开发,前端博客,JavaScript">
   <meta name="description" content="易进春的个人博客，分享日常生活、学习笔记和踩过的那些坑~" />
-  <title>使用ES新语法提高开发效率 — Optional Chaining - 易进春的博客【Web前端开发】</title>
+  <title>使用ES新语法提高开发效率 — Optional Chaining - 易进春的博客</title>
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="stylesheet" href="/css/prism.css">
   <link rel="stylesheet" href="/css/base.css">
@@ -120,8 +120,9 @@
   </div>
 
   <div class="container">
-    <div class="article">
-      <h2 id="前言">前言</h2>
+    <div class="main">
+      <div class="article">
+        <h2 id="前言">前言</h2>
 
 <p>在现在 Object 属性链的调用中，很容易因使用不当导致某个属性不存在而抛出 <code class="language-plaintext highlighter-rouge">Cannot read property 'xxx' of undefined</code> 的错误。</p>
 
@@ -195,7 +196,29 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
-      <div class="date">发布时间：2019-12-31</div>
+        <div class="date">发布时间：2019-12-31</div>
+      </div>
+      <div id="comment">
+        <div id="disqus_thread"></div>
+<script>
+  /**
+  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+  /*
+  var disqus_config = function () {
+  this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  };
+  */
+  (function () { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://jaceyi.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+      </div>
     </div>
     <div class="nav-container">
       <div class="main-nav">
@@ -203,17 +226,16 @@
           <div class="title">目录</div>
           <div class="nav-content"></div>
         </div>
-        <div>
+        <!-- <div>
           <script async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4613132254509352"
             crossorigin="anonymous"></script>
-          <!-- post-article -->
-          <ins class="adsbygoogle" style="display:block; height: 200px" data-ad-client="ca-pub-4613132254509352"
-            data-ad-slot="8065948199"></ins>
-          <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-          </script>
-        </div>
+        <ins class="adsbygoogle" style="display:block; height: 200px" data-ad-client="ca-pub-4613132254509352"
+          data-ad-slot="8065948199"></ins>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div> -->
       </div>
     </div>
   </div>
