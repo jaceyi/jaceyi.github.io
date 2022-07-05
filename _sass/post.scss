@@ -158,13 +158,16 @@ li {
   }
 
   .main-nav {
-    padding: 12px;
     position: -webkit-sticky;
     position: sticky;
     top: 0;
     max-height: 100vh;
     overflow-y: scroll;
     background-color: #fff;
+
+    .nav-card {
+      padding: 12px;
+    }
 
     .title {
       margin-bottom: 8px;
@@ -269,9 +272,9 @@ li {
 
     .article {
       margin: 0 auto;
-      padding: 20px 0;
+      padding: 24px 20px;
       width: $containerWidth;
-      flex: 0;
+      flex: auto;
     }
 
     h1 {

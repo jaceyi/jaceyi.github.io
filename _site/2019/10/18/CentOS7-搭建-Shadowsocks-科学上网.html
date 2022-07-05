@@ -218,16 +218,22 @@ vim /etc/shadowsocks-libev/user2.json
       <div class="date">发布时间：2019-10-18</div>
     </div>
     <div class="nav-container">
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4613132254509352"
-        crossorigin="anonymous"></script>
-      <!-- post-article -->
-      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4613132254509352" data-ad-slot="8065948199"
-        data-ad-format="auto" data-full-width-responsive="true"></ins>
-      <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
       <div class="main-nav">
-        <div class="title">目录</div>
+        <div class="nav-card">
+          <div class="title">目录</div>
+          <div class="nav-content"></div>
+        </div>
+        <div>
+          <script async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4613132254509352"
+            crossorigin="anonymous"></script>
+          <!-- post-article -->
+          <ins class="adsbygoogle" style="display:block; height: 200px" data-ad-client="ca-pub-4613132254509352"
+            data-ad-slot="8065948199"></ins>
+          <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
       </div>
     </div>
   </div>
@@ -292,6 +298,7 @@ vim /etc/shadowsocks-libev/user2.json
   <script>
     (function (w, d) {
       var $nav = document.querySelector('.main-nav');
+      var $navContent = document.querySelector('.nav-content');
       var $article = document.querySelector('.article');
       var titleNodeNames = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
       var contentItems = [];
@@ -304,7 +311,7 @@ vim /etc/shadowsocks-libev/user2.json
           link.innerText = element.innerText;
           link.setAttribute('data-head', element.nodeName)
 
-          $nav.appendChild(link);
+          $navContent.appendChild(link);
           navItems.push(link);
           element.id = element.innerText;
           contentItems.push(element);
