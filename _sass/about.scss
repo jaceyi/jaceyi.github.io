@@ -10,11 +10,23 @@
 }
 
 #header {
+  $bannerHeight: 50vh;
+
   .banner {
-    height: 50vh;
+    height: $bannerHeight;
 
     .banner-bg {
       background: #888 url("/static/images/bg1.jpg") no-repeat center;
+    }
+  }
+
+  &.active {
+    height: $bannerHeight;
+
+    .banner {
+      .banner-bg {
+        background-position: center 90%;
+      }
     }
   }
 }
