@@ -111,8 +111,7 @@ li {
       font-size: 13px;
       font-weight: 300;
       padding: 0 10px;
-      line-height: 2;
-      margin-top: 30px;
+      margin: 30px 0 10px;
     }
 
     blockquote {
@@ -151,6 +150,10 @@ li {
     .token.operator {
       background-color: transparent;
     }
+  }
+
+  .ad {
+    background-color: #f7f8f9;
   }
 
   #comment {
@@ -286,22 +289,30 @@ li {
 
     .article {
       padding: 24px 20px;
+
+      h1 {
+        margin-bottom: 24px;
+      }
+
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin-bottom: 14px;
+      }
+
+      p {
+        margin: 14px 0;
+      }
+
+      .date {
+        margin-bottom: 0;
+      }
     }
 
-    h1 {
-      margin-bottom: 24px;
-    }
-
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      margin-bottom: 14px;
-    }
-
-    p {
-      margin: 14px 0;
+    .ad {
+      display: none;
     }
 
     .nav-container {
