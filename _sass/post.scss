@@ -148,7 +148,7 @@ li {
       color: $red;
       background-color: #f9f2f4;
       border-radius: 4px;
-      font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+      font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
       margin: 20px 0;
     }
 
@@ -179,7 +179,7 @@ li {
     position: sticky;
     top: 0;
     max-height: 100vh;
-    overflow-y: scroll;
+    overflow-y: auto;
     background-color: #fff;
 
     .nav-card {
@@ -203,11 +203,21 @@ li {
       line-height: 1.4;
 
       &:hover {
-        background: repeating-linear-gradient(90deg, #f1f1f1 0%, #f3f3f3 60%, #fff 100%);
+        background: repeating-linear-gradient(
+          90deg,
+          #f1f1f1 0%,
+          #f3f3f3 60%,
+          #fff 100%
+        );
       }
 
       &.active {
-        background: repeating-linear-gradient(90deg, #e4f6fd 0%, #f0f8fb 60%, #fff 100%);
+        background: repeating-linear-gradient(
+          90deg,
+          #e4f6fd 0%,
+          #f0f8fb 60%,
+          #fff 100%
+        );
         color: $color;
       }
     }

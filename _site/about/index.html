@@ -83,27 +83,6 @@
       d.body.addEventListener('click', function () {
         if ($navBox.style.display === 'block') hideNavBox();
       }, false);
-
-      var $header = d.querySelector('#header');
-      var $bar = d.querySelector('.bar');
-      var barHeight = $bar.offsetHeight;
-      var prev = 0;
-      w.addEventListener('scroll', function (e) {
-        var scrollTop = d.documentElement.scrollTop || d.body.scrollTop;
-        var step = $header.className.indexOf('visible') >= 0 ? barHeight : 0;
-        if (scrollTop > $header.offsetHeight - step) {
-          addClass($header, 'active');
-
-          if (scrollTop > prev) {
-            removeClass($header, 'visible');
-          } else {
-            addClass($header, 'visible');
-          }
-        } else {
-          removeClass($header, ['active', 'visible']);
-        }
-        prev = scrollTop;
-      }, false);
     }
   })(document, window);
 </script>
