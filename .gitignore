@@ -6,8 +6,6 @@ yarn-error.log*
 server_config.js*
 *.lock
 
-.idea
-
 # Editor directories and files
 .idea
 .vscode
@@ -15,3 +13,7 @@ server_config.js*
 *.ntvs*
 *.njsproj
 *.sln
+
+# jekyll
+.jekyll-cache
+_site
