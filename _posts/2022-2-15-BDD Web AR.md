@@ -18,11 +18,11 @@ bannerImg: /static/images/bg4.jpg
 
 1. 使用手机浏览器扫码以下二维码或者打开 [https://bingdundun.web.app](https://bingdundun.web.app) 并授权摄像头权限。
 
-<div align="center"><img alt="冰墩墩二维码" src="/static/images/pattern.png" /></div>
+<div align="center"><img alt="冰墩墩二维码" src="/static/images/BDD-Web-AR/pattern.png" /></div>
 
 2. 在网页加载完成后将摄像头对准下面冰墩墩和雪容融的图片或者上面的二维码图片（要将周围黑色区域包含在内）。
 
-<div align="center"><img alt="冰墩墩和雪容融" src="/static/images/mark.jpeg" /></div>
+<div align="center"><img alt="冰墩墩和雪容融" src="/static/images/BDD-Web-AR/mark.jpeg" /></div>
 
 这个技术呢兼容性不咋样，在手机上兼容性就更不咋样了，iPhone 手机可以直接使用相机扫码，打开自带的 Safari 浏览器，并授权就可以使用；安卓手机部分自带的应该也可以，或者也可以使用 Chrome、Firefox 试试。
 
