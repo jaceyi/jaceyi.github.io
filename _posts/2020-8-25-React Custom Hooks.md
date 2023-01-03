@@ -10,7 +10,7 @@ bannerImg: /static/images/bg4.jpg
 
 ## 前言
 
-> 阅读本篇文章需掌握 React Hooks 基本用法、我的这篇文章内有大致介绍 [在 React 项目中全量使用 Hooks](https://juejin.im/post/6844904093824073742) 欢迎阅读。
+> 阅读本篇文章需掌握 React Hooks 基本用法、我的这篇文章内有大致介绍 [在 React 项目中全量使用 Hooks](/2020/03/16/React-use-Hooks.html) 欢迎阅读。
 
 自定义 Hooks 其实就是在现有 React 提供的 Hooks 上做一层封装，实现一些更有针对性的逻辑，或者可以将一些比较通用的业务逻辑做一个封装。
 
@@ -93,7 +93,7 @@ const useValues = (initialValue) => {
 };
 ```
 
-上述实现了一个跟 `useState` 很类似的 Hooks，区别是，返回的更新值的方法会在上一次的值的基础上更新，这里有使用一个 `useCallback` 方法对我们的更新函数做了一个缓存，不太了解 `useCallback` 的具体应用场景可以看看我的另一篇文章：[详解 useCallback & useMemo](https://juejin.im/post/6844904101445124110)。
+上述实现了一个跟 `useState` 很类似的 Hooks，区别是，返回的更新值的方法会在上一次的值的基础上更新，这里有使用一个 `useCallback` 方法对我们的更新函数做了一个缓存，不太了解 `useCallback` 的具体应用场景可以看看我的另一篇文章：[详解 useCallback & useMemo](/2020/03/24/React-useCallback-&-useMemo.html)。
 
 接下来再有上述需求的时候就可以把 `useValues` 方法引入到组件内使用。
 
@@ -300,4 +300,4 @@ const useRequest = () => {
 
 本篇主要还是针对业务来讲，列举一些业务中可以优化的点，我也很喜欢将业务遇到的东西进行分享。很早之前就打算搞一个针对自定义 Hooks 的开源库，不过前阵子发现阿里好像有一个了 😅 [ahooks](https://github.com/alibaba/hooks)，这应该是更基础或者更通用型的一些 Hooks 封装。等有空建一个更偏向业务的 Hooks Demo 合集仓库以供学习，寻找灵感吧。
 
-有问题欢迎[提问](https://juejin.cn/post/6864871906567749645#comment)，有文章 BUG 欢迎指正，感谢阅读。
+有问题欢迎提问，有文章 BUG 欢迎指正，感谢阅读。

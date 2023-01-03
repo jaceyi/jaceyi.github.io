@@ -283,7 +283,7 @@ const Component = () => {
 
 useMemo 的用法跟 useCallback 一样，区别就是一个返回的是缓存的方法，一个返回的是缓存的值。上述如果依赖值 count 不发生变化，计算 sum 的逻辑也就只会执行一次，从而性能。
 
-> 这是之后更新的：[useCallback 与 useMemo 详解](https://juejin.im/post/6844904101445124110) 欢迎阅读。
+> 这是之后更新的：[useCallback 与 useMemo 详解](/2020/03/24/React-useCallback-&-useMemo.html) 欢迎阅读。
 
 ## React Redux Hooks
 
@@ -396,7 +396,7 @@ useRouteMatch 可以传入一个参数 `path`，不传参数则返回当前路�
 
 使用 Hooks 能为开发提升不少效率，但并不代表就要抛弃 Class Component，依旧还有很多场景我们还得用到它，比如需要封装一个公共的可继承的组件，当然通过自定义 hooks 也能将一些共用的逻辑进行封装，以便再多个组件内共用。
 
-推荐一篇我后来写的文章吧 [在 React 中自定义 Hooks 的应用场景](https://juejin.im/post/6864871906567749645) ，此篇文章主要讲一些 Hooks 的高阶应用。
+推荐一篇我后来写的文章吧 [在 React 中自定义 Hooks 的应用场景](/2020/08/25/React-Custom-Hooks.html) ，此篇文章主要讲一些 Hooks 的高阶应用。
 
 参考
 

@@ -8,7 +8,7 @@ bannerImg: /static/images/bg4.jpg
 
 ## 前言
 
-阅读本文章需要对 [React hooks](https://reactjs.org/docs/hooks-intro.html) 中 [useState](https://reactjs.org/docs/hooks-state.html) 和 [useEffect](https://reactjs.org/docs/hooks-effect.html) 有基础的了解。我的这篇文章内有大致介绍 [在 React 项目中全量使用 Hooks](https://juejin.cn/post/6844904093824073742)。
+阅读本文章需要对 [React Hooks](https://reactjs.org/docs/hooks-intro.html) 中 [useState](https://reactjs.org/docs/hooks-state.html) 和 [useEffect](https://reactjs.org/docs/hooks-effect.html) 有基础的了解。我的这篇文章内有大致介绍 [在 React 项目中全量使用 Hooks](/2020/03/16/React-use-Hooks.html)。
 
 <!--more-->
 

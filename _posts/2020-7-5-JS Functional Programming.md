@@ -256,4 +256,4 @@ const compose =
 
 原本打算顺带把高阶组件写一写，想一想还是放到下一个文章里面吧，打算写一写 React 的高阶组件与自定义 Hook。
 
-2020.8.25 更新 [在 React 中自定义 Hooks 的应用场景](https://juejin.im/post/6864871906567749645)
+2020.8.25 更新 [在 React 中自定义 Hooks 的应用场景](/2020/08/25/React-Custom-Hooks.html)

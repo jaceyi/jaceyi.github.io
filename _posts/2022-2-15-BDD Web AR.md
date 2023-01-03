@@ -30,7 +30,7 @@ bannerImg: /static/images/bg4.jpg
 
 先简单介绍一下用的库吧：
 
-- [AR.js](https://ar-js-org.github.io/AR.js-Docs)：这是一个纯 Web 的库，适用于支持[webgl](https://caniuse.com/webgl)的所有设备，它可以通过图像追踪（Image Tracking）、基于位置（Location Based AR）、标记追踪（Marker Tracking），我这里用到了图像追踪和标记追踪两种方法，后续会详细介绍。AR.js 两种版本一种是基于 [Therr.js](https://threejs.org/) 一种是基于 [A-Frame](https://aframe.io/) 实现的。 Therr.js 是什么相信很多人都了解过，这里就不讲了，我这里讲一下我弄到的 A-Frame 库。
+- [AR.js](https://ar-js-org.github.io/AR.js-Docs)：这是一个纯 Web 的库，适用于支持 [webgl](https://caniuse.com/webgl) 的所有设备，它可以通过图像追踪（Image Tracking）、基于位置（Location Based AR）、标记追踪（Marker Tracking），我这里用到了图像追踪和标记追踪两种方法，后续会详细介绍。AR.js 两种版本一种是基于 [Therr.js](https://threejs.org/) 一种是基于 [A-Frame](https://aframe.io/) 实现的。 Therr.js 是什么相信很多人都了解过，这里就不讲了，我这里讲一下我弄到的 A-Frame 库。
 - [A-Frame](https://aframe.io/docs/1.3.0/introduction)：也是基于 Therr.js 开发的，他将 Three.js 进一步封装，使其可以像写 HTML 标签的方式一样来实现 3D、AR、VR 场景等，还针对跨平台、WebVR 性能优化方面等做了很大的提升。
 
 话不多说直接开写，分分钟写一个属于自己的冰墩墩！
