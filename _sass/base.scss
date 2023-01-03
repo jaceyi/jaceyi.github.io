@@ -128,17 +128,23 @@ p {
       color: #333;
     }
 
-    .icon {
+    .mobile-nav-menu {
       color: #fff;
-      padding: 14px;
+      padding: 8px;
       line-height: 1;
       font-size: 26px;
+      border-radius: 2px;
+      margin: 6px;
+
+      &:active {
+        background-color: rgba($color: #fff, $alpha: 0.1);
+      }
     }
 
     .mobile-nav-box {
       position: absolute;
-      right: 16px;
-      top: 46px;
+      right: 6px;
+      top: 48px;
       padding: 8px 0;
       background-color: #fff;
       width: 160px;
@@ -153,8 +159,8 @@ p {
         color: #555;
         transition: background-color 0.3s;
 
-        &:hover {
-          background-color: #EEE;
+        &:focus {
+          background-color: #f3f2f1;
         }
       }
     }

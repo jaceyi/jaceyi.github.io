@@ -27,39 +27,37 @@
 
 <script>
   (function (d, w) {
-    w.onload = function () {
-      var $menuIcon = d.querySelector('.mobile-nav-menu');
-      var $navBox = d.querySelector('.mobile-nav-box');
-      var animationEndCallback = null;
-      function hideNavBox() {
-        addClass($navBox, 'zoomOut');
-        animationEndCallback = function () {
-          removeClass($navBox, 'zoomOut');
-          $navBox.style.display = 'none';
-        }
+    var $menuIcon = d.querySelector('.mobile-nav-menu');
+    var $navBox = d.querySelector('.mobile-nav-box');
+    var animationEndCallback = null;
+    function hideNavBox() {
+      addClass($navBox, 'zoomOut');
+      animationEndCallback = function () {
+        removeClass($navBox, 'zoomOut');
+        $navBox.style.display = 'none';
       }
-
-      $menuIcon.onclick = function (e) {
-        e.stopPropagation();
-        if ($navBox.style.display === 'block') return hideNavBox();
-        $navBox.style.display = 'block';
-        addClass($navBox, 'zoomIn');
-        animationEndCallback = function () {
-          removeClass($navBox, 'zoomIn');
-        }
-      };
-
-      $navBox.onclick = function (e) {
-        e.stopPropagation();
-      };
-
-      $navBox.addEventListener('animationend', function (e) {
-        animationEndCallback && animationEndCallback();
-      }, false);
-
-      d.body.addEventListener('click', function () {
-        if ($navBox.style.display === 'block') hideNavBox();
-      }, false);
     }
+
+    $menuIcon.onclick = function (e) {
+      e.stopPropagation();
+      if ($navBox.style.display === 'block') return hideNavBox();
+      $navBox.style.display = 'block';
+      addClass($navBox, 'zoomIn');
+      animationEndCallback = function () {
+        removeClass($navBox, 'zoomIn');
+      }
+    };
+
+    $navBox.onclick = function (e) {
+      e.stopPropagation();
+    };
+
+    $navBox.addEventListener('animationend', function (e) {
+      animationEndCallback && animationEndCallback();
+    }, false);
+
+    d.body.addEventListener('click', function () {
+      if ($navBox.style.display === 'block') hideNavBox();
+    }, false);
   })(document, window);
 </script>
