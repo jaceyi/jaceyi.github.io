@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="keywords"
-    content="jaceyi,yijinchun,Jace,JaceYi,Jace Yi,易进春,易进春的博客,yi个程序猿,前端,前端开发,前端博客{% for tag in page.tags %},{{ tag }}{% endfor %}">
+    content="jaceyi,yijinchun,易进春,易进春的博客,yi个程序猿,程序猿,前端,前端开发,前端博客{% for tag in page.tags %},{{ tag }}{% endfor %}">
   <meta name="description" content="易进春的个人博客，分享日常生活、学习笔记和踩过的那些坑~" />
-  <title>{{ page.title }} - 易进春的博客</title>
+  <title>{{ page.title }} - Jace's Blog | 易进春的博客</title>
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="stylesheet" href="/css/prism.css">
   <link rel="stylesheet" href="/css/base.css">
@@ -36,16 +36,6 @@
       <div class="article">
         {{ content }}
         <div class="date">发布时间：{{ page.date | date: '%Y-%m-%d' }}</div>
-        <div class="ad">
-          <script async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4613132254509352"
-            crossorigin="anonymous"></script>
-          <ins class="adsbygoogle" style="display:block;" data-ad-client="ca-pub-4613132254509352"
-            data-ad-slot="8065948199" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
-          <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-          </script>
-        </div>
       </div>
       <div id="comment">
         {% include comment.html %}

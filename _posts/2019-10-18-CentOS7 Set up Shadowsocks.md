@@ -1,8 +1,8 @@
 ---
 layout: post
-title: CentOS7 搭建 Shadowsocks 科学上网
-description: 使用 CenOS7 搭建 Shadowsocks 并配置多用户多端口访问
-tags: CentOS Shadowsocks
+title: CentOS7 搭建 SS 科学上网
+description: 使用 CenOS7 搭建 SS 并配置多用户多端口访问
+tags: CentOS
 bannerImg: /static/images/bg4.jpg
 ---
 
