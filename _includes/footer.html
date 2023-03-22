@@ -1,14 +1,15 @@
 <footer id="footer">
-  <a title="Github" href="https://github.com/jaceyi">
-    <i class="iconfont">&#xe600;</i>
-  </a>
-  <a title="掘金" href="https://juejin.cn/user/5a3b2016f265da43231b22a7">
-    <i class="iconfont">&#xe610;</i>
-  </a>
-  <a title="个人网站" href="https://jaceyi.com/">
-    <i class="iconfont">&#xe789;</i>
-  </a>
-  <a title="Twitter" href="https://twitter.com/jaceyi123">
-    <i class="iconfont">&#xe602;</i>
-  </a>
+  <p class="text"></p>
+  <p>上述骚话由 <a href="https://chp.shadiao.pro/">沙雕APP</a> 提供服务</p>
 </footer>
+<script>
+  (function () {
+    fetch('https://api.shadiao.pro/chp').then(function (res) {
+      res.json().then(data => {
+        document.body.querySelector('#footer .text').innerText = data.data.text
+      })
+    }).catch(function (e) {
+      document.body.querySelector('#footer').remove()
+    })
+  })()
+</script>

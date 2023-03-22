@@ -17,12 +17,21 @@ css: /css/index.css
     </li>
     {% endfor %}
   </ul>
-  <div class="tags">
+  <aside class="tags">
     <h3 class="title">All TAGS</h3>
     <div class="box">
       {% for tag in site.tags %}
       <a class="tag" href="/tags/#{{ tag[0] }}">{{ tag[0] }}</a>
       {% endfor %}
     </div>
-  </div>
+    <h3 class="title">LINK</h3>
+    <div class="icons">
+      <a title="Github" href="https://github.com/jaceyi">
+        <i class="iconfont">&#xe600;</i>
+      </a>
+      <a title="掘金" href="https://juejin.cn/user/5a3b2016f265da43231b22a7">
+        <i class="iconfont">&#xe610;</i>
+      </a>
+    </div>
+  </aside>
 </div>
