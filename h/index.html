@@ -6,14 +6,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>逆水寒-揽风月</title>
   <style>
+    #root {
+      display: flex;
+      justify-content: center;
+    }
     img {
-      max-width: 100%;
+      max-width: min(100%, 500px);
     }
   </style>
 </head>
 
 <body>
-  <img src="https://nsh.jaceyi.com/files/619d186c141843959512c83b13f9ec9d.jpg" alt="">
+  <div id="root"></div>
+  <script>
+    var img = document.createElement('img');
+    img.alt = '图片加载失败请联系：jaceyi'
+    img.src = 'https://nsh.jaceyi.com/files/619d186c141843959512c83b13f9ec9d.jpg?t' + new Date().getTime()
+    document.getElementById("root").appendChild(img);
+  </script>
 </body>
 
 </html>

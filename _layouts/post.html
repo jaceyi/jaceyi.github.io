@@ -2,14 +2,8 @@
 <html lang="zh">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="keywords"
-    content="jaceyi,yijinchun,易进春,易进春的博客,yi个程序猿,程序猿,前端,前端开发,前端博客{% for tag in page.tags %},{{ tag }}{% endfor %}">
-  <meta name="description" content="易进春的个人博客，分享日常生活、学习笔记和踩过的那些坑~" />
-  <title>{{ page.title }} - Jace's Blog | 易进春的博客</title>
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+  {% include head.html %}
+  <title>{{ page.title }} - Jace's Blog</title>
   <link rel="stylesheet" href="/css/prism.css">
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/post.css">
