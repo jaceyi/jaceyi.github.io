@@ -259,6 +259,7 @@ p {
 
     #results-container {
       position: absolute;
+      z-index: 9;
       left: -20%;
       right: -20%;
       top: 50px;
