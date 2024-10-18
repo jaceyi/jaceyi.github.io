@@ -1,30 +1,38 @@
 ---
-layout: default
-title: Jace's Blog
+layout: index
+title: Jace's Home
 css: /css/index.css
 ---
 
 <div class="container">
-  <ul class="posts">
-    {% for post in site.posts %}
-    <li class="post">
-      <a href="{{ post.url }}">
-        <h2 class="title">{{ post.title }}</h2>
-        <div class="excerpt">{{ post.description}}</div>
-        <div class="excerpt">{{ post.excerpt | strip_html }}</div>
-        <div class="time">{{ post.date | date: '%Y-%m-%d' }} </div>
-      </a>
-    </li>
-    {% endfor %}
-  </ul>
+  <div class="content">
+    <p>
+      你好，我是
+      Jace，家乡陕西安康，目前在上海从事前端开发相关工作，平时喜欢玩游戏、看小说、游泳、打台球、玩VR，有兴趣相投的朋友加个联系方式有空一起玩呀
+      ~
+    </p>
+  </div>
   <aside class="tags">
-    <h3 class="title">All TAGS</h3>
+    <h3 class="title">SITES</h3>
     <div class="box">
-      {% for tag in site.tags %}
-      <a class="tag" href="/tags/#{{ tag[0] }}">{{ tag[0] }}</a>
-      {% endfor %}
+      <a class="tag" href="https://chat.jaceyi.com/" target="_blank" rel="noopener">
+        <img class="tag-icon" src="https://chat.jaceyi.com/favicon.ico" alt="Icon" />
+        <span>在线聊天室</span>
+      </a>
+      <a class="tag" href="https://react-alert-confirm-doc.web.app/" target="_blank" rel="noopener">
+        <img class="tag-icon" src="https://legacy.reactjs.org/favicon.ico" alt="Icon" />
+        <span>React-Alert-Confirm</span>
+      </a>
+      <a class="tag" href="https://snowball.jaceyi.com/" target="_blank" rel="noopener">
+        <img class="tag-icon" src="https://avatars.githubusercontent.com/u/84710673" alt="Icon" />
+        <span>滚雪球</span>
+      </a>
+      <a class="tag" href="https://bingdundun.web.app/" target="_blank" rel="noopener">
+        <img class="tag-icon" src="https://avatars.githubusercontent.com/u/84710673" alt="Icon" />
+        <span>冰墩墩 WebAR</span>
+      </a>
     </div>
-    <h3 class="title">LINK</h3>
+    <h3 class="title">LINKS</h3>
     <div class="icons">
       <a title="Github" href="https://github.com/jaceyi">
         <i class="iconfont">&#xe600;</i>

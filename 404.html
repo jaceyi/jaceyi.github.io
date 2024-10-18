@@ -2,50 +2,27 @@
 <html lang="zh">
 
 <head>
-  <title>404 - Jace's Blog</title>
+  <title>404 - Jace's Home</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-
   <style>
     * {
       margin: 0;
       padding: 0;
     }
 
-    div {
+    body {
       width: 100vw;
       height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: rgba(255, 255, 255, 0.8);
-    }
-
-    a {
-      text-align: center;
-      margin-bottom: 100px;
-      text-decoration: none;
-      margin-top: -100px;
-    }
-
-    h1 {
-      font-weight: 500;
-      font-size: 6vw;
-      color: #333;
-      margin-bottom: 20px;
-      margin-top: -8vw;
-    }
-
-    p {
-      font-size: 12px;
-      color: #888;
-      padding: 0 25vw;
     }
 
     img {
-      width: 36vw;
+      width: 300px;
     }
 
     @media screen and (max-width: 700px) {
@@ -58,20 +35,17 @@
       }
 
       img {
-        width: 90vw;
+        width: 68vw;
+        max-width: 300px;
       }
     }
   </style>
 </head>
 
 <body>
-  <div>
-    <a href="/">
-      <img src="/static/images/404.gif" alt="">
-      <h1>404</h1>
-      <p>哎呀，没有找到你想要的资源呢，点击此处返回主页。</p>
-    </a>
-  </div>
+  <a href="/">
+    <img src="/static/images/404.svg" alt="">
+  </a>
 </body>
 
 </html>
