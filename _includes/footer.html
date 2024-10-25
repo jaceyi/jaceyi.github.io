@@ -3,12 +3,6 @@
 </footer>
 <script>
   (function () {
-    fetch('https://api.shadiao.pro/chp').then(function (res) {
-      res.json().then(data => {
-        document.body.querySelector('#footer .text').innerText = data.data.text
-      })
-    }).catch(function (e) {
-      document.body.querySelector('#footer').remove()
-    })
+    document.body.querySelector('#footer .text').innerText = 'Copyright © 2019 - ' + new Date().getFullYear()
   })()
 </script>
