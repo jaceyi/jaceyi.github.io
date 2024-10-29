@@ -9,7 +9,7 @@
 .content {
   color: #333;
   margin-bottom: 20px;
-  padding: 0 10px;
+  padding: 0 0.5em;
   line-height: 1.6;
 
   p {
@@ -140,17 +140,19 @@
 
 @media (max-width: 768px) {
   .container {
-    width: 96vw;
+    width: 100%;
+    padding: 20px 10px 0;
     font-size: 15px;
-    margin-top: 20px;
+    margin: 0;
   }
 
   .banner {
-    height: 36vh;
+    height: 37vh;
+    min-height: 270px;
 
     .banner-bg {
-      background-size: 62vw auto;
-      background-position: left bottom -10vw;
+      background-size: 58vw auto;
+      background-position: left bottom -9vw;
     }
 
     .banner-content {
@@ -163,5 +165,9 @@
 
   .tags {
     padding: 14px;
+  }
+
+  #footer {
+    margin: 10px 0 16px;
   }
 }
