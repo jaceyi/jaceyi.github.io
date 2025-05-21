@@ -1,4 +1,8 @@
 // 枫叶飘落动画实现
+
+const dpr = window.devicePixelRatio || 1;
+const getActualPixel = (p) => p * dpr;
+
 class Leaf {
   constructor(canvas) {
     this.canvas = canvas;
@@ -7,25 +11,26 @@ class Leaf {
   }
 
   reset() {
+    // Leaf size
+    this.size = getActualPixel(Math.random() * 30 + 20);
+
     // Set initial position at top right
     this.x = Math.random() * this.canvas.width * 0.2 + this.canvas.width * 0.8;
-    this.y = Math.random() * this.canvas.height * 0.2 - 100;
 
-    // Leaf size
-    this.size = Math.random() * 30 + 20;
+    this.y = -this.size;
 
     // Rotation angle and speed
     this.angle = Math.random() * Math.PI * 2;
     this.rotationSpeed = Math.random() * 0.02 - 0.01;
 
     // Falling speed
-    this.speedX = Math.random() * 1 - 2;
-    this.speedY = Math.random() * 2 + 1;
+    this.speedX = getActualPixel(Math.random() * 1 - 2);
+    this.speedY = getActualPixel(Math.random() * 2 + 1);
 
     // Swing motion
-    this.swing = Math.random() * 0.1;
-    this.swingSpeed = Math.random() * 0.05 + 0.02;
-    this.swingOffset = Math.random() * Math.PI * 4;
+    this.swing = getActualPixel(Math.random() * 0.1);
+    this.swingSpeed = getActualPixel(Math.random() * 0.05 + 0.02);
+    this.swingOffset = getActualPixel(Math.random() * Math.PI * 4);
   }
 
   update() {
@@ -79,8 +84,8 @@ class LeafAnimation {
   }
 
   resizeCanvas() {
-    this.canvas.width = this.canvas.parentElement.clientWidth;
-    this.canvas.height = this.canvas.parentElement.clientHeight;
+    this.canvas.width = getActualPixel(this.canvas.parentElement.clientWidth);
+    this.canvas.height = getActualPixel(this.canvas.parentElement.clientHeight);
   }
 
   createLeaves() {
