@@ -1,0 +1,198 @@
+.container {
+  width: 1100px;
+  margin: 30px auto 0;
+  font-size: 16px;
+  transition: all 0.4s;
+  position: relative;
+}
+
+.content {
+  color: #333;
+  margin-bottom: 20px;
+  padding: 0 0.5em;
+  line-height: 1.6;
+}
+
+.content-text {
+  margin-bottom: 0.8em;
+}
+
+.content-link {
+  text-decoration: underline;
+}
+
+.tags {
+  width: 100%;
+  margin: 20px 0 14px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+}
+
+.tags-title {
+  margin-bottom: 10px;
+  font-size: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  margin-top: 16px;
+  font-weight: bold;
+}
+
+.tags-title:first-child {
+  margin-top: 0;
+}
+
+.tags-box {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tags-link {
+  font-size: 13px;
+  transition: border-color 0.4s;
+  color: #888;
+  padding: 8px 15px;
+  line-height: 1.2;
+  position: relative;
+  border-radius: 9em;
+  border: 1px solid #e9e9e9;
+  margin: 6px 12px 6px 0;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.tags-link:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  z-index: 1;
+}
+
+.tags-link-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.banner {
+  height: 47.23vh;
+  position: relative;
+  background: linear-gradient(160deg, #b76049 0%, #c26f56 37%, #d2886c 100%);
+  overflow: hidden;
+}
+
+.banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(rgba(255, 255, 255, 0.2) 20%, transparent 20%) 0 0 /
+      5px 5px,
+    radial-gradient(rgba(255, 255, 255, 0.15) 20%, transparent 20%) 0 0 / 3px
+      3px,
+    radial-gradient(rgba(255, 255, 255, 0.1) 20%, transparent 20%) 0 0 / 2px 2px;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.banner-bg {
+  background: url("/static/images/long.png") no-repeat center;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 85vh auto;
+  background-position: left bottom -25vh;
+  z-index: 1;
+}
+
+.banner-content {
+  position: absolute;
+  top: 30%;
+  right: 0;
+  left: 0;
+  width: 1100px;
+  margin: 0 auto;
+  font-weight: bolder;
+  color: #fff;
+  text-align: right;
+  line-height: 1;
+  transition: all 0.4s;
+}
+
+.banner-title {
+  font-size: 7rem;
+}
+
+.banner-subtitle {
+  font-size: 3.5rem;
+}
+
+#leafCanvas {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    width: 80vw;
+  }
+
+  .banner-bg {
+    background-size: 50vw auto;
+    background-position: left bottom -5vw;
+  }
+
+  .banner-content {
+    width: 80vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    padding: 20px 10px 0;
+    font-size: 15px;
+    margin: 0;
+  }
+
+  .banner {
+    height: 37vh;
+    min-height: 270px;
+  }
+
+  .banner-bg {
+    background-size: 58vw auto;
+    background-position: left bottom -9vw;
+  }
+
+  .banner-content {
+    position: fixed;
+    width: 90vw;
+    top: 7%;
+  }
+
+  .banner-title {
+    font-size: 5rem;
+  }
+
+  .banner-subtitle {
+    font-size: 2.5rem;
+  }
+
+  .tags {
+    padding: 14px;
+  }
+
+  #footer {
+    margin: 10px 0 16px;
+  }
+}
