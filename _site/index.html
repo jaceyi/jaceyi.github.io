@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="keywords" content="jaceyi,Jace,JaceYi,Jace Yi,yi个程序猿,前端,前端开发">
+  <meta name="description" content="Jace 的个人主页，记录生活。" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+  <title>Jace's Home</title>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/index.css">
+  <script src="/static/scripts/leaf.js"></script>
+</head>
+
+<body>
+  <div class="banner">
+    <canvas id="leafCanvas"></canvas>
+    <div class="banner-bg">
+    </div>
+    <div class="banner-content">
+      <div>
+        <h1 class="banner-title">Jace's</h1>
+        <p class="banner-subtitle">Home</p>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="content">
+      <p class="content-text">
+        你好，我叫 Jace，来自陕西，目前在上海从事前端开发工作。
+      </p>
+      <p class="content-text">
+        我平时喜欢玩游戏（三角洲行动、暗区突围、逆水寒、VR），打台球及四处旅游看风景。
+      </p>
+      <p class="content-text">
+        如果你对这些也感兴趣，可以从下方 <a class="content-link" href="#links"><b>LINKS</b></a> 添加我的联系方式，有机会一起玩！
+      </p>
+    </div>
+    <div class="tags" id="links">
+      <h3 class="tags-title" >LINKS</h3>
+      <div class="tags-box">
+        <a class="tags-link" href="/wechat" rel="noopener">
+          <img class="tags-link-icon" src="/static/images/icons/wechat.ico" alt="Icon" />
+          <span>微信</span>
+        </a>
+        <a class="tags-link" href="https://qm.qq.com/q/Na5dT45yQC" target="_blank" rel="noopener">
+          <img class="tags-link-icon" src="/static/images/icons/qq.png" alt="Icon" />
+          <span>QQ</span>
+        </a>
+        <a class="tags-link" href="https://github.com/jaceyi" target="_blank" rel="noopener">
+          <img class="tags-link-icon" src="/static/images/icons/github.svg" alt="Icon" />
+          <span>Github</span>
+        </a>
+        <a class="tags-link" href="http://t.me/jaceyi" target="_blank" rel="noopener">
+          <img class="tags-link-icon" src="/static/images/icons/telegram.svg" alt="Icon" />
+          <span>Telegram</span>
+        </a>
+        <a class="tags-link" href="mailto:jaceyi@qq.com" target="_blank" rel="noopener">
+          <img class="tags-link-icon" src="/static/images/icons/email.png" alt="Icon" />
+          <span>邮箱</span>
+        </a>
+      </div>
+    </div>
+    <div class="tags">
+      <h3 class="tags-title">SITES</h3>
+      <div class="tags-box">
+        <a class="tags-link" href="https://chat.jaceyi.com" target="_blank" rel="noopener">
+          <img class="tags-link-icon" src="/static/images/icons/chat.ico" alt="Icon" />
+          <span>在线聊天室</span>
+        </a>
+        <a class="tags-link" href="https://photo.jaceyi.com" target="_blank" rel="noopener">
+          <img class="tags-link-icon" src="/static/images/icons/photo.svg" alt="Icon" />
+          <span>在线相册</span>
+        </a>
+        <a class="tags-link" href="https://snowball.jaceyi.com" target="_blank" rel="noopener">
+          <img class="tags-link-icon" src="/static/images/icons/game.png" alt="Icon" />
+          <span>滚雪球小游戏</span>
+        </a>
+        <a class="tags-link" href="https://react-alert-confirm-doc.web.app" target="_blank" rel="noopener">
+          <img class="tags-link-icon" src="/static/images/icons/react.ico" alt="Icon" />
+          <span>React-Alert-Confirm</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <footer id="footer">
+    <p class="text"></p>
+  </footer>
+  <script>
+    (function () {
+      document.body.querySelector('#footer .text').innerText = 'Copyright © 2019 - ' + new Date().getFullYear()
+    })()
+  </script>
+</body>
+
+</html>
