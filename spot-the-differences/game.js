@@ -1,5 +1,5 @@
 import {ComparisonBoard} from './board.js?v=atlas100';
-import {Journal,newRun} from './journal.js?v=atlas100';
+import {Journal,newRun} from './journal.js?v=f7db62feda9b';
 import {VoiceHint,PHRASES} from './voice.js';
 const $=id=>document.getElementById(id);
 const pad=n=>String(n).padStart(2,'0');
@@ -86,14 +86,30 @@ function picture(img,file){
   let pos=0;
   img.onerror=()=>{if(++pos<sources.length)img.src=sources[pos];else img.onerror=null};img.src=sources[0];
 }
+function routeUrl(route){return location.pathname+location.search+(route?'#'+route:'')}
 function gotoPage(route){
-  const hash=route?'#'+route:'';
-  if(location.hash===hash){routePage();return}
-  const gameReturn=route.startsWith('play/')?(screen==='chapter'?location.hash.slice(1):screen==='game'?history.state?.gameReturn:''):null;
-  history.pushState({gameReturn},'',location.pathname+location.search+hash);routePage();
+  if(location.hash==='#'+route)return;
+  const steps=screen==='home'?0:history.state?.stepsFromAtlas;
+  history.pushState({stepsFromAtlas:Number.isInteger(steps)?steps+1:null},'',routeUrl(route));
+  routePage();
+}
+function replacePage(route){
+  history.replaceState(history.state,'',routeUrl(route));
+  routePage();
+}
+function goBack(){
+  if(history.length>1&&!history.state?.firstAtlasEntry){history.back();return}
+  replacePage(screen==='game'?'scene/'+level.chapter:'');
+}
+function goHome(){
+  if(screen==='home')return;
+  const steps=history.state?.stepsFromAtlas;
+  if(Number.isInteger(steps)&&steps>0){history.go(-steps);return}
+  replacePage('');
 }
 function leaveGame(){
   stopClock();save();ready=false;loadTicket++;board.cancelTouches();closeModal(false);
+  clearTimeout(toastTimeout);$('toast').classList.remove('show');$('toast').textContent='';
   if(run){run=null;nodes=[];level=null}
   pauseOnReturn=false;
 }
@@ -110,7 +126,7 @@ function home(chapter=null){
       const label=locked?'通关第 '+(l.number-1)+' 关后解锁':won?'已通关':entry?.started?'继续游戏':'可游玩';
       return '<button class="level-entry" data-level="'+l.id+'" '+(locked?'disabled':'')+'><span class="no">'+pad(l.number)+'</span><span><span class="entry-name">'+l.name+'</span><small>'+label+' · '+l.count+' 处不同 · '+fmt(l.seconds)+'</small></span><i>'+icon(locked?'lock':won?'check':'focus')+'</i></button>';
     }).join('');
-    box.innerHTML='<div class="chapter-top"><button class="backlink" data-action="home">'+icon('chevron')+'场景图鉴</button><span class="total-count">已通关 <strong>'+complete(chapter)+'</strong> / '+chapter.levels.length+'</span></div><section class="chapter-hero"><img alt=""><div class="chapter-info"><div><small>场景 '+chapter.id+'</small><h1>'+chapter.name+'</h1><p>'+chapter.intro+'</p></div><button class="chapter-cta" data-level="'+current.id+'">'+(journal.cleared(current)?'重访':'进入')+'第 '+current.number+' 关</button></div></section><div class="level-list">'+entries+'</div>';
+    box.innerHTML='<div class="chapter-top"><button class="backlink" data-action="back">'+icon('chevron')+'返回</button><span class="total-count">已通关 <strong>'+complete(chapter)+'</strong> / '+chapter.levels.length+'</span></div><section class="chapter-hero"><img alt=""><div class="chapter-info"><div><small>场景 '+chapter.id+'</small><h1>'+chapter.name+'</h1><p>'+chapter.intro+'</p></div><button class="chapter-cta" data-level="'+current.id+'">'+(journal.cleared(current)?'重访':'进入')+'第 '+current.number+' 关</button></div></section><div class="level-list">'+entries+'</div>';
     picture(box.querySelector('.chapter-hero img'),chapter.cover);
   }else{
     const last=LEVELS.find(l=>l.id===journal.read('last'));
@@ -154,7 +170,7 @@ function routePage(){
   if(section==='play'){
     const l=LEVELS.find(l=>l.id===id);
     if(l&&journal.unlocked(l)){openLevel(l);return}
-    if(l){history.replaceState(null,'','#scene/'+l.chapter);home(CHAPTERS.find(c=>c.id===l.chapter));return}
+    if(l){replacePage('scene/'+l.chapter);return}
   }
   const chapter=section==='scene'&&CHAPTERS.find(c=>c.id===id);
   home(chapter||null);
@@ -187,10 +203,17 @@ function hintDialog(){
  }});
 }
 function help(){dialog('help','游戏玩法','<ul><li>十个场景可以自由切换，场景内逐关解锁。点击任意一幅图中的不同之处，两幅图都会画圈。每关有 5 点生命，点错扣 1 点。</li><li>在任一幅画上单指拖动，或用双指缩放至 200%，另一幅画会同步移动。</li><li>每关最多 3 次语音提示。通过口令后，金色虚线圈会一直保留到找到该处或使用下次提示。</li><li>首次触碰画面开始计时。切到后台、查看图鉴或说口令时暂停，返回后继续。</li></ul><div class="dialog-actions"><button class="primary" data-action="close">知道了</button></div>')}
-function pause(){if(!canPlay())return;dialog('pause','观察暂停','<p>剩余 '+fmt(Math.ceil(run.remaining/1000))+'，本关进度已保留。</p><div class="dialog-actions"><button class="secondary" data-action="home">返回首页</button><button class="primary" data-action="close">继续观察</button></div>')}
+function pause(){
+ if(!ready||run?.status!=='playing')return;
+ dialog('pause','观察暂停','<p>剩余 '+fmt(Math.ceil(run.remaining/1000))+'，本关进度已保留。</p><div class="dialog-actions"><button class="secondary" data-action="askRestart">重新开始本关</button><button class="primary" data-action="close">继续观察</button></div><button class="replay-link" data-action="home">返回首页</button>');
+}
+function askRestart(){
+ if(activeDialog!=='pause')return;
+ dialog('confirm-restart','重新开始本关？','<p>本轮已找到的差异会清零。你将以 5 点生命、3 次提示和 '+fmt(level.seconds)+' 的完整时间重新开始。</p><div class="dialog-actions"><button class="secondary" data-action="close">取消</button><button class="primary" data-action="restart">确认重开</button></div>');
+}
 const actions={
- home:()=>gotoPage(''),back:()=>gotoPage(history.state?.gameReturn||''),help,hint:hintDialog,pause,
- close:()=>{closeModal();if(ready&&run?.status!=='playing')resultDialog()},
+ home:goHome,back:goBack,help,hint:hintDialog,pause,askRestart,
+ close:()=>{if(activeDialog==='confirm-restart'){pause();return}closeModal();if(ready&&run?.status!=='playing')resultDialog()},
  sound:()=>{sound=!sound;journal.write('sound',sound);soundUI();if(sound){primeAudio();chime('button')}toast(sound?'音效已开启':'音效已关闭')},
  listen:()=>voice?.listen(),restart:()=>openLevel(level,{restart:true}),retryload:()=>openLevel(level)
 };
@@ -216,4 +239,6 @@ function onShow(){if(document.hidden)return;if(pauseOnReturn&&ready&&!modal.open
 document.addEventListener('visibilitychange',()=>document.hidden?onHide():onShow());
 window.addEventListener('pagehide',onHide);window.addEventListener('pageshow',onShow);
 window.addEventListener('popstate',routePage);
+// A freshly opened deep link has no preceding page, even after visiting a child and coming back.
+if(history.length===1)history.replaceState({...history.state,firstAtlasEntry:true},'');
 soundUI();routePage();
