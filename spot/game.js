@@ -14,7 +14,7 @@ function save(){
  if(run&&level)journal.save(level,run);
 }
 function scheduleSave(){clearTimeout(saveTimeout);saveTimeout=setTimeout(save,180)}
-function toast(msg,fromCat=false){clearTimeout(toastTimeout);$('toast').classList.toggle('cat-clue',fromCat);$('toast').textContent=msg;$('toast').classList.add('show');toastTimeout=setTimeout(()=>$('toast').classList.remove('show'),2600)}
+function toast(msg,fromCat=false){clearTimeout(toastTimeout);$('toast').classList.toggle('cat-clue',fromCat);$('toast').textContent=msg;$('toast').classList.add('show');toastTimeout=setTimeout(()=>$('toast').classList.remove('show'),fromCat?4000:2600)}
 function primeAudio(){if(!sound)return;try{const A=window.AudioContext||window.webkitAudioContext;if(!A)return;audio ||= new A();if(audio.state==='suspended')audio.resume().catch(()=>{})}catch{}}
 function chime(type){
  if(!sound||!audio)return;
@@ -52,17 +52,15 @@ function tap(q,el){
 }
 function paint(){
  $('found').textContent=pad(run.found.length);$('total').textContent=nodes.length||level.count;
- $('healthValue').textContent=run.hp+'/'+MAX_HP;
+ const heart=icon('heart');
+ $('hearts').innerHTML=('<i>'+heart+'</i>').repeat(run.hp)+('<i class="empty">'+heart+'</i>').repeat(MAX_HP-run.hp);
  $('hearts').setAttribute('aria-label','剩余 '+run.hp+' 点生命');
  $('slots').innerHTML=Array.from({length:level.count},(_,i)=>'<span class="slot '+(i<run.found.length?'done':'')+'">'+''+'</span>').join('');
  const hintButton=document.querySelector('[data-action=hint]');
- const cost=HINT_COSTS[run.hints];
- const target=nextHint();
- const reason=!cost?'已用完':run.hp<cost?'血量不足':ready&&target<0?'已标出':'';
- const price=reason||(run.hp===cost?'扣 '+cost+' 血归零':'扣 '+cost+' 血');
- $('hintPrice').textContent=price;
- hintButton.disabled=!ready||run.status!=='playing'||!!reason;
- hintButton.setAttribute('aria-label','橘猫提示，'+price+'，剩余 '+(HINT_COSTS.length-run.hints)+' 次');
+ const left=HINT_COSTS.length-run.hints;
+ $('hintLeft').textContent=left;
+ hintButton.disabled=!ready||run.status!=='playing'||left===0||nextHint()<0;
+ hintButton.setAttribute('aria-label','橘猫提示，剩余 '+left+' 次');
  board.marks(nodes,run.found.filter(i=>nodes[i]),run.hinted!=null&&nodes[run.hinted]?run.hinted:null);updateTime();
 }
 function finish(status){
@@ -213,7 +211,7 @@ function resultDialog(){
    history.replaceState(history.state,'',routeUrl('scene/'+chapter.id));
    pushRoute('play/'+level.id);
  }
- const primary=win&&next?'<button class="primary" data-level="'+next.id+'">下一关</button>':'<button class="primary" data-action="restart">再玩一次</button>';
+ const primary=win&&next?'<button class="primary" autofocus data-level="'+next.id+'">下一关</button>':'<button class="primary" autofocus data-action="restart">再玩一次</button>';
  dialog('result',win?(next?'本页手记已集齐':'场景已通关'):run.hp<=0?'本关生命已用尽':'本关时间已到','<p>'+level.name+' · 已找到 '+run.found.length+' / '+level.count+' 处不同。</p><div class="dialog-actions"><button class="secondary" data-action="home">返回首页</button>'+primary+'</div>'+(win&&next?'<button class="replay-link" data-action="restart">重玩本关</button>':''),false);
 }
 function nextHint(){
@@ -224,12 +222,24 @@ function nextHint(){
  }
  return -1;
 }
-function useHint(){
+function askHint(){
  if(!canPlay())return;
  debit();
  if(run.remaining<=0){finish('lost');return}
  const cost=HINT_COSTS[run.hints];
+ if(!cost||nextHint()<0)return;
+ if(run.hp<cost){
+   dialog('hint-info','血量不足','<p>本次提示需要 '+cost+' 滴血，你还剩 '+run.hp+' 滴。</p><div class="dialog-actions"><button class="primary" data-action="close">返回游戏</button></div>');
+   return;
+ }
+ const warning=run.hp===cost?'扣血后生命将归零，本关会立即结束。':'';
+ dialog('confirm-hint','使用橘猫提示？','<p>本次提示会扣除 <strong>'+cost+' 滴血</strong>。'+warning+'</p><div class="dialog-actions"><button class="secondary" data-action="close">取消</button><button class="primary" data-action="confirmHint">确认使用</button></div>');
+}
+function confirmHint(){
+ if(activeDialog!=='confirm-hint'||!modal.open||document.hidden||run?.status!=='playing')return;
+ const cost=HINT_COSTS[run.hints];
  const i=nextHint();
+ closeModal();
  if(!cost||run.hp<cost||i<0)return;
  run.hp-=cost;
  run.hints++;
@@ -247,10 +257,10 @@ function pause(){
 }
 function askRestart(){
  if(activeDialog!=='pause')return;
- dialog('confirm-restart','重新开始？','<p>本轮已找到的差异会清零。你将以 '+MAX_HP+' 点生命、3 次提示和 '+fmt(level.seconds)+' 的完整时间重新开始。</p><div class="dialog-actions"><button class="secondary" data-action="close">取消</button><button class="primary" data-action="restart">确认重开</button></div>');
+ dialog('confirm-restart','重新开始？','<p>重新开始会清空本次闯关进度。</p><div class="dialog-actions"><button class="secondary" data-action="close">取消</button><button class="primary" data-action="restart">重新开始</button></div>');
 }
 const actions={
- home:goHome,back:goBack,help,hint:useHint,pause,askRestart,
+ home:goHome,back:goBack,help,hint:askHint,confirmHint,pause,askRestart,
  close:()=>{if(activeDialog==='confirm-restart'){pause();return}closeModal();if(ready&&run?.status!=='playing')resultDialog()},
  sound:()=>{sound=!sound;journal.write('sound',sound);soundUI();if(sound){primeAudio();chime('button')}toast(sound?'音效已开启':'音效已关闭')},
  restart:()=>openLevel(level,{restart:true}),retryload:()=>openLevel(level)

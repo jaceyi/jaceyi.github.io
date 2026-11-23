@@ -14,14 +14,18 @@ svg{width:1em;height:1em;display:block;flex:none}i{display:inline-flex;font-styl
 .brand small{display:block;margin-top:2px;font:700 11px/1.2 var(--mono);letter-spacing:.18em;color:#805337}
 .found-mark,.hint-mark,.miss-mark{position:absolute;pointer-events:none;transform:translate(-50%,-50%);border-radius:50%}
 .found-mark{border:3px solid #f47a1f;box-shadow:0 0 0 1px #703416,inset 0 0 0 1px #fff3db}
-.hint-mark{border:3px dashed #ff9c45;box-shadow:0 0 0 1px #844118,inset 0 0 0 1px #fff3db;animation:pulse 1.2s ease-in-out infinite}
+.hint-mark{border:4px dashed #ff861d;box-shadow:0 0 0 2px #fff6dc,0 0 0 3px #874119,inset 0 0 0 2px #fff6dc;z-index:1}
 .miss-mark{color:#fff8ed;background:#ac493e;width:29px;height:29px;display:grid;place-items:center;font-size:23px;line-height:1;box-shadow:0 0 0 2px #fcebd8;animation:miss .7s ease-out forwards}
-@keyframes pulse{50%{opacity:.6}}@keyframes miss{70%{opacity:1}100%{opacity:0;transform:translate(-50%,-80%)}}
+.hint-mark::after{content:"";position:absolute;inset:-5px;border:2px solid #ff9d39;border-radius:50%;animation:hint-pulse 1.6s ease-out infinite}
+@keyframes hint-pulse{from{transform:scale(1);opacity:.9}to{transform:scale(1.28);opacity:0}}
+@keyframes miss{70%{opacity:1}100%{opacity:0;transform:translate(-50%,-80%)}}
 .load{position:absolute;inset:0;background:#ece2d6;display:grid;place-content:center;justify-items:center;gap:12px;color:#694f3c;font-size:16px}.load[hidden]{display:none}
 .toast{position:fixed;z-index:4;bottom:max(22px,env(safe-area-inset-bottom));left:50%;transform:translate(-50%,12px);background:#583624f7;color:#fef5ea;padding:10px 17px;border:1px solid #b3947d;border-radius:8px;opacity:0;pointer-events:none;transition:.15s;max-width:92vw;width:max-content;font-size:14px;text-align:center}
 .toast.cat-clue{display:flex;align-items:center;gap:7px;color:#983e13;background:#fff5e4;border-color:#da9e69;font-weight:650}
 .toast.cat-clue::before{content:"";flex:none;background:url("mark.svg?v=2d6f40b00393#still") center/contain no-repeat}
 .toast.cat-clue::before{width:28px;height:26px}
+.toast.cat-clue{bottom:auto;top:50%;transform:translate(-50%,-40%)}
+.toast.cat-clue.show{transform:translate(-50%,-50%)}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 dialog{border:1.5px solid #967861;border-radius:15px;background:#fffbf5;color:var(--ink);padding:0;width:min(430px,92vw);max-height:87dvh;box-shadow:3px 5px 0 #3b291b5c}
 dialog::backdrop{background:#36261aa6}
@@ -102,7 +106,7 @@ body.playing .scene-only,body:not(.playing) .play-only{display:none}
 .status{display:grid;gap:2px;justify-items:end}
 .time-line{display:flex;align-items:center;gap:4px}.time-line i{color:#896c55;font-size:14px}
 #time{font:700 18px/1.05 var(--mono);font-variant-numeric:tabular-nums}#time.urgent{color:#aa422c}
-#hearts{display:flex;align-items:center;gap:3px;font:650 11px/1 var(--mono);font-variant-numeric:tabular-nums}#hearts i{color:#c35c4b}#hearts svg{width:13px;height:13px}
+#hearts{display:flex;gap:1px;color:#c25444}#hearts svg{width:12px;height:12px}#hearts .empty{color:#d6c8bc}
 .pause{width:37px;height:38px;border-radius:8px;background:#f3e9dd}
 .board{position:relative;display:grid;grid-template-rows:minmax(0,1fr) 9px minmax(0,1fr);min-height:0;padding:3px;background:#fff9f0;border:1.5px solid #977860;border-radius:10px;box-shadow:0 2px 0 #ceb4a0;overflow:hidden}
 .pane{position:relative;min-height:0;width:100%;overflow:hidden;background:#ece0d2;touch-action:none;isolation:isolate;cursor:crosshair;contain:layout paint}
