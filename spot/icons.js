@@ -13,7 +13,7 @@ const iconArt = {
  minus:'<path d="M5 12h14"/>',plus:'<path d="M5 12h14M12 5v14"/>',spark:'<path d="m12 2 2.3 6.2L21 11l-6.7 2.6L12 21l-2.6-7.4L3 11l6.4-2.8z"/>',
  bulb:'<path d="M8.3 16c0-3-3-3.8-3-7.3a6.7 6.7 0 0 1 13.4 0c0 3.5-3 4.3-3 7.3zM9 19h6m-5 3h4"/>',
  chevron:'<path d="m9 5 7 7-7 7"/>',save:'<path d="M5 4h12l3 3v13H4V4zM8 4v6h8V4M8 20v-6h8v6"/>',
- check:'<path d="m4 12 5 5L20 6"/>', close:'<path d="m6 6 12 12M18 6 6 18"/>', mic:'<rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2m-7 9v3m-4 0h8"/>', pin:'<path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0z"/><circle cx="12" cy="10" r="2"/>', flag:'<path d="M5 21V4q3-3 7 0t8 0v10q-4 3-8 0t-7 0"/>', replay:'<path d="M4 11a8 8 0 1 1 1 7M4 4v7h7"/>'
+ check:'<path d="m4 12 5 5L20 6"/>', close:'<path d="m6 6 12 12M18 6 6 18"/>', pin:'<path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0z"/><circle cx="12" cy="10" r="2"/>', flag:'<path d="M5 21V4q3-3 7 0t8 0v10q-4 3-8 0t-7 0"/>', replay:'<path d="M4 11a8 8 0 1 1 1 7M4 4v7h7"/>'
 };
 function icon(name){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(iconArt[name]||'')+'</svg>'}
 document.querySelectorAll('[data-icon]').forEach(el=>el.innerHTML=icon(el.dataset.icon));

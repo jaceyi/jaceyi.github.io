@@ -1,6 +1,8 @@
 const PREFIX = 'xunyi-atlas-v2:';
+export const MAX_HP = 9;
+export const HINT_COSTS = [1, 2, 3];
 export function newRun(level) {
-  return {found:[], hp:5, remaining:level.seconds*1000, hints:0, hinted:null, started:false,
+  return {found:[], hp:MAX_HP, maxHp:MAX_HP, remaining:level.seconds*1000, hints:0, hinted:null, started:false,
     status:'playing', view:{z:1,cx:level.startX??0,cy:.5}};
 }
 export class Journal {
@@ -35,7 +37,7 @@ export class Journal {
         const convert=index=>level.spots.findIndex(n=>Number.isInteger(n.legacyIndex)&&n.legacyIndex===index);
         const found=Array.isArray(prev?.found)?prev.found.map(convert).filter(i=>i>=0):[];
         const hint=convert(prev?.hinted);
-        const run={...newRun(level),...prev,found,hinted:hint>=0?hint:null};
+        const run={...newRun(level),...prev,maxHp:5,hp:prev?.hp??5,found,hinted:hint>=0?hint:null};
         if(complete||prev?.status==='won'){
           run.found=level.spots.map((_,i)=>i);run.status='won';this.write('cleared:'+level.id,true);
         }
@@ -61,9 +63,14 @@ export class Journal {
   restore(l) {
     const v=this.read('run:'+l.id,{})||{},r=newRun(l);
     r.found=Array.isArray(v.found)?[...new Set(v.found.filter(i=>Number.isInteger(i)&&i>=0&&i<l.count))]:[];
-    r.hp=Number.isInteger(v.hp)?Math.max(0,Math.min(5,v.hp)):5;
-    r.started=!!v.started;r.hints=Number.isInteger(v.hints)?Math.max(0,Math.min(3,v.hints)):0;
-    if(Number.isFinite(v.remaining)&&(r.started||r.found.length||r.hp<5||r.hints||v.status==='lost'||v.status==='won')){
+    if(Number.isInteger(v.hp)){
+      // Five-heart saves retain the damage already taken. Exhausted runs stay exhausted.
+      const legacyFive=v.maxHp==null||v.maxHp===5;
+      const hp=Math.max(0,v.hp);
+      r.hp=legacyFive&&hp>0?MAX_HP-5+Math.min(5,hp):Math.min(MAX_HP,hp);
+    }
+    r.started=!!v.started;r.hints=Number.isInteger(v.hints)?Math.max(0,Math.min(HINT_COSTS.length,v.hints)):0;
+    if(Number.isFinite(v.remaining)&&(r.started||r.found.length||r.hp<MAX_HP||r.hints||v.status==='lost'||v.status==='won')){
       r.remaining=Math.min(r.remaining,Math.max(0,v.remaining));
     }
     if(r.hints&&Number.isInteger(v.hinted)&&v.hinted>=0&&v.hinted<l.count&&!r.found.includes(v.hinted))r.hinted=v.hinted;

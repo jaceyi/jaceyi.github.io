@@ -1,1 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#ffda78"/><g fill="#264b3e"><path d="M8 26l4-15h7l2 15zm19 0 2-15h7l4 15zM18 19h12v7H18z"/><circle cx="14" cy="30" r="9"/><circle cx="34" cy="30" r="9"/></g><g fill="#ffebbb"><circle cx="14" cy="30" r="5"/><circle cx="34" cy="30" r="5"/></g></svg>
+<svg id="still" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 88" fill="none">
+  <defs>
+    <linearGradient id="fur" x1="0" y1="0" x2=".3" y2="1" gradientUnits="objectBoundingBox">
+      <stop stop-color="#ffc16a"/><stop offset="1" stop-color="#f29a48"/>
+    </linearGradient>
+  </defs>
+  <style>
+    .kitten { transform-origin:46px 71px; animation:peek 6s ease-in-out infinite }
+    .eyes { transform-origin:0 45px; animation:blink 6s infinite }
+    @keyframes peek { 0%,45%,90%,100% {transform:rotate(-2deg)} 62%,74% {transform:rotate(3deg)} }
+    @keyframes blink { 0%,26%,30%,100% {transform:scaleY(1)} 28% {transform:scaleY(.12)} }
+    :root:target .kitten,:root:target .eyes {animation:none}
+    @media (prefers-reduced-motion:reduce) { .kitten,.eyes {animation:none} }
+  </style>
+  <g class="kitten" stroke-linecap="round" stroke-linejoin="round">
+    <!-- A low, soft silhouette keeps the expression legible at button size. -->
+    <path fill="url(#fur)" stroke="#804525" stroke-width="2.3" d="M12 34Q9 19 15 12q4-5 19 7 12-5 24-2Q70 4 76 8q6 5 5 23 8 9 7 21-1 23-32 26-30 4-44-9Q-1 55 12 34Z"/>
+    <path fill="#f38d76" d="M16 27q-1-9 2-11 3-1 10 6Zm48-6q6-8 10-9 3 2 2 13Z"/>
+    <g fill="#d67a35">
+      <path d="M33 20q4-1 7-2l1 10q-4 2-8-8Zm10-3 7-1-2 12q-4 3-5-11Zm11-1 6 1-5 9q-4 1-1-10Z"/>
+      <path d="M10 37q10 2 10 5-4 2-13 0Zm-4 11q8-1 13 2-3 4-13 3Zm75-14q-8 3-9 6 7 1 12-2Z"/>
+    </g>
+    <path fill="#fff1d9" d="M8 56q5 6 16 0 10-7 19-3 10-6 20 0 15 7 22-1-2 15-18 20-23 8-44 1Q11 69 8 56Z"/>
+    <g fill="#ec9073"><ellipse cx="23" cy="53" rx="5.8" ry="3"/><ellipse cx="72" cy="50" rx="5" ry="2.8"/></g>
+    <g class="eyes" fill="#4c3128">
+      <ellipse cx="31" cy="45" rx="5.7" ry="6.8"/><ellipse cx="62" cy="43.8" rx="6.5" ry="7.5"/>
+      <g fill="#fffaf1"><circle cx="32.6" cy="42.5" r="2.2"/><circle cx="64" cy="41" r="2.5"/></g>
+    </g>
+    <path fill="#ab634f" d="M40 52q4-2 8-1-1 4-4 5-3-1-4-4Z"/>
+    <path stroke="#77442e" stroke-width="1.9" d="M44 55q-1 6-6 4m6-4q2 5 6 2"/>
+    <path stroke="#945e3e" stroke-width="1.5" d="m15 52-10-2m10 7L5 60"/>
+    <!-- One eye peers through a little brass magnifier. -->
+    <path d="m73 56 13 14" stroke="#76442b" stroke-width="8"/><path d="m74 57 12 13" stroke="#bc7947" stroke-width="4.5"/>
+    <circle cx="62" cy="43.8" r="16" fill="#fffbdd" fill-opacity=".09" stroke="#77492d" stroke-width="5"/>
+    <circle cx="62" cy="43.8" r="16" stroke="#ffda84" stroke-width="2.5"/>
+    <path d="M51 40q2-6 8-7" stroke="#fff5d8" stroke-width="1.9"/>
+    <path fill="#ffe2af" stroke="#925b34" stroke-width="1.9" d="M72 69q-5-4-2-8 3-4 6-1 3-3 6 1 3 3 0 7-4 5-10 1Z"/>
+  </g>
+</svg>

@@ -1,6 +1,5 @@
 import {ComparisonBoard} from './board.js?v=atlas100';
-import {Journal,newRun} from './journal.js?v=e89c8675583a';
-import {VoiceHint,PHRASES} from './voice.js';
+import {Journal,newRun,MAX_HP,HINT_COSTS} from './journal.js?v=fcde50e4e180';
 const $=id=>document.getElementById(id);
 const pad=n=>String(n).padStart(2,'0');
 const fmt=n=>pad(Math.floor(n/60))+':'+pad(n%60);
@@ -9,13 +8,13 @@ let storage;
 try{storage=window.localStorage}catch{}
 const journal=new Journal(CHAPTERS,storage);
 let sound=journal.read('sound',true), screen='', level=null, nodes=[],run=null,ready=false,
-    activeDialog='',voice,loadTicket=0,intervalStart=null,lastDisplay=-1,lastWrite=0,audio,toastTimeout,saveTimeout;
+    activeDialog='',loadTicket=0,intervalStart=null,lastDisplay=-1,lastWrite=0,audio,toastTimeout,saveTimeout;
 function save(){
  clearTimeout(saveTimeout);
  if(run&&level)journal.save(level,run);
 }
 function scheduleSave(){clearTimeout(saveTimeout);saveTimeout=setTimeout(save,180)}
-function toast(msg){clearTimeout(toastTimeout);$('toast').textContent=msg;$('toast').classList.add('show');toastTimeout=setTimeout(()=>$('toast').classList.remove('show'),2600)}
+function toast(msg,fromCat=false){clearTimeout(toastTimeout);$('toast').classList.toggle('cat-clue',fromCat);$('toast').textContent=msg;$('toast').classList.add('show');toastTimeout=setTimeout(()=>$('toast').classList.remove('show'),2600)}
 function primeAudio(){if(!sound)return;try{const A=window.AudioContext||window.webkitAudioContext;if(!A)return;audio ||= new A();if(audio.state==='suspended')audio.resume().catch(()=>{})}catch{}}
 function chime(type){
  if(!sound||!audio)return;
@@ -53,11 +52,17 @@ function tap(q,el){
 }
 function paint(){
  $('found').textContent=pad(run.found.length);$('total').textContent=nodes.length||level.count;
- $('hearts').innerHTML=Array.from({length:5},(_,i)=>'<span class="'+(i>=run.hp?'empty':'')+'">'+icon('heart')+'</span>').join('');
+ $('healthValue').textContent=run.hp+'/'+MAX_HP;
  $('hearts').setAttribute('aria-label','剩余 '+run.hp+' 点生命');
  $('slots').innerHTML=Array.from({length:level.count},(_,i)=>'<span class="slot '+(i<run.found.length?'done':'')+'">'+''+'</span>').join('');
- $('hintLeft').textContent=3-run.hints;
- document.querySelector('[data-action=hint]').disabled=!ready||run.hints>=3||run.status!=='playing';
+ const hintButton=document.querySelector('[data-action=hint]');
+ const cost=HINT_COSTS[run.hints];
+ const target=nextHint();
+ const reason=!cost?'已用完':run.hp<cost?'血量不足':ready&&target<0?'已标出':'';
+ const price=reason||(run.hp===cost?'扣 '+cost+' 血归零':'扣 '+cost+' 血');
+ $('hintPrice').textContent=price;
+ hintButton.disabled=!ready||run.status!=='playing'||!!reason;
+ hintButton.setAttribute('aria-label','橘猫提示，'+price+'，剩余 '+(HINT_COSTS.length-run.hints)+' 次');
  board.marks(nodes,run.found.filter(i=>nodes[i]),run.hinted!=null&&nodes[run.hinted]?run.hinted:null);updateTime();
 }
 function finish(status){
@@ -124,7 +129,7 @@ function leaveGame(){
 }
 function home(chapter=null){
   leaveGame();screen=chapter?'chapter':'home';$('game').hidden=true;$('mast').hidden=!!chapter;$('sectionHead').hidden=!chapter;$('home').hidden=false;
-  document.body.classList.remove('playing');document.title=(chapter?chapter.name:'场景图鉴')+' · 找不同';
+  document.body.classList.remove('playing');document.title=(chapter?chapter.name:'场景图鉴')+' · 橘猫陪你找不同';
   const box=$('home');
   const complete=c=>c.levels.filter(l=>journal.cleared(l)).length;
   if(chapter){
@@ -192,11 +197,11 @@ function routePage(){
 }
 function soundUI(){$('sound').innerHTML=icon(sound?'sound':'mute');$('sound').setAttribute('aria-label',sound?'关闭音效':'开启音效');$('sound').setAttribute('aria-pressed',String(sound))}
 function closeModal(resume=true){
- voice?.dispose();voice=null;if(modal.open)modal.close();activeDialog='';if(resume)resumeClock()
+ if(modal.open)modal.close();activeDialog='';if(resume)resumeClock()
 }
 function dialog(kind,title,body,closable=true){
- stopClock();save();voice?.dispose();voice=null;board.cancelTouches();activeDialog=kind;
- modal.className=kind==='gallery'?'gallery-dialog':'';
+ stopClock();save();board.cancelTouches();activeDialog=kind;
+ modal.className=kind+'-dialog';
  $('dialogBody').innerHTML='<div class="dialog-top"><h2 id="dialogTitle">'+title+'</h2>'+(closable?'<button class="circle" aria-label="关闭" data-action="close">'+icon('close')+'</button>':'')+'</div><div class="dialog-content">'+body+'</div>';
  modal.setAttribute('aria-labelledby','dialogTitle');if(!modal.open)modal.showModal();
 }
@@ -211,31 +216,44 @@ function resultDialog(){
  const primary=win&&next?'<button class="primary" data-level="'+next.id+'">下一关</button>':'<button class="primary" data-action="restart">再玩一次</button>';
  dialog('result',win?(next?'本页手记已集齐':'场景已通关'):run.hp<=0?'本关生命已用尽':'本关时间已到','<p>'+level.name+' · 已找到 '+run.found.length+' / '+level.count+' 处不同。</p><div class="dialog-actions"><button class="secondary" data-action="home">返回首页</button>'+primary+'</div>'+(win&&next?'<button class="replay-link" data-action="restart">重玩本关</button>':''),false);
 }
-function hintDialog(){
- if(!canPlay()||run.hints>=3)return;
- const index=run.hints;
- dialog('hint','语音提示','<p>第 '+(index+1)+' 次提示。允许麦克风后，请说一遍下面的口令。</p><div class="phrase">'+PHRASES[index]+'</div><p id="voiceStatus" class="speech-state" role="status">口令通过后，两幅图都会标出同一处线索。浏览器可能使用在线语音服务。</p><div class="dialog-actions"><button class="secondary" data-action="close">返回游戏</button><button id="listen" class="primary" data-action="listen">'+icon('mic')+'开始说话</button></div>');
- voice=new VoiceHint(index,{report:(msg,busy)=>{if(activeDialog!=='hint')return;$('voiceStatus').textContent=msg;$('listen').disabled=busy;$('listen').innerHTML=icon('mic')+(busy?'聆听中':'再次说话')},success:()=>{
-   if(activeDialog!=='hint'||run.status!=='playing')return;
-   const choices=nodes.map((n,i)=>i).filter(i=>!run.found.includes(i)&&i!==run.hinted);
-   const i=choices[0]??nodes.findIndex((n,i)=>!run.found.includes(i));if(i<0)return;
-   run.hints++;run.hinted=i;closeModal();board.focus(nodes[i]);paint();save();chime('hint');toast('线索：'+nodes[i].label+'，请点击金色虚线圈。');
- }});
+function nextHint(){
+ const start=(run.hinted??-1)+1;
+ for(let step=0;step<nodes.length;step++){
+   const i=(start+step)%nodes.length;
+   if(i!==run.hinted&&!run.found.includes(i))return i;
+ }
+ return -1;
 }
-function help(){dialog('help','游戏玩法','<ul><li>十个场景可以自由切换，场景内逐关解锁。点击任意一幅图中的不同之处，两幅图都会画圈。每关有 5 点生命，点错扣 1 点。</li><li>在任一幅画上单指拖动，或用双指缩放至 200%，另一幅画会同步移动。</li><li>每关最多 3 次语音提示。通过口令后，金色虚线圈会一直保留到找到该处或使用下次提示。</li><li>两幅图加载完成后自动开始计时。切到后台、查看图鉴或说口令时暂停，返回后继续。</li></ul><div class="dialog-actions"><button class="primary" data-action="close">知道了</button></div>')}
+function useHint(){
+ if(!canPlay())return;
+ debit();
+ if(run.remaining<=0){finish('lost');return}
+ const cost=HINT_COSTS[run.hints];
+ const i=nextHint();
+ if(!cost||run.hp<cost||i<0)return;
+ run.hp-=cost;
+ run.hints++;
+ run.hinted=i;
+ board.focus(nodes[i]);
+ chime('hint');
+ toast('喵，看看「'+nodes[i].label+'」！',true);
+ if(run.hp===0){finish('lost');return}
+ paint();save();
+}
+function help(){dialog('help','游戏玩法','<ul><li>十个场景可以自由切换，场景内逐关解锁。点击任意一幅图中的不同之处，两幅图都会画圈。每关有 '+MAX_HP+' 点生命，点错扣 1 点。</li><li>在任一幅画上单指拖动，或用双指缩放至 200%，另一幅画会同步移动。</li><li>每关可请橘猫提示三次，依次消耗 1、2、3 点生命。生命不足时无法使用，生命归零时本关结束。提示会用橘色虚线圈标出一处不同。虚线圈会一直保留到找到该处或使用下次提示。</li><li>两幅图加载完成后自动开始计时。切到后台或点击暂停键可以暂停计时。</li></ul><div class="dialog-actions"><button class="primary" data-action="close">知道了</button></div>')}
 function pause(){
  if(!ready||run?.status!=='playing')return;
  dialog('pause','观察暂停','<p>剩余 '+fmt(Math.ceil(run.remaining/1000))+'，本关进度已保留。</p><div class="dialog-actions"><button class="secondary" data-action="askRestart">重新开始</button><button class="primary" data-action="close">继续观察</button></div><button class="replay-link" data-action="home">返回首页</button>');
 }
 function askRestart(){
  if(activeDialog!=='pause')return;
- dialog('confirm-restart','重新开始？','<p>本轮已找到的差异会清零。你将以 5 点生命、3 次提示和 '+fmt(level.seconds)+' 的完整时间重新开始。</p><div class="dialog-actions"><button class="secondary" data-action="close">取消</button><button class="primary" data-action="restart">确认重开</button></div>');
+ dialog('confirm-restart','重新开始？','<p>本轮已找到的差异会清零。你将以 '+MAX_HP+' 点生命、3 次提示和 '+fmt(level.seconds)+' 的完整时间重新开始。</p><div class="dialog-actions"><button class="secondary" data-action="close">取消</button><button class="primary" data-action="restart">确认重开</button></div>');
 }
 const actions={
- home:goHome,back:goBack,help,hint:hintDialog,pause,askRestart,
+ home:goHome,back:goBack,help,hint:useHint,pause,askRestart,
  close:()=>{if(activeDialog==='confirm-restart'){pause();return}closeModal();if(ready&&run?.status!=='playing')resultDialog()},
  sound:()=>{sound=!sound;journal.write('sound',sound);soundUI();if(sound){primeAudio();chime('button')}toast(sound?'音效已开启':'音效已关闭')},
- listen:()=>voice?.listen(),restart:()=>openLevel(level,{restart:true}),retryload:()=>openLevel(level)
+ restart:()=>openLevel(level,{restart:true}),retryload:()=>openLevel(level)
 };
 document.addEventListener('click',e=>{
  const btn=e.target.closest('button');if(!btn||btn.disabled)return;primeAudio();
@@ -257,7 +275,7 @@ document.addEventListener('contextmenu',e=>e.preventDefault());
 document.addEventListener('selectstart',e=>e.preventDefault());
 for(const ev of ['gesturestart','gesturechange','gestureend'])document.addEventListener(ev,e=>e.preventDefault(),{passive:false});
 document.addEventListener('touchmove',e=>{if(e.touches.length>1)e.preventDefault()},{passive:false});
-function onHide(){stopClock();board.cancelTouches();if(activeDialog==='hint')closeModal(false);if(ready&&run.status==='playing'&&run.started&&!modal.open)pauseOnReturn=true;save()}
+function onHide(){stopClock();board.cancelTouches();if(ready&&run.status==='playing'&&run.started&&!modal.open)pauseOnReturn=true;save()}
 let pauseOnReturn=false;
 function onShow(){if(document.hidden)return;if(pauseOnReturn&&ready&&!modal.open&&run.status==='playing'){pauseOnReturn=false;pause()}else resumeClock()}
 document.addEventListener('visibilitychange',()=>document.hidden?onHide():onShow());

@@ -3,14 +3,14 @@
 <head>
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
- <meta name="theme-color" content="#faf9ef">
- <title>找不同 · 场景图鉴</title>
- <link rel="icon" href="mark.svg" type="image/svg+xml">
- <link rel="stylesheet" href="style.css?v=9bd8ab611309">
+ <meta name="theme-color" content="#fff8ef">
+ <title>橘猫陪你找不同 · 场景图鉴</title>
+ <link rel="icon" href="mark.svg?v=2d6f40b00393#still" type="image/svg+xml">
+ <link rel="stylesheet" href="style.css?v=14cd8b683466">
 </head>
 <body>
  <header class="mast" id="mast"><div class="mast-inner">
-   <button class="brand" data-action="home" aria-label="找不同首页"><span class="brand-icon" data-icon="binoculars"></span><span><strong>找不同</strong><small>SPOT THE DIFFERENCE</small></span></button>
+   <button class="brand" data-action="home" aria-label="橘猫陪你找不同首页"><img class="brand-cat" src="mark.svg?v=2d6f40b00393" width="59" height="55" alt=""><span><strong>橘猫陪你找不同</strong><small lang="en">TABBY SPOTS</small></span></button>
    <div class="top-actions"><button class="circle" id="sound" data-action="sound" title="音效" aria-label="关闭音效"><i data-icon="sound"></i></button><button class="circle" data-action="help" aria-label="游戏玩法"><i data-icon="help"></i></button></div>
  </div></header>
  <header id="sectionHead" class="section-head" hidden>
@@ -21,7 +21,7 @@
       <h1 id="title" class="nav-caption play-only"></h1>
     </div>
     <span class="total-count scene-only">已通关 <strong id="chapterComplete"></strong> / <span id="chapterLength"></span></span>
-    <div class="status play-only"><div class="time-line"><i data-icon="timer"></i><strong id="time">--:--</strong></div><div id="hearts" aria-label="剩余5点生命"></div></div>
+    <div class="status play-only"><div class="time-line"><i data-icon="timer"></i><strong id="time">--:--</strong></div><div id="hearts" role="img" aria-label="剩余 9 点生命"><i data-icon="heart"></i><span id="healthValue">9/9</span></div></div>
     <button class="pause play-only" data-action="pause" aria-label="暂停游戏" title="暂停游戏"><i data-icon="pause"></i></button>
   </div>
  </header>
@@ -34,10 +34,10 @@
     <div class="load" id="loading" role="status">正在展开画卷…</div>
   </section>
   <footer class="game-footer"><div class="discovery"><div class="foundrow"><i data-icon="focus"></i><span>已发现</span><strong id="found">0</strong><span class="slash">/</span><b id="total">10</b></div><div id="slots" class="slots" aria-label="发现进度"></div></div>
-    <button class="hint" data-action="hint"><i data-icon="bulb"></i><span>语音提示</span><b id="hintLeft">3</b></button>
+    <button class="hint" data-action="hint"><img class="hint-cat" src="mark.svg?v=2d6f40b00393#still" width="25" height="23" alt=""><span>橘猫提示</span><b id="hintPrice">扣 1 血</b></button>
   </footer>
  </main>
  <div class="toast" role="status" aria-live="polite" id="toast"></div>
  <dialog id="modal"><div id="dialogBody"></div></dialog>
- <script src="icons.js?v=atlas100"></script><script src="catalog.js?v=1a36935e33ce"></script><script type="module" src="game.js?v=907dbd456573"></script>
+ <script src="icons.js?v=9070ac94b8d0"></script><script src="catalog.js?v=1a36935e33ce"></script><script type="module" src="game.js?v=e4169e66fc00"></script>
 </body></html>
