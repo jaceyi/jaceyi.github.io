@@ -4,23 +4,29 @@
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
  <meta name="theme-color" content="#faf9ef">
- <title>寻异手记 · 场景图鉴</title>
+ <title>找不同 · 场景图鉴</title>
  <link rel="icon" href="mark.svg" type="image/svg+xml">
- <link rel="stylesheet" href="style.css?v=f428dd5a3f97">
+ <link rel="stylesheet" href="style.css?v=9bd8ab611309">
 </head>
 <body>
  <header class="mast" id="mast"><div class="mast-inner">
-   <button class="brand" data-action="home" aria-label="寻异手记首页"><span class="brand-icon" data-icon="binoculars"></span><span><strong>寻异手记</strong><small>DIFFERENCE ATLAS</small></span></button>
+   <button class="brand" data-action="home" aria-label="找不同首页"><span class="brand-icon" data-icon="binoculars"></span><span><strong>找不同</strong><small>SPOT THE DIFFERENCE</small></span></button>
    <div class="top-actions"><button class="circle" id="sound" data-action="sound" title="音效" aria-label="关闭音效"><i data-icon="sound"></i></button><button class="circle" data-action="help" aria-label="游戏玩法"><i data-icon="help"></i></button></div>
  </div></header>
+ <header id="sectionHead" class="section-head" hidden>
+  <div class="section-bar">
+    <div class="nav-heading">
+      <button id="sectionBack" class="nav-back" data-action="back" aria-label="返回" title="返回"><i data-icon="chevron"></i></button>
+      <label id="chapterTitle" for="sectionBack" class="nav-caption scene-only"></label>
+      <h1 id="title" class="nav-caption play-only"></h1>
+    </div>
+    <span class="total-count scene-only">已通关 <strong id="chapterComplete"></strong> / <span id="chapterLength"></span></span>
+    <div class="status play-only"><div class="time-line"><i data-icon="timer"></i><strong id="time">--:--</strong></div><div id="hearts" aria-label="剩余5点生命"></div></div>
+    <button class="pause play-only" data-action="pause" aria-label="暂停游戏" title="暂停游戏"><i data-icon="pause"></i></button>
+  </div>
+ </header>
  <main id="home" class="home"></main>
  <main id="game" class="game" hidden>
-  <header class="game-head">
-    <button class="game-back" data-action="back" aria-label="返回" title="返回"><i data-icon="chevron"></i></button>
-    <div class="level-title"><h1 id="title"></h1></div>
-    <div class="status"><div class="time-line"><i data-icon="timer"></i><strong id="time">--:--</strong></div><div id="hearts" aria-label="剩余5点生命"></div></div>
-    <button class="pause" data-action="pause" aria-label="暂停游戏" title="暂停游戏"><i data-icon="pause"></i></button>
-  </header>
   <section class="board" id="board" aria-label="上下对照画面">
     <div class="pane" id="paneA" role="application" aria-label="图 A，原景"><div class="world"><img draggable="false" alt="场景原图"><div class="marks"></div></div><span class="frame-tag"><b>A</b>原景</span></div>
     <div class="binding"><span></span><i data-icon="link"></i><span></span></div>
@@ -33,5 +39,5 @@
  </main>
  <div class="toast" role="status" aria-live="polite" id="toast"></div>
  <dialog id="modal"><div id="dialogBody"></div></dialog>
- <script src="icons.js?v=atlas100"></script><script src="catalog.js?v=a9de495079ef"></script><script type="module" src="game.js?v=47ee45b07898"></script>
+ <script src="icons.js?v=atlas100"></script><script src="catalog.js?v=1a36935e33ce"></script><script type="module" src="game.js?v=907dbd456573"></script>
 </body></html>

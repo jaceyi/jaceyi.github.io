@@ -1,5 +1,5 @@
 import {ComparisonBoard} from './board.js?v=atlas100';
-import {Journal,newRun} from './journal.js?v=f7db62feda9b';
+import {Journal,newRun} from './journal.js?v=e89c8675583a';
 import {VoiceHint,PHRASES} from './voice.js';
 const $=id=>document.getElementById(id);
 const pad=n=>String(n).padStart(2,'0');
@@ -23,16 +23,19 @@ function chime(type){
  tones.forEach((f,i)=>{try{const o=audio.createOscillator(),g=audio.createGain(),t=audio.currentTime+i*.09;o.type=type==='miss'?'triangle':'sine';o.frequency.value=f;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.10,t+.012);g.gain.exponentialRampToValueAtTime(.001,t+.18);o.connect(g);g.connect(audio.destination);o.start(t);o.stop(t+.20)}catch{}});
 }
 function canPlay(){return screen==='game'&&ready&&run?.status==='playing'&&!modal.open&&!document.hidden}
-function resumeClock(){if(intervalStart==null&&canPlay()&&run.started)intervalStart=performance.now()}
+function resumeClock(){
+ if(intervalStart!=null||!canPlay())return;
+ intervalStart=performance.now();
+ if(!run.started){run.started=true;save()}
+}
 function debit(){if(intervalStart==null)return;const now=performance.now();run.remaining=Math.max(0,run.remaining-(now-intervalStart));intervalStart=now}
 function stopClock(){debit();intervalStart=null}
-function inspect(){if(!canPlay())return;primeAudio();if(!run.started){run.started=true;save()}resumeClock()}
 function updateTime(){const seconds=Math.ceil(run.remaining/1000);
  if(lastDisplay!==seconds){$('time').textContent=fmt(seconds);$('time').classList.toggle('urgent',seconds<=30);if(intervalStart!=null&&seconds>0&&seconds<=10)chime('tick');lastDisplay=seconds}
 }
 function tick(){if(intervalStart==null)return;debit();updateTime();if(run.remaining<=0&&run.status==='playing'){finish('lost');return}if(performance.now()-lastWrite>1000){save();lastWrite=performance.now()}}
 setInterval(tick,200);
-const board=new ComparisonBoard({panes,canPlay,onInspect:inspect,onTap:tap,onView:v=>{if(!run||!ready)return;run.view=v;scheduleSave()}});
+const board=new ComparisonBoard({panes,canPlay,onInspect:primeAudio,onTap:tap,onView:v=>{if(!run||!ready)return;run.view=v;scheduleSave()}});
 function tap(q,el){
  if(!canPlay())return;debit();if(run.remaining<=0){finish('lost');return}
  const n=board.hit(q,nodes);
@@ -72,7 +75,9 @@ function getPicture(src){
      clearTimeout(timeout);img.onload=img.onerror=null;
      if(ok)resolve(img);else reject(new Error('画卷加载失败'));
    }
-   img.decoding='async';img.onload=()=>done(true);img.onerror=()=>done(false);img.src=src;
+   img.decoding='async';
+   img.onload=()=>{if(img.decode)img.decode().then(()=>done(true),()=>done(false));else done(true)};
+   img.onerror=()=>done(false);img.src=src;
  });
 }
 async function loadArt(file){
@@ -87,10 +92,14 @@ function picture(img,file){
   img.onerror=()=>{if(++pos<sources.length)img.src=sources[pos];else img.onerror=null};img.src=sources[0];
 }
 function routeUrl(route){return location.pathname+location.search+(route?'#'+route:'')}
+function pushRoute(route){
+  const previousRoute=location.hash.slice(1);
+  const steps=previousRoute?history.state?.stepsFromAtlas:0;
+  history.pushState({previousRoute,stepsFromAtlas:Number.isInteger(steps)?steps+1:null},'',routeUrl(route));
+}
 function gotoPage(route){
   if(location.hash==='#'+route)return;
-  const steps=screen==='home'?0:history.state?.stepsFromAtlas;
-  history.pushState({stepsFromAtlas:Number.isInteger(steps)?steps+1:null},'',routeUrl(route));
+  pushRoute(route);
   routePage();
 }
 function replacePage(route){
@@ -114,8 +123,8 @@ function leaveGame(){
   pauseOnReturn=false;
 }
 function home(chapter=null){
-  leaveGame();screen=chapter?'chapter':'home';$('game').hidden=true;$('mast').hidden=!!chapter;$('home').hidden=false;
-  document.body.classList.remove('playing');document.title=(chapter?chapter.name:'场景图鉴')+' · 寻异手记';
+  leaveGame();screen=chapter?'chapter':'home';$('game').hidden=true;$('mast').hidden=!!chapter;$('sectionHead').hidden=!chapter;$('home').hidden=false;
+  document.body.classList.remove('playing');document.title=(chapter?chapter.name:'场景图鉴')+' · 找不同';
   const box=$('home');
   const complete=c=>c.levels.filter(l=>journal.cleared(l)).length;
   if(chapter){
@@ -126,14 +135,17 @@ function home(chapter=null){
       const label=locked?'通关第 '+(l.number-1)+' 关后解锁':won?'已通关':entry?.started?'继续游戏':'可游玩';
       return '<button class="level-entry" data-level="'+l.id+'" '+(locked?'disabled':'')+'><span class="no">'+pad(l.number)+'</span><span><span class="entry-name">'+l.name+'</span><small>'+label+' · '+l.count+' 处不同 · '+fmt(l.seconds)+'</small></span><i>'+icon(locked?'lock':won?'check':'focus')+'</i></button>';
     }).join('');
-    box.innerHTML='<div class="chapter-top"><button class="backlink" data-action="back">'+icon('chevron')+'返回</button><span class="total-count">已通关 <strong>'+complete(chapter)+'</strong> / '+chapter.levels.length+'</span></div><section class="chapter-hero"><img alt=""><div class="chapter-info"><div><small>场景 '+chapter.id+'</small><h1>'+chapter.name+'</h1><p>'+chapter.intro+'</p></div><button class="chapter-cta" data-level="'+current.id+'">'+(journal.cleared(current)?'重访':'进入')+'第 '+current.number+' 关</button></div></section><div class="level-list">'+entries+'</div>';
+    $('chapterTitle').textContent=chapter.name;
+    $('chapterComplete').textContent=complete(chapter);
+    $('chapterLength').textContent=chapter.levels.length;
+    box.innerHTML='<section class="chapter-hero"><img alt=""><div class="chapter-info"><div><small>场景 '+chapter.id+'</small><h1>'+chapter.name+'</h1><p>'+chapter.intro+'</p></div><button class="chapter-cta" data-level="'+current.id+'">'+(journal.cleared(current)?'重访':'进入')+'第 '+current.number+' 关</button></div></section><div class="level-list">'+entries+'</div>';
     picture(box.querySelector('.chapter-hero img'),chapter.cover);
   }else{
     const last=LEVELS.find(l=>l.id===journal.read('last'));
     const activeChapter=last?CHAPTERS.find(c=>c.id===last.chapter):CHAPTERS[0], current=journal.current(activeChapter);
     const featureNote=current.number===1?activeChapter.intro:'在画卷中找出 '+current.count+' 处不同，限时 '+fmt(current.seconds)+'。';
     const cards=CHAPTERS.map(c=>'<button class="scene-card" data-chapter="'+c.id+'"><img loading="lazy" alt=""><div class="scene-card-info"><h2>'+c.name+'</h2><div class="scene-card-line"><span>'+complete(c)+' / '+c.levels.length+' 关</span><small>VOL. '+c.id+'</small></div><div class="meter"><span style="width:'+100*complete(c)/c.levels.length+'%"></span></div></div></button>').join('');
-    box.innerHTML='<div class="home-title"><h1>场景图鉴</h1><span class="total-count">已通关 <strong>'+CHAPTERS.reduce((n,c)=>n+complete(c),0)+'</strong> / '+LEVELS.length+'</span></div><section class="feature"><img alt=""><div class="feature-copy"><small>'+activeChapter.name+' · 第 '+pad(current.number)+' 关</small><h2>'+current.name+'</h2><p>'+featureNote+'</p><button data-level="'+current.id+'">'+(last?'继续寻异':'开始寻异')+'</button></div></section><div class="scene-grid">'+cards+'</div>';
+    box.innerHTML='<div class="home-title"><h1>场景图鉴</h1><span class="total-count">已通关 <strong>'+CHAPTERS.reduce((n,c)=>n+complete(c),0)+'</strong> / '+LEVELS.length+'</span></div><section class="feature"><img alt=""><div class="feature-copy"><small>'+activeChapter.name+' · 第 '+pad(current.number)+' 关</small><h2>'+current.name+'</h2><p>'+featureNote+'</p><button data-level="'+current.id+'">'+(last?'继续找不同':'开始找不同')+'</button></div></section><div class="scene-grid">'+cards+'</div>';
     picture(box.querySelector('.feature img'),current.number===1?activeChapter.cover:current.a);
     box.querySelectorAll('.scene-card').forEach((el,i)=>picture(el.querySelector('img'),CHAPTERS[i].thumb));
   }
@@ -144,20 +156,23 @@ async function openLevel(l,{restart=false}={}){
   if(!journal.unlocked(l)){gotoPage('scene/'+l.chapter);return}
   leaveGame();screen='game';const ticket=++loadTicket;
   level=l;run=restart?newRun(l):journal.restore(l);nodes=[];lastDisplay=-1;journal.remember(l);save();
-  $('mast').hidden=true;$('home').hidden=true;$('game').hidden=false;document.body.classList.add('playing');window.scrollTo(0,0);
+  $('mast').hidden=true;$('sectionHead').hidden=false;$('home').hidden=true;$('game').hidden=false;document.body.classList.add('playing');window.scrollTo(0,0);
   $('title').textContent=l.name;document.title=l.name;
   $('loading').hidden=false;$('loading').textContent='正在展开画卷…';paint();
   try{
     const [a,b]=await Promise.all([loadArt(l.a),loadArt(l.b)]);
     if(ticket!==loadTicket)return;
     if(!a.naturalWidth||a.naturalWidth!==b.naturalWidth||a.naturalHeight!==b.naturalHeight||l.spots.length!==l.count)throw Error();
+    const base=l.delta?a.cloneNode():null;
+    if(base){base.alt='';if(base.decode)await base.decode()}
+    if(ticket!==loadTicket)return;
     nodes=l.spots;
     for(const [i,img] of [a,b].entries()){
       img.alt=l.name+(i?'，图 B 对照':'，图 A 原景');img.draggable=false;
       let content=img;
       if(i===1&&l.delta){
         content=document.createElement('div');content.className='picture';
-        const base=a.cloneNode();base.alt='';content.append(base,img);
+        content.append(base,img);
       }
       panes[i].querySelector('.world').firstElementChild.replaceWith(content);
     }
@@ -188,6 +203,11 @@ function dialog(kind,title,body,closable=true){
 function resultDialog(){
  const win=run.status==='won';
  const chapter=CHAPTERS.find(c=>c.id===level.chapter),next=chapter.levels[level.number];
+ if(win&&next&&history.state?.previousRoute!=='scene/'+chapter.id){
+   // A shortcut or a deep link has no scene list to return to after advancing.
+   history.replaceState(history.state,'',routeUrl('scene/'+chapter.id));
+   pushRoute('play/'+level.id);
+ }
  const primary=win&&next?'<button class="primary" data-level="'+next.id+'">下一关</button>':'<button class="primary" data-action="restart">再玩一次</button>';
  dialog('result',win?(next?'本页手记已集齐':'场景已通关'):run.hp<=0?'本关生命已用尽':'本关时间已到','<p>'+level.name+' · 已找到 '+run.found.length+' / '+level.count+' 处不同。</p><div class="dialog-actions"><button class="secondary" data-action="home">返回首页</button>'+primary+'</div>'+(win&&next?'<button class="replay-link" data-action="restart">重玩本关</button>':''),false);
 }
@@ -199,17 +219,17 @@ function hintDialog(){
    if(activeDialog!=='hint'||run.status!=='playing')return;
    const choices=nodes.map((n,i)=>i).filter(i=>!run.found.includes(i)&&i!==run.hinted);
    const i=choices[0]??nodes.findIndex((n,i)=>!run.found.includes(i));if(i<0)return;
-   run.hints++;run.hinted=i;run.started=true;closeModal();board.focus(nodes[i]);paint();save();chime('hint');toast('线索：'+nodes[i].label+'，请点击金色虚线圈。');
+   run.hints++;run.hinted=i;closeModal();board.focus(nodes[i]);paint();save();chime('hint');toast('线索：'+nodes[i].label+'，请点击金色虚线圈。');
  }});
 }
-function help(){dialog('help','游戏玩法','<ul><li>十个场景可以自由切换，场景内逐关解锁。点击任意一幅图中的不同之处，两幅图都会画圈。每关有 5 点生命，点错扣 1 点。</li><li>在任一幅画上单指拖动，或用双指缩放至 200%，另一幅画会同步移动。</li><li>每关最多 3 次语音提示。通过口令后，金色虚线圈会一直保留到找到该处或使用下次提示。</li><li>首次触碰画面开始计时。切到后台、查看图鉴或说口令时暂停，返回后继续。</li></ul><div class="dialog-actions"><button class="primary" data-action="close">知道了</button></div>')}
+function help(){dialog('help','游戏玩法','<ul><li>十个场景可以自由切换，场景内逐关解锁。点击任意一幅图中的不同之处，两幅图都会画圈。每关有 5 点生命，点错扣 1 点。</li><li>在任一幅画上单指拖动，或用双指缩放至 200%，另一幅画会同步移动。</li><li>每关最多 3 次语音提示。通过口令后，金色虚线圈会一直保留到找到该处或使用下次提示。</li><li>两幅图加载完成后自动开始计时。切到后台、查看图鉴或说口令时暂停，返回后继续。</li></ul><div class="dialog-actions"><button class="primary" data-action="close">知道了</button></div>')}
 function pause(){
  if(!ready||run?.status!=='playing')return;
- dialog('pause','观察暂停','<p>剩余 '+fmt(Math.ceil(run.remaining/1000))+'，本关进度已保留。</p><div class="dialog-actions"><button class="secondary" data-action="askRestart">重新开始本关</button><button class="primary" data-action="close">继续观察</button></div><button class="replay-link" data-action="home">返回首页</button>');
+ dialog('pause','观察暂停','<p>剩余 '+fmt(Math.ceil(run.remaining/1000))+'，本关进度已保留。</p><div class="dialog-actions"><button class="secondary" data-action="askRestart">重新开始</button><button class="primary" data-action="close">继续观察</button></div><button class="replay-link" data-action="home">返回首页</button>');
 }
 function askRestart(){
  if(activeDialog!=='pause')return;
- dialog('confirm-restart','重新开始本关？','<p>本轮已找到的差异会清零。你将以 5 点生命、3 次提示和 '+fmt(level.seconds)+' 的完整时间重新开始。</p><div class="dialog-actions"><button class="secondary" data-action="close">取消</button><button class="primary" data-action="restart">确认重开</button></div>');
+ dialog('confirm-restart','重新开始？','<p>本轮已找到的差异会清零。你将以 5 点生命、3 次提示和 '+fmt(level.seconds)+' 的完整时间重新开始。</p><div class="dialog-actions"><button class="secondary" data-action="close">取消</button><button class="primary" data-action="restart">确认重开</button></div>');
 }
 const actions={
  home:goHome,back:goBack,help,hint:hintDialog,pause,askRestart,
@@ -222,7 +242,11 @@ document.addEventListener('click',e=>{
  if(btn.dataset.chapter){gotoPage('scene/'+btn.dataset.chapter);return}
  if(btn.dataset.level){
    const next=LEVELS.find(l=>l.id===btn.dataset.level);
-   if(next&&journal.unlocked(next))gotoPage('play/'+next.id);
+   if(next&&journal.unlocked(next)){
+     const route='play/'+next.id;
+     if(activeDialog==='result')replacePage(route);
+     else gotoPage(route);
+   }
    return;
  }
  actions[btn.dataset.action]?.();

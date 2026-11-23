@@ -63,9 +63,8 @@ export class Journal {
     r.found=Array.isArray(v.found)?[...new Set(v.found.filter(i=>Number.isInteger(i)&&i>=0&&i<l.count))]:[];
     r.hp=Number.isInteger(v.hp)?Math.max(0,Math.min(5,v.hp)):5;
     r.started=!!v.started;r.hints=Number.isInteger(v.hints)?Math.max(0,Math.min(3,v.hints)):0;
-    // An existing attempt keeps its saved clock when a later edition changes the level limit.
     if(Number.isFinite(v.remaining)&&(r.started||r.found.length||r.hp<5||r.hints||v.status==='lost'||v.status==='won')){
-      r.remaining=Math.max(0,v.remaining);
+      r.remaining=Math.min(r.remaining,Math.max(0,v.remaining));
     }
     if(r.hints&&Number.isInteger(v.hinted)&&v.hinted>=0&&v.hinted<l.count&&!r.found.includes(v.hinted))r.hinted=v.hinted;
     if(v.view&&['z','cx','cy'].every(k=>Number.isFinite(v.view[k]))){
